@@ -1,0 +1,33 @@
+/* Animations */
+@keyframes holo-motion {
+  0%   { background-position: 0% 95%; }
+  50%  { background-position: 35% 19%; }
+  100% { background-position: 0% 95%; }
+}
+
+/* Welcome Custom CSS */
+.container {
+  box-sizing: border-box;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  text-align: center;
+}
+
+.container > * {
+  flex: 1 100%;
+}
+
+.container h2 {
+  font-size: 5rem;
+}
+
+.container a {
+  font-size: 1.4rem;
+}
+
+/* #holoMotion {
+  background-image: linear-gradient(240deg, #9900ff, #8500ff, #6600ff, #3d65d6, #21acba, #10d6a9, #0fe19f, #10d6a9, #21acba, #3d65d6, #6600ff, #8500ff, #9900ff);
+  -webkit-animation: HoloMotion 30s linear infinite;
+  animation: HoloMotion 30s linear infinite;
+} */

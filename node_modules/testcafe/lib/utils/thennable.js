@@ -1,0 +1,8 @@
+'use strict';
+
+exports.__esModule = true;
+exports.isThennable = isThennable;
+function isThennable(target) {
+    return target && typeof target === 'object' && 'then' in target && typeof target.then === 'function';
+}
+//# sourceMappingURL=data:application/json;charset=utf8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uL3NyYy91dGlscy90aGVubmFibGUuanMiXSwibmFtZXMiOlsiaXNUaGVubmFibGUiLCJ0YXJnZXQiLCJ0aGVuIl0sIm1hcHBpbmdzIjoiOzs7UUFBZ0JBLFcsR0FBQUEsVztBQUFULFNBQVNBLFdBQVQsQ0FBc0JDLE1BQXRCLEVBQThCO0FBQ2pDLFdBQU9BLFVBQVUsT0FBT0EsTUFBUCxLQUFrQixRQUE1QixJQUF3QyxVQUFVQSxNQUFsRCxJQUE0RCxPQUFPQSxPQUFPQyxJQUFkLEtBQXVCLFVBQTFGO0FBQ0giLCJmaWxlIjoidXRpbHMvdGhlbm5hYmxlLmpzIiwic291cmNlc0NvbnRlbnQiOlsiZXhwb3J0IGZ1bmN0aW9uIGlzVGhlbm5hYmxlICh0YXJnZXQpIHtcbiAgICByZXR1cm4gdGFyZ2V0ICYmIHR5cGVvZiB0YXJnZXQgPT09ICdvYmplY3QnICYmICd0aGVuJyBpbiB0YXJnZXQgJiYgdHlwZW9mIHRhcmdldC50aGVuID09PSAnZnVuY3Rpb24nO1xufVxuIl19

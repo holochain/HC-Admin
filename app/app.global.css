@@ -1,0 +1,190 @@
+/*
+ * @NOTE: Prepend a `~` to css file paths that are in your node_modules
+ *        See https://github.com/webpack-contrib/sass-loader#imports
+ */
+
+@import "../node_modules/react-table/react-table.css";
+
+@import "~@fortawesome/fontawesome-free/css/all.css";
+@import "~typeface-raleway";
+
+/* Animations */
+/* @keyframes holo-lamp {
+  0%   { background-image: linear-gradient(45deg,rgba(0, 1, 127, 0.7), rgba(0, 216, 255, 0.5) 65%, rgba(0, 1, 127, 0.7)); }
+  15%  { background-image: linear-gradient(45deg,rgba(0, 1, 127, 0.7), rgba(0, 216, 255, 0.5) 75%, rgba(0, 1, 127, 0.7)); }
+  30%  { background-image: linear-gradient(45deg,rgba(0, 1, 127, 0.7), rgba(0, 216, 255, 0.5) 85%, rgba(0, 1, 127, 0.7)); }
+  45%  { background-image: linear-gradient(45deg,rgba(0, 1, 127, 0.7), rgba(0, 216, 255, 0.5) 15%, rgba(0, 1, 127, 0.7)); }
+  60%  { background-image: linear-gradient(45deg,rgba(0, 1, 127, 0.7), rgba(0, 216, 255, 0.5) 25%, rgba(0, 1, 127, 0.7)); }
+  75%  { background-image: linear-gradient(45deg,rgba(0, 1, 127, 0.7), rgba(0, 216, 255, 0.5) 35%, rgba(0, 1, 127, 0.7)); }
+  90%  { background-image: linear-gradient(45deg,rgba(0, 1, 127, 0.7), rgba(0, 216, 255, 0.5) 45%, rgba(0, 1, 127, 0.7)); }
+  100% { background-image: linear-gradient(45deg,rgba(0, 1, 127, 0.7), rgba(0, 216, 255, 0.5) 55%, rgba(0, 1, 127, 0.7)); }
+}
+
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg);}
+  to {transform: rotate(360deg);}
+} */
+
+/* Global default styles */
+body {
+  position: relative;
+  height: 100vh;
+  color: white;
+  font-family: Raleway, sans-serif;
+  letter-spacing: -0.025em;
+  font-weight: lighter;
+  background-color: #232c39;
+  background-image: linear-gradient(45deg, rgba(0, 216, 255, 0.5) 10%, rgba(0, 1, 127, 0.7));
+  /* animation: holo-lamp infinite 90s linear; */
+  overflow-y: hidden;
+  overflow-x: hidden;
+  -ms-overflow-style: scrollbar;
+  -webkit-app-region:drag;
+}
+
+.container {
+  box-sizing: border-box;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  text-align: center;
+}
+
+.container > * {
+  flex: 1 100%;
+}
+
+.container h2 {
+  font-size: 5rem;
+}
+
+.container a {
+  font-size: 1.4rem;
+}
+
+h2 {
+  font-family: Raleway, sans-serif;
+  margin: 0;
+  font-size: 2.25rem;
+  font-weight: lighter;
+  letter-spacing: -0.025em;
+  color: #fff;
+}
+
+p {
+  font-size: 24px;
+}
+
+li {
+  list-style: none;
+}
+
+a {
+  color: white;
+  opacity: 0.75;
+  text-decoration: none;
+}
+
+a:hover {
+  opacity: 1;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.app-logo {
+  animation: App-logo-spin infinite 20s linear;
+}
+
+.learn-more:hover {
+  transition: scale(1.2);
+}
+
+input[type="submit"],
+input[type="reset"],
+input[type="button"],
+input[type="text"],
+button,
+textarea,
+.viewDetails,
+#outlined-adornment-password,
+#expansionPanelSummary,
+#passphrase-container {
+	-webkit-app-region: no-drag;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  -webkit-user-select: none;
+}
+
+
+/* /////////////////////////////////////////////////////// */
+            /* Home.css  << refactor into MUI */
+ /* /////////////////////////////////////////////////////// */
+ .App {
+   text-align: center !important;
+ }
+
+ .App-logo {
+   animation: App-logo-spin infinite 20s linear;
+   height: 80px;
+ }
+
+ .App-header {
+   height: 150px;
+   padding: 20px;
+   color: #222;
+ }
+
+ .App-intro {
+   font-size: large;
+   color: white;
+ }
+
+ @keyframes App-logo-spin {
+   from {
+     transform: rotate(0deg);
+   }
+
+   to {
+     transform: rotate(360deg);
+   }
+ }
+
+ .InstallButton {
+   background: #073763;
+   background: -webkit-linear-gradient(#3d85c6, #073763 50%, #3d85c6);
+   background: linear-gradient(#3d85c6, #073763 50%, #3d85c6);
+   border-radius: 5px;
+   padding: 8px 20px;
+   color: #ffffff;
+   display: inline-block;
+   font: normal 700 15px/1 "Ubuntu", sans-serif;
+   text-align: center;
+   text-shadow: 0px 0px #ffff00;
+ }
+
+ .StopButton {
+   background: #cc0000;
+   background: -webkit-linear-gradient(#ff0000, #cc0000 50%, #ff0000);
+   background: linear-gradient(#ff0000, #cc0000 50%, #ff0000);
+   border-radius: 5px;
+   padding: 8px 20px;
+   color: #ffffff;
+   display: inline-block;
+   font: normal 700 15px/1 "Ubuntu", sans-serif;
+   text-align: center;
+   text-shadow: 0px 0px #ffff00;
+ }
+
+ .StartButton {
+   background: #38761d;
+   background: -webkit-linear-gradient(#6aa84f, #38761d 50%, #6aa84f);
+   background: linear-gradient(#6aa84f, #38761d 50%, #6aa84f);
+   border-radius: 5px;
+   padding: 8px 20px;
+   color: #ffffff;
+   display: inline-block;
+   font: normal 700 15px/1 "Ubuntu", sans-serif;
+   text-align: center;
+   text-shadow: 0px 0px #ffff00;
+ }

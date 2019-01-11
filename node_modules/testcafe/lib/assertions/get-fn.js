@@ -1,0 +1,63 @@
+'use strict';
+
+exports.__esModule = true;
+exports.default = getFn;
+
+var _chai = require('chai');
+
+function getFn(command) {
+    switch (command.assertionType) {
+        case 'eql':
+            return () => _chai.assert.deepEqual(command.actual, command.expected, command.message);
+
+        case 'notEql':
+            return () => _chai.assert.notDeepEqual(command.actual, command.expected, command.message);
+
+        case 'ok':
+            return () => _chai.assert.isOk(command.actual, command.message);
+
+        case 'notOk':
+            return () => _chai.assert.isNotOk(command.actual, command.message);
+
+        case 'contains':
+            return () => _chai.assert.include(command.actual, command.expected, command.message);
+
+        case 'notContains':
+            return () => _chai.assert.notInclude(command.actual, command.expected, command.message);
+
+        case 'typeOf':
+            return () => _chai.assert.typeOf(command.actual, command.expected, command.message);
+
+        case 'notTypeOf':
+            return () => _chai.assert.notTypeOf(command.actual, command.expected, command.message);
+
+        case 'gt':
+            return () => _chai.assert.isAbove(command.actual, command.expected, command.message);
+
+        case 'gte':
+            return () => _chai.assert.isAtLeast(command.actual, command.expected, command.message);
+
+        case 'lt':
+            return () => _chai.assert.isBelow(command.actual, command.expected, command.message);
+
+        case 'lte':
+            return () => _chai.assert.isAtMost(command.actual, command.expected, command.message);
+
+        case 'within':
+            return () => (0, _chai.expect)(command.actual).to.be.within(command.expected, command.expected2, command.message);
+
+        case 'notWithin':
+            return () => (0, _chai.expect)(command.actual).not.to.be.within(command.expected, command.expected2, command.message);
+
+        case 'match':
+            return () => _chai.assert.match(command.actual, command.expected, command.message);
+
+        case 'notMatch':
+            return () => _chai.assert.notMatch(command.actual, command.expected, command.message);
+
+        default:
+            return () => {};
+    }
+}
+module.exports = exports['default'];
+//# sourceMappingURL=data:application/json;charset=utf8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uL3NyYy9hc3NlcnRpb25zL2dldC1mbi5qcyJdLCJuYW1lcyI6WyJnZXRGbiIsImNvbW1hbmQiLCJhc3NlcnRpb25UeXBlIiwiYXNzZXJ0IiwiZGVlcEVxdWFsIiwiYWN0dWFsIiwiZXhwZWN0ZWQiLCJtZXNzYWdlIiwibm90RGVlcEVxdWFsIiwiaXNPayIsImlzTm90T2siLCJpbmNsdWRlIiwibm90SW5jbHVkZSIsInR5cGVPZiIsIm5vdFR5cGVPZiIsImlzQWJvdmUiLCJpc0F0TGVhc3QiLCJpc0JlbG93IiwiaXNBdE1vc3QiLCJ0byIsImJlIiwid2l0aGluIiwiZXhwZWN0ZWQyIiwibm90IiwibWF0Y2giLCJub3RNYXRjaCJdLCJtYXBwaW5ncyI6Ijs7O2tCQUV3QkEsSzs7QUFGeEI7O0FBRWUsU0FBU0EsS0FBVCxDQUFnQkMsT0FBaEIsRUFBeUI7QUFDcEMsWUFBUUEsUUFBUUMsYUFBaEI7QUFDSSxhQUFLLEtBQUw7QUFDSSxtQkFBTyxNQUFNQyxhQUFPQyxTQUFQLENBQWlCSCxRQUFRSSxNQUF6QixFQUFpQ0osUUFBUUssUUFBekMsRUFBbURMLFFBQVFNLE9BQTNELENBQWI7O0FBRUosYUFBSyxRQUFMO0FBQ0ksbUJBQU8sTUFBTUosYUFBT0ssWUFBUCxDQUFvQlAsUUFBUUksTUFBNUIsRUFBb0NKLFFBQVFLLFFBQTVDLEVBQXNETCxRQUFRTSxPQUE5RCxDQUFiOztBQUVKLGFBQUssSUFBTDtBQUNJLG1CQUFPLE1BQU1KLGFBQU9NLElBQVAsQ0FBWVIsUUFBUUksTUFBcEIsRUFBNEJKLFFBQVFNLE9BQXBDLENBQWI7O0FBRUosYUFBSyxPQUFMO0FBQ0ksbUJBQU8sTUFBTUosYUFBT08sT0FBUCxDQUFlVCxRQUFRSSxNQUF2QixFQUErQkosUUFBUU0sT0FBdkMsQ0FBYjs7QUFFSixhQUFLLFVBQUw7QUFDSSxtQkFBTyxNQUFNSixhQUFPUSxPQUFQLENBQWVWLFFBQVFJLE1BQXZCLEVBQStCSixRQUFRSyxRQUF2QyxFQUFpREwsUUFBUU0sT0FBekQsQ0FBYjs7QUFFSixhQUFLLGFBQUw7QUFDSSxtQkFBTyxNQUFNSixhQUFPUyxVQUFQLENBQWtCWCxRQUFRSSxNQUExQixFQUFrQ0osUUFBUUssUUFBMUMsRUFBb0RMLFFBQVFNLE9BQTVELENBQWI7O0FBRUosYUFBSyxRQUFMO0FBQ0ksbUJBQU8sTUFBTUosYUFBT1UsTUFBUCxDQUFjWixRQUFRSSxNQUF0QixFQUE4QkosUUFBUUssUUFBdEMsRUFBZ0RMLFFBQVFNLE9BQXhELENBQWI7O0FBRUosYUFBSyxXQUFMO0FBQ0ksbUJBQU8sTUFBTUosYUFBT1csU0FBUCxDQUFpQmIsUUFBUUksTUFBekIsRUFBaUNKLFFBQVFLLFFBQXpDLEVBQW1ETCxRQUFRTSxPQUEzRCxDQUFiOztBQUVKLGFBQUssSUFBTDtBQUNJLG1CQUFPLE1BQU1KLGFBQU9ZLE9BQVAsQ0FBZWQsUUFBUUksTUFBdkIsRUFBK0JKLFFBQVFLLFFBQXZDLEVBQWlETCxRQUFRTSxPQUF6RCxDQUFiOztBQUVKLGFBQUssS0FBTDtBQUNJLG1CQUFPLE1BQU1KLGFBQU9hLFNBQVAsQ0FBaUJmLFFBQVFJLE1BQXpCLEVBQWlDSixRQUFRSyxRQUF6QyxFQUFtREwsUUFBUU0sT0FBM0QsQ0FBYjs7QUFFSixhQUFLLElBQUw7QUFDSSxtQkFBTyxNQUFNSixhQUFPYyxPQUFQLENBQWVoQixRQUFRSSxNQUF2QixFQUErQkosUUFBUUssUUFBdkMsRUFBaURMLFFBQVFNLE9BQXpELENBQWI7O0FBRUosYUFBSyxLQUFMO0FBQ0ksbUJBQU8sTUFBTUosYUFBT2UsUUFBUCxDQUFnQmpCLFFBQVFJLE1BQXhCLEVBQWdDSixRQUFRSyxRQUF4QyxFQUFrREwsUUFBUU0sT0FBMUQsQ0FBYjs7QUFFSixhQUFLLFFBQUw7QUFDSSxtQkFBTyxNQUFNLGtCQUFPTixRQUFRSSxNQUFmLEVBQXVCYyxFQUF2QixDQUEwQkMsRUFBMUIsQ0FBNkJDLE1BQTdCLENBQW9DcEIsUUFBUUssUUFBNUMsRUFBc0RMLFFBQVFxQixTQUE5RCxFQUF5RXJCLFFBQVFNLE9BQWpGLENBQWI7O0FBRUosYUFBSyxXQUFMO0FBQ0ksbUJBQU8sTUFBTSxrQkFBT04sUUFBUUksTUFBZixFQUF1QmtCLEdBQXZCLENBQTJCSixFQUEzQixDQUE4QkMsRUFBOUIsQ0FBaUNDLE1BQWpDLENBQXdDcEIsUUFBUUssUUFBaEQsRUFBMERMLFFBQVFxQixTQUFsRSxFQUE2RXJCLFFBQVFNLE9BQXJGLENBQWI7O0FBRUosYUFBSyxPQUFMO0FBQ0ksbUJBQU8sTUFBTUosYUFBT3FCLEtBQVAsQ0FBYXZCLFFBQVFJLE1BQXJCLEVBQTZCSixRQUFRSyxRQUFyQyxFQUErQ0wsUUFBUU0sT0FBdkQsQ0FBYjs7QUFFSixhQUFLLFVBQUw7QUFDSSxtQkFBTyxNQUFNSixhQUFPc0IsUUFBUCxDQUFnQnhCLFFBQVFJLE1BQXhCLEVBQWdDSixRQUFRSyxRQUF4QyxFQUFrREwsUUFBUU0sT0FBMUQsQ0FBYjs7QUFFSjtBQUNJLG1CQUFPLE1BQU0sQ0FDWixDQUREO0FBbERSO0FBcURIIiwiZmlsZSI6ImFzc2VydGlvbnMvZ2V0LWZuLmpzIiwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IHsgYXNzZXJ0LCBleHBlY3QgfSBmcm9tICdjaGFpJztcblxuZXhwb3J0IGRlZmF1bHQgZnVuY3Rpb24gZ2V0Rm4gKGNvbW1hbmQpIHtcbiAgICBzd2l0Y2ggKGNvbW1hbmQuYXNzZXJ0aW9uVHlwZSkge1xuICAgICAgICBjYXNlICdlcWwnOlxuICAgICAgICAgICAgcmV0dXJuICgpID0+IGFzc2VydC5kZWVwRXF1YWwoY29tbWFuZC5hY3R1YWwsIGNvbW1hbmQuZXhwZWN0ZWQsIGNvbW1hbmQubWVzc2FnZSk7XG5cbiAgICAgICAgY2FzZSAnbm90RXFsJzpcbiAgICAgICAgICAgIHJldHVybiAoKSA9PiBhc3NlcnQubm90RGVlcEVxdWFsKGNvbW1hbmQuYWN0dWFsLCBjb21tYW5kLmV4cGVjdGVkLCBjb21tYW5kLm1lc3NhZ2UpO1xuXG4gICAgICAgIGNhc2UgJ29rJzpcbiAgICAgICAgICAgIHJldHVybiAoKSA9PiBhc3NlcnQuaXNPayhjb21tYW5kLmFjdHVhbCwgY29tbWFuZC5tZXNzYWdlKTtcblxuICAgICAgICBjYXNlICdub3RPayc6XG4gICAgICAgICAgICByZXR1cm4gKCkgPT4gYXNzZXJ0LmlzTm90T2soY29tbWFuZC5hY3R1YWwsIGNvbW1hbmQubWVzc2FnZSk7XG5cbiAgICAgICAgY2FzZSAnY29udGFpbnMnOlxuICAgICAgICAgICAgcmV0dXJuICgpID0+IGFzc2VydC5pbmNsdWRlKGNvbW1hbmQuYWN0dWFsLCBjb21tYW5kLmV4cGVjdGVkLCBjb21tYW5kLm1lc3NhZ2UpO1xuXG4gICAgICAgIGNhc2UgJ25vdENvbnRhaW5zJzpcbiAgICAgICAgICAgIHJldHVybiAoKSA9PiBhc3NlcnQubm90SW5jbHVkZShjb21tYW5kLmFjdHVhbCwgY29tbWFuZC5leHBlY3RlZCwgY29tbWFuZC5tZXNzYWdlKTtcblxuICAgICAgICBjYXNlICd0eXBlT2YnOlxuICAgICAgICAgICAgcmV0dXJuICgpID0+IGFzc2VydC50eXBlT2YoY29tbWFuZC5hY3R1YWwsIGNvbW1hbmQuZXhwZWN0ZWQsIGNvbW1hbmQubWVzc2FnZSk7XG5cbiAgICAgICAgY2FzZSAnbm90VHlwZU9mJzpcbiAgICAgICAgICAgIHJldHVybiAoKSA9PiBhc3NlcnQubm90VHlwZU9mKGNvbW1hbmQuYWN0dWFsLCBjb21tYW5kLmV4cGVjdGVkLCBjb21tYW5kLm1lc3NhZ2UpO1xuXG4gICAgICAgIGNhc2UgJ2d0JzpcbiAgICAgICAgICAgIHJldHVybiAoKSA9PiBhc3NlcnQuaXNBYm92ZShjb21tYW5kLmFjdHVhbCwgY29tbWFuZC5leHBlY3RlZCwgY29tbWFuZC5tZXNzYWdlKTtcblxuICAgICAgICBjYXNlICdndGUnOlxuICAgICAgICAgICAgcmV0dXJuICgpID0+IGFzc2VydC5pc0F0TGVhc3QoY29tbWFuZC5hY3R1YWwsIGNvbW1hbmQuZXhwZWN0ZWQsIGNvbW1hbmQubWVzc2FnZSk7XG5cbiAgICAgICAgY2FzZSAnbHQnOlxuICAgICAgICAgICAgcmV0dXJuICgpID0+IGFzc2VydC5pc0JlbG93KGNvbW1hbmQuYWN0dWFsLCBjb21tYW5kLmV4cGVjdGVkLCBjb21tYW5kLm1lc3NhZ2UpO1xuXG4gICAgICAgIGNhc2UgJ2x0ZSc6XG4gICAgICAgICAgICByZXR1cm4gKCkgPT4gYXNzZXJ0LmlzQXRNb3N0KGNvbW1hbmQuYWN0dWFsLCBjb21tYW5kLmV4cGVjdGVkLCBjb21tYW5kLm1lc3NhZ2UpO1xuXG4gICAgICAgIGNhc2UgJ3dpdGhpbic6XG4gICAgICAgICAgICByZXR1cm4gKCkgPT4gZXhwZWN0KGNvbW1hbmQuYWN0dWFsKS50by5iZS53aXRoaW4oY29tbWFuZC5leHBlY3RlZCwgY29tbWFuZC5leHBlY3RlZDIsIGNvbW1hbmQubWVzc2FnZSk7XG5cbiAgICAgICAgY2FzZSAnbm90V2l0aGluJzpcbiAgICAgICAgICAgIHJldHVybiAoKSA9PiBleHBlY3QoY29tbWFuZC5hY3R1YWwpLm5vdC50by5iZS53aXRoaW4oY29tbWFuZC5leHBlY3RlZCwgY29tbWFuZC5leHBlY3RlZDIsIGNvbW1hbmQubWVzc2FnZSk7XG5cbiAgICAgICAgY2FzZSAnbWF0Y2gnOlxuICAgICAgICAgICAgcmV0dXJuICgpID0+IGFzc2VydC5tYXRjaChjb21tYW5kLmFjdHVhbCwgY29tbWFuZC5leHBlY3RlZCwgY29tbWFuZC5tZXNzYWdlKTtcblxuICAgICAgICBjYXNlICdub3RNYXRjaCc6XG4gICAgICAgICAgICByZXR1cm4gKCkgPT4gYXNzZXJ0Lm5vdE1hdGNoKGNvbW1hbmQuYWN0dWFsLCBjb21tYW5kLmV4cGVjdGVkLCBjb21tYW5kLm1lc3NhZ2UpO1xuXG4gICAgICAgIGRlZmF1bHQ6XG4gICAgICAgICAgICByZXR1cm4gKCkgPT4ge1xuICAgICAgICAgICAgfTtcbiAgICB9XG59XG4iXX0=
