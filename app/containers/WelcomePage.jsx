@@ -2,12 +2,13 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Welcome from '../components/Welcome';
-import * as WelcomeActions from '../actions/welcome';
+import * as ContainerApiActions from '../actions/containerApi.js';
+// import * as WelcomeActions from '../actions/welcome';
 
 type Props = {
   fetch_state: () => void,
   call_holochain_instance_func: () => void,
-  call_zome_instance_func: ()=> void
+  call_zome_instance_func: ()=> Promise
 };
 
 class WelcomePage extends Component<Props> {
@@ -25,7 +26,7 @@ function mapStateToProps({welcomeReducer}) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators(WelcomeActions, dispatch);
+  return bindActionCreators(ContainerApiActions, dispatch);
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(WelcomePage);

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 
 // IMPORT THE LOGO from its PATH...
 import logo from '../assets/icons/HC-logo.svg';
-
 import { Link } from 'react-router-dom';
 import routes from '../constants/routes';
 import cmd from 'node-cmd'
@@ -10,45 +9,49 @@ import './Home.css';
 
 import { hcJoin,hcUninstall,hcStart,hcStop } from "../utils/hc-install";
 import { advancedExpandTableHOC } from "./systemTable";
-import { manageAllApps,manageAllDownloadedApps,refactorPS,refactorStats } from "../utils/dataRefactor";
+import { manageAllApps,manageAllDownloadedApps,refactorPS,refactorStats } from "../utils/data-refactor";
 import { filterApps } from "../utils/table-filters";
-import { getRunningApps,decideFreePort } from "../utils/runningApp";
+import { getRunningApps,decideFreePort } from "../utils/running-app";
 
 // Import React Table
 import ReactTable from "react-table";
 import "react-table/react-table.css";
 
+// type Props = {
+//   downloaded_apps: {
+//     appName: string,
+//     dna: string,
+//     progress: number,
+//     status: string,
+//     bridgedFrom: {token: string},
+//     bridgedTo: {name:string, dna: string}
+//   },
+//   installed_apps: {
+//     appName: string,
+//     dna: string,
+//     progress: number,
+//     status: string,
+//     bridgedFrom: {token: string},
+//     bridgedTo: {name:string, dna: string}
+//   },
+//   AllStats:[{
+//     CPU: number,
+//     MEM: number,
+//     progress: number,
+//   }],
+//   update_downloaded_apps: () => void,
+//   update_installed_apps: () => void,
+//   update_all_stats: () => void,
+//   fetch_state: () => void
+// };
+
 type Props = {
-  downloaded_apps: {
-    appName: string,
-    dna: string,
-    progress: number,
-    status: string,
-    bridgedFrom: {token: string},
-    bridgedTo: {name:string, dna: string}
-  },
-  installed_apps: {
-    appName: string,
-    dna: string,
-    progress: number,
-    status: string,
-    bridgedFrom: {token: string},
-    bridgedTo: {name:string, dna: string}
-  },
-  AllStats:[{
-    CPU: number,
-    MEM: number,
-    progress: number,
-  }],
-  update_downloaded_apps: () => void,
-  update_installed_apps: () => void,
-  update_all_stats: () => void,
-  fetch_state: () => void
+  fetch_state: () => void,
+  get_info_instances: () => Promise,
+  install_dna_from_file: ()=> Promise
 };
 
-
 const AdvancedExpandReactTable = advancedExpandTableHOC(ReactTable);
-
 export default class Home extends Component {
 
   constructor(props) {
@@ -61,174 +64,264 @@ export default class Home extends Component {
       process_details:[],
       AllStats:[{}]
     };
-    this.setApps=this.setApps.bind(this);
-    this.getInstalledApps=this.getInstalledApps.bind(this);
-    this.getDownloadedApps=this.getDownloadedApps.bind(this);
-    this.renderStatusButton=this.renderStatusButton.bind(this);
-    this.renderRunningButton=this.renderRunningButton.bind(this);
-    this.getStats=this.getStats.bind(this);
-    this.getPIDs=this.getPIDs.bind(this);
-    this.startApp=this.startApp.bind(this);
-    this.setStats=this.setStats.bind(this);
-
-  }
-  componentDidMount() {
-    this.setApps()
+    // this.setApps=this.setApps.bind(this);
+    // this.getInstalledApps=this.getInstalledApps.bind(this);
+    // this.getDownloadedApps=this.getDownloadedApps.bind(this);
+    // this.renderStatusButton=this.renderStatusButton.bind(this);
+    // this.renderRunningButton=this.renderRunningButton.bind(this);
+    // this.getStats=this.getStats.bind(this);
+    // this.getPIDs=this.getPIDs.bind(this);
+    // this.startApp=this.startApp.bind(this);
+    // this.setStats=this.setStats.bind(this);
   }
 
-  setApps=()=>{
-    this.getInstalledApps();
-    this.getDownloadedApps();
-    // this.setState({runningApps:getRunningApps()});
-    this.setState({AllStats:[{}]})
-    this.getPIDs();
 
-  };
+  componentDidMount = () => {
+    this.triggerWebClientCall();
+  }
 
-  /** Calculate Stats **/
-getPIDs = () => {
-  const self = this;
-  cmd.get(
-    "ps ax | grep hcd",
-    function(err, data, stderr) {
-      if (!err) {
-        // console.log('> Stats for :', data)
-        const process_details = refactorPS(data)
-        console.log("Process Details: ", process_details);
-        // self.setState({process_details})
-        self.getStats(process_details);
-      } else {
-        console.log('error', err)
-      }
+  triggerWebClientCall = () => {
+// call for GET_INFO_INSTANCES()
+    this.props.get_info_instances().then(res => {
+      this.callFetchState();
+      console.log("Home props after INFO/INSTANCES call", this.props);
+    })
+
+// call for INSTALL_DNA_FROM_FILE ({ id, path })
+    const dna_file = {
+      id: "app spec instance 3",
+      path: "/home/lisa/Documents/gitrepos/holochain/holochain-rust/app_spec/dist/app_spec.hcpkg"
+    };
+    this.props.install_dna_from_file(dna_file).then(res => {
+      this.callFetchState();
+      console.log("Home props after INSTALL call", this.props);
+    })
+
+// call for LIST_OF_DNA()
+    this.props.list_of_dna().then(res => {
+      this.callFetchState();
+      console.log("Home props after LIST_OF_DNA call", this.props);
+    })
+
+// call for ADD_AGENT_DNA_INSTANCE ({ id })
+    const agent_dna_instance = {
+      id: "app spec instance 4",
+      dna_id:"app spec rust",
+      agent_id:"test agent 1"
     }
-  );
-}
+    this.props.add_agent_dna_instance(agent_dna_instance).then(res => {
+      this.callFetchState();
+      console.log("Home props after ADD_AGENT_DNA_INSTANCE call", this.props);
+    })
 
-getStats = (process_details) => {
-  process_details.forEach((process) => {
-    this.getStatsForPID(process.PID)
-  })
-}
-getStatsForPID = (pid) => {
-  const self = this;
-  cmd.get(
-    "ps -p " + pid + " -o %cpu,%mem,cmd",
-    function(err, data, stderr) {
-      if (!err) {
-        // console.log('> Stats for :', pid, "\n", data)
-        // TODO: Refresh the electron page
-        const stats = refactorStats(pid, data)
-        console.log("Final Stats", stats);
-        self.setStats(stats)
-      } else {
-        console.log('error', err)
-         self.setStats({"%CPU":"","%MEM":""})
-      }
-    }
-  );
+    // call for LIST_OF_INSTANCES ()
+    this.props.list_of_instances().then(res => {
+      this.callFetchState();
+      console.log("Home props after LIST_OF_INSTANCES call", this.props);
+    })
 
-}
-setStats = (payload)=>{
-  // console.log("Playload: ",payload.app_name);
-  const name=payload.app_name
-  const newData =  {...this.state.AllStats, [name]:payload};
-  // console.log("newData:",newData);
-  this.setState({AllStats: newData });
-  console.log("STATE: ", this.state);
-}
+// call for START_AGENT_DNA_INSTANCE ({ id })
+    const start_agent_dna_instance_by_id = { id: "app spec instance 4" }
+    this.props.start_agent_dna_instance(start_agent_dna_instance_by_id).then(res => {
+      this.callFetchState();
+      console.log("Home props after START_AGENT_DNA_INSTANCE call", this.props);
+    })
 
-//////////////////////
+    // call for LIST_OF_RUNNING_INSTANCES ()
+    this.props.list_of_running_instances().then(res => {
+      this.callFetchState();
+      console.log("Home props after LIST_OF_RUNNING_INSTANCES call", this.props);
+    })
 
-  getInstalledApps=()=>{
-    let self = this;
-    cmd.get(
-      `hcadmin status`,
-      function(err, data, stderr) {
-        if (!err) {
-          console.log('/.holochain contains these files :\n>>', data)
-          self.setState({
-            installed_apps: manageAllApps(data)
-          });
-          console.log("Apps state: ", self.state)
-        } else {
-          console.log('error', err)
-        }
+// call for STOP_AGENT_DNA_INSTANCE ({ id })
+    const stop_agent_dna_instance_by_id = { id: "app spec instance 4" }
+    this.props.stop_agent_dna_instance(stop_agent_dna_instance_by_id).then(res => {
+      this.callFetchState();
+      console.log("Home props after STOP_AGENT_DNA_INSTANCE call", this.props);
+    })
 
-      }
-    );
-  };
+// call for UNINSTALL_DNA_BY_ID ({ id })
+    const dna_by_id = {id: "app spec instance 4"}
+    this.props.uninstall_dna_by_id(dna_by_id).then(res => {
+      this.callFetchState();
+      console.log("Home props after DNA_BY_ID call", this.props);
+    })
 
-  getDownloadedApps=()=>{
-    let self = this;
-    cmd.get(
-      `cd ~/.hcadmin/holochain-download && ls`,
-      function(err, data, stderr) {
-        if (!err) {
-          console.log('~/.hcadmin/holochain-download contains these files :\n>>', data)
-          self.setState({
-            downloaded_apps: manageAllDownloadedApps(data)
-          });
-          console.log("Apps state: ", self.state)
-        } else {
-          console.log('error', err)
-        }
+// call for REMOVE_AGENT_DNA_INSTANCE ({ id })
+    const remove_agent_dna_instance_by_id = { id: "app spec instance 4" }
+    this.props.remove_agent_dna_instance(remove_agent_dna_instance_by_id).then(res => {
+      this.callFetchState();
+      console.log("Home props after REMOVE_AGENT_DNA_INSTANCE call", this.props);
+    })
 
-      }
-    );
-  };
-
-  renderStatusButton = (appName,status,running) => {
-    const STOPBUTTON=(<button className="StopButton" type="button" onClick={e => this.stopApp(appName)}>Stop</button>);
-    const STARTBUTTON=(<button className="StartButton" type="button" onClick={e => this.startApp(appName)}>Start</button>);
-    if(running){
-      return (STOPBUTTON)
-    }else if (!running){
-      if(status==="installed"){
-        return (STARTBUTTON)
-      }
-    }
+  /////////////////////////////////////////////////////////////////////
+    // this.props.call_zome_instance_func().then(res => {
+    //   this.callFetchState();
+    //   console.log("Home props after ZOME call", this.props);
+    // })
   }
-  renderRunningButton = (appName,status, running) => {
-    const INSTALLBUTTON=(<button className="InstallButton" type="button" onClick={e => this.installApp(appName)}>Install</button>);
-    const UNINSTALLBUTTON=(<button className="InstallButton" type="button" onClick={e => this.uninstallApp(appName)}>Uninstall</button>);
-    if (!running){
-        if (status === "installed") {
-          return UNINSTALLBUTTON
-        } else if (status === 'uninstalled') {
-          return INSTALLBUTTON
-        }
-    }
+
+  callFetchState = () => {
+    this.props.fetch_state();
   }
-  installApp = (appName) => {
-    console.log("Install");
-    // cmd.run(`hcadmin join ~/.hcadmin/holochain-download/` + appName + ' ' + appName);
-    hcJoin(appName);
-    // // TODO: remove once we put a listener for the necessary files
-    setTimeout(this.componentDidMount(),9000000);
-  }
-  uninstallApp = (appName) => {
-    console.log("Uninstall:");
-    hcUninstall(appName)
-    // TODO: remove once we put a listener for the necessary files
-    this.componentDidMount();
-  }
-  startApp = (appName) => {
-    console.log("Start:");
-    // TODO: remove once we put a listener for the necessary files
-    // Get the running ports
-    const freePort = decideFreePort(this.state.AllStats)
-    // Run through them and find the last port that is not used
-    // use that port
-      hcStart(appName,freePort);
-    // this.setState({lastPortUsed:this.state.lastPortUsed+1});
-     this.componentDidMount();
-  }
-  stopApp = (appName) => {
-    console.log("Stop:");
-    // TODO: remove once we put a listener for the necessary files
-    hcStop(appName,this.state.AllStats)
-    this.componentDidMount();
-  }
+
+//   componentDidMount() {
+//     this.setApps()
+//   }
+//
+//   setApps=()=>{
+//     this.getInstalledApps();
+//     this.getDownloadedApps();
+//     // this.setState({runningApps:getRunningApps()});
+//     this.setState({AllStats:[{}]})
+//     this.getPIDs();
+//
+//   };
+//
+//   /** Calculate Stats **/
+// getPIDs = () => {
+//   const self = this;
+//   cmd.get(
+//     "ps ax | grep hcd",
+//     function(err, data, stderr) {
+//       if (!err) {
+//         // console.log('> Stats for :', data)
+//         const process_details = refactorPS(data)
+//         console.log("Process Details: ", process_details);
+//         // self.setState({process_details})
+//         self.getStats(process_details);
+//       } else {
+//         console.log('error', err)
+//       }
+//     }
+//   );
+// }
+//
+// getStats = (process_details) => {
+//   process_details.forEach((process) => {
+//     this.getStatsForPID(process.PID)
+//   })
+// }
+// getStatsForPID = (pid) => {
+//   const self = this;
+//   cmd.get(
+//     "ps -p " + pid + " -o %cpu,%mem,cmd",
+//     function(err, data, stderr) {
+//       if (!err) {
+//         // console.log('> Stats for :', pid, "\n", data)
+//         // TODO: Refresh the electron page
+//         const stats = refactorStats(pid, data)
+//         console.log("Final Stats", stats);
+//         self.setStats(stats)
+//       } else {
+//         console.log('error', err)
+//          self.setStats({"%CPU":"","%MEM":""})
+//       }
+//     }
+//   );
+//
+// }
+// setStats = (payload)=>{
+//   // console.log("Playload: ",payload.app_name);
+//   const name=payload.app_name
+//   const newData =  {...this.state.AllStats, [name]:payload};
+//   // console.log("newData:",newData);
+//   this.setState({AllStats: newData });
+//   console.log("STATE: ", this.state);
+// }
+//
+// //////////////////////
+//
+//   getInstalledApps=()=>{
+//     let self = this;
+//     cmd.get(
+//       `hcadmin status`,
+//       function(err, data, stderr) {
+//         if (!err) {
+//           console.log('/.holochain contains these files :\n>>', data)
+//           self.setState({
+//             installed_apps: manageAllApps(data)
+//           });
+//           console.log("Apps state: ", self.state)
+//         } else {
+//           console.log('error', err)
+//         }
+//
+//       }
+//     );
+//   };
+//
+//   getDownloadedApps=()=>{
+//     let self = this;
+//     cmd.get(
+//       `cd ~/.hcadmin/holochain-download && ls`,
+//       function(err, data, stderr) {
+//         if (!err) {
+//           console.log('~/.hcadmin/holochain-download contains these files :\n>>', data)
+//           self.setState({
+//             downloaded_apps: manageAllDownloadedApps(data)
+//           });
+//           console.log("Apps state: ", self.state)
+//         } else {
+//           console.log('error', err)
+//         }
+//
+//       }
+//     );
+//   };
+//
+//   renderStatusButton = (appName,status,running) => {
+//     const STOPBUTTON=(<button className="StopButton" type="button" onClick={e => this.stopApp(appName)}>Stop</button>);
+//     const STARTBUTTON=(<button className="StartButton" type="button" onClick={e => this.startApp(appName)}>Start</button>);
+//     if(running){
+//       return (STOPBUTTON)
+//     }else if (!running){
+//       if(status==="installed"){
+//         return (STARTBUTTON)
+//       }
+//     }
+//   }
+//   renderRunningButton = (appName,status, running) => {
+//     const INSTALLBUTTON=(<button className="InstallButton" type="button" onClick={e => this.installApp(appName)}>Install</button>);
+//     const UNINSTALLBUTTON=(<button className="InstallButton" type="button" onClick={e => this.uninstallApp(appName)}>Uninstall</button>);
+//     if (!running){
+//         if (status === "installed") {
+//           return UNINSTALLBUTTON
+//         } else if (status === 'uninstalled') {
+//           return INSTALLBUTTON
+//         }
+//     }
+//   }
+//   installApp = (appName) => {
+//     console.log("Install");
+//     // cmd.run(`hcadmin join ~/.hcadmin/holochain-download/` + appName + ' ' + appName);
+//     hcJoin(appName);
+//     // // TODO: remove once we put a listener for the necessary files
+//     setTimeout(this.componentDidMount(),9000000);
+//   }
+//   uninstallApp = (appName) => {
+//     console.log("Uninstall:");
+//     hcUninstall(appName)
+//     // TODO: remove once we put a listener for the necessary files
+//     this.componentDidMount();
+//   }
+//   startApp = (appName) => {
+//     console.log("Start:");
+//     // TODO: remove once we put a listener for the necessary files
+//     // Get the running ports
+//     const freePort = decideFreePort(this.state.AllStats)
+//     // Run through them and find the last port that is not used
+//     // use that port
+//       hcStart(appName,freePort);
+//     // this.setState({lastPortUsed:this.state.lastPortUsed+1});
+//      this.componentDidMount();
+//   }
+//   stopApp = (appName) => {
+//     console.log("Stop:");
+//     // TODO: remove once we put a listener for the necessary files
+//     hcStop(appName,this.state.AllStats)
+//     this.componentDidMount();
+//   }
 
   refresh = () => {
     this.componentDidMount();

@@ -43,12 +43,12 @@ export default function stats (oldState = defaultState, action) {
     }
 
     case FETCH_STATE: {
-      console.log("Reducer STATE", state);
+      // console.log("Reducer STATE", state);
       return { ...state};
     }
 
     default:{
-      console.log("default state", state);
+      // console.log("default state", state);
       return state
     }
   }

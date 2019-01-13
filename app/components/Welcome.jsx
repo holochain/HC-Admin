@@ -184,7 +184,7 @@ const styles = theme => ({
 // typing :
 type WelcomeProps = {
   fetch_state: () => void,
-  call_holochain_instance_func: () => void,
+  call_holochain_instance_func: () => Promise,
   call_zome_instance_func: ()=> void
 }
 
@@ -208,17 +208,24 @@ class Welcome extends React.Component<WelcomeProps, WelcomeState>{
 
   componentDidMount = () => {
     this.triggerWebClientCall();
-    this.triggerZomeCall();
+    // this.triggerZomeCall();
   }
 
   triggerWebClientCall = () => {
     console.log("Welcome.js WS Call",this.props);
-    this.props.call_holochain_instance_func();
+    this.props.call_holochain_instance_func().then(res => {
+      this.callWelcomeState();
+      console.log("Welcome props", this.props);
+    })
   }
 
-  triggerZomeCall = () => {
-    console.log("Welcome.js ZOME WS Call",this.props);
-    this.props.call_zome_instance_func();
+  // triggerZomeCall = () => {
+  //   console.log("Welcome.js ZOME WS Call",this.props);
+  //   this.props.call_zome_instance_func();
+  // }
+
+  callWelcomeState = () => {
+    this.props.fetch_state();
   }
 
   handleClickHCinfoOpen = () => {
@@ -254,7 +261,7 @@ class Welcome extends React.Component<WelcomeProps, WelcomeState>{
         </Fab>
         <div className={classnames('container', customStyle.container)} data-tid="container">
           <h2 className={classes.header}>Welcome to Holochain</h2>
-          <img src={logo} className={classnames('app-logo', classes.hcLogo)} alt="logo" />
+          // <img src={logo} className={classnames('app-logo', classes.hcLogo)} alt="logo" />
 
           <Grid item xs={12} className={classes.questionBlock}>
             <Typography className={classes.h3} component="h3">
@@ -334,7 +341,7 @@ class Welcome extends React.Component<WelcomeProps, WelcomeState>{
                     <Button onClick={this.handleInstallationNoticeClose} color="primary">
                       Close
                     </Button>
-                    <Link to={routes.INSTALLATION}>
+                    <Link to={routes.HOME}>
                       <Button onClick={this.handleInstallationNoticeClose} color="primary" autoFocus>
                         Let's Begin Installing!
                       </Button>
@@ -343,7 +350,7 @@ class Welcome extends React.Component<WelcomeProps, WelcomeState>{
                 </Dialog>
               </div>
 
-              <Link to={routes.WELCOMENEWUSER}>
+              <Link to={routes.HOME}>
                 <ButtonBase
                 focusRipple
                 className={classes.buttonBackground}

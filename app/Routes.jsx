@@ -11,9 +11,9 @@ import Home from './containers/HomePage';
 export default () => (
   <App>
     <Switch>
-      <Route path={routes.HELLOWORLD} component={HelloWorldPage} />
-      <Route path={routes.COREAPPS} component={CoreAppSelectionPage} />
-      <Route path={routes.WELCOME} component={WelcomePage} />
+      // <Route path={routes.HELLOWORLD} component={HelloWorldPage} />
+      // <Route path={routes.COREAPPS} component={CoreAppSelectionPage} />
+      // <Route path={routes.WELCOME} component={WelcomePage} />
       <Route path={routes.HOME} component={Home} />
     </Switch>
   </App>

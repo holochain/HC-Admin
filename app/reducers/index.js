@@ -6,7 +6,7 @@ import coreAppReducer from './coreAppSelection';
 import helloWorldReducer from './helloWorld';
 import { State as HelloWorldState } from '../actions/types';
 import welcomeReducer from './welcome';
-import homeReducer from './stats';
+import containerApiReducer from './containerApiReducer';
 
 export interface RootState {
   helloWorld: HelloWorldState
@@ -15,9 +15,9 @@ export interface RootState {
 export default function createRootReducer(history: History) {
   return combineReducers<RootState>({
     router: connectRouter(history),
-    helloWorld: helloWorldReducer,
-    welcomeReducer,
-    coreAppReducer,
-    homeReducer
+    // helloWorld: helloWorldReducer,
+    // welcomeReducer,
+    // coreAppReducer,
+    containerApiReducer
   });
 }
