@@ -1,5 +1,5 @@
 # HC-Admin
-The refactored implementation of HC-Admin that connects with HC-Rust Container.
+The refactored implementation of HC-Admin, which now connects with HC-Rust Container.
 **Status:** Pre-Alpha. Early development and testing.
 
 ## Purpose:
