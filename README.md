@@ -16,7 +16,7 @@ This is an desktop application to to manage your Holochain application on your l
 ### Proto Version - connected to the CLI driven hcshell container:
 * [HCAdmin GUI Design](https://hackmd.io/UthCJPttSJSkvk_MJquu3A)
 * [HCAdmin GUI Overview](https://hackmd.io/VqmACbONT9eBl09E-ikLgA?both)
->-[Link to Proto](https://github.com/Holo-Host/HCAdmin-GUI)
+* >- [Link to Proto](https://github.com/Holo-Host/HCAdmin-GUI)
 
 ---
 ## How to run?
