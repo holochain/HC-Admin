@@ -1,12 +1,11 @@
 # HC-Admin
 The refactored implementation of HC-Admin, which now connects with HC-Rust Container.
----
+
 **Status:** Pre-Alpha. Early development and testing.
 
 ## Purpose:
 This is an desktop application to to manage your Holochain application on your local machine. This is also the app that would track stats of each app that is running locally.
 
----
 ## Preview:
 ![HC-Admin](#)
 
