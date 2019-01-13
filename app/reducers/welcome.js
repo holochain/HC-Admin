@@ -1,7 +1,9 @@
-import { FETCH_STATE, CALL_HOLOCHAIN_FUNC, CALL_HOLOCHAIN_FUNC_SUCCESS, CALL_ZOME_FUNC, CALL_ZOME_FUNC_SUCCESS } from '../actions/welcome';
+import { FETCH_STATE, CALL_HOLOCHAIN_FUNC } from '../actions/containerApi';
+import { CALL_HOLOCHAIN_FUNC_SUCCESS } from '../actions/containerApiResponseStatus';
 
 const INITIAL_STATE : State = {
- welcome_page_state  : []
+ welcome_page_state  : [],
+ info_instances_success : {}
 }
 
 export default function(state = INITIAL_STATE, action: Action) : State {
@@ -9,31 +11,31 @@ export default function(state = INITIAL_STATE, action: Action) : State {
 
   const { type, payload } = action
   switch (type) {
+    //
+    // case FETCH_STATE: {
+    //   console.log("Welcome Reducer state", state);
+    //   return { ...state};
+    // }
+    //
+    // case CALL_HOLOCHAIN_FUNC: {
+    //   console.log("CALL_HOLOCHAIN_FUNC state", payload);
+    //   return { ...state};
+    // }
+    //
+    // case CALL_HOLOCHAIN_FUNC_SUCCESS: {
+    //   console.log("CALL_HOLOCHAIN_FUNC_SUCCESS state", payload);
+    //   return { ...state, info_instances_success : payload };
+    // }
 
-    case FETCH_STATE: {
-      console.log("Reducer state", state);
-      return { ...state};
-    }
-
-    case CALL_HOLOCHAIN_FUNC: {
-      console.log("CALL_HOLOCHAIN_FUNC state", payload);
-      return { ...state};
-    }
-
-    case CALL_HOLOCHAIN_FUNC_SUCCESS: {
-      console.log("CALL_HOLOCHAIN_FUNC_SUCCESS state", payload);
-      return { ...state};
-    }
-
-    case CALL_ZOME_FUNC: {
-      console.log("CALL_ZOME_FUNC state", payload);
-      return { ...state};
-    }
-
-    case CALL_ZOME_FUNC_SUCCESS: {
-      console.log("CALL_HOLOCHAIN_FUNC_SUCCESS state", payload);
-      return { ...state};
-    }
+    // case CALL_ZOME_FUNC: {
+    //   console.log("CALL_ZOME_FUNC state", payload);
+    //   return { ...state};
+    // }
+    //
+    // case CALL_ZOME_FUNC_SUCCESS: {
+    //   console.log("CALL_HOLOCHAIN_FUNC_SUCCESS state", payload);
+    //   return { ...state};
+    // }
 
     default:
       return state

@@ -16,7 +16,7 @@ export default function(state = INITIAL_STATE, action: Action) : State {
     }
 
     case FETCH_STATE: {
-      console.log("Reducer state", state);
+      // console.log("Reducer state", state);
       return { ...state};
     }
 
