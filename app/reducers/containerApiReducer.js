@@ -114,17 +114,6 @@ export default function(state = INITIAL_STATE, action: Action) : State {
       return { ...state };
     }
 
-    ///////////////////////////////////////////
-    // case 'CALL_ZOME_FUNC_SUCCESS': {
-    //   console.log("CALL_HOLOCHAIN_FUNC_SUCCESS state", payload);
-    //   return { ...state};
-    // }
-    //
-    // case 'CALL_ZOME_FUNC_FAILURE': {
-    //   console.log("CALL_ZOME_FUNC_FAILURE state", payload);
-    //   return { ...state};
-    // }
-    ///////////////////////////////////////////
     default:
       return state
   }

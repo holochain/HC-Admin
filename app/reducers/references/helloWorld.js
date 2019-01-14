@@ -1,4 +1,4 @@
-import { ActionTypes, Action, State } from '../actions/types'
+import { ActionTypes, Action, State } from '../../actions/references/types'
 
 const INITIAL_STATE : State = {
   message: ''

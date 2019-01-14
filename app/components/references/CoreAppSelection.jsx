@@ -21,104 +21,12 @@ import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
 import { withStyles } from '@material-ui/core/styles';
 // local imports:
-import routes from '../constants/routes';
+import routes from '../../constants/routes';
+import logo from '../../assets/icons/HC-logo.svg';
+import customStyle from '../component-styles/Default.css';
+import styles from "../component-styles/CoreAppSelectionMuiStyles";
 // import handleCloseWindow from '../utils/helper-functions';
-import logo from '../assets/icons/HC-logo.svg';
-import customStyle from './Welcome.css';
 
-
-// MUI Custom Styling :
-const styles = theme => ({
-  root: {
-    width: '100%',
-    display: 'flex',
-    flexWrap: 'wrap',
-    minWidth: 300,
-  },
-  paper: {
-    ...theme.mixins.gutters(),
-    paddingTop: theme.spacing.unit * 2,
-    paddingBottom: theme.spacing.unit * 2,
-    height: 140,
-    width: 100,
-  },
-  header1: {
-    marginTop: 45,
-    marginLeft: 88,
-  },
-  header2: {
-    margin: 45,
-    fontFamily: 'Raleway',
-    fontWeight: 500,
-    letterSpacing: 3
-  },
-  heading: {
-    fontSize: theme.typography.pxToRem(15),
-    fontWeight: theme.typography.fontWeightRegular,
-  },
-  typography: {
-    fontFamily: 'Raleway',
-    fontWeight: theme.typography.fontWeightRegular,
-  },
-  button: {
-    margin: theme.spacing.unit,
-    color: '#eee',
-    backgroundColor: "#00A6AE"
-  },
-  input: {
-    display: 'none',
-  },
-  fab: {
-    // margin: theme.spacing.unit,
-    margin: 54,
-    color: '#eee',
-    background: '#3d65d6',
-    justifyContent: 'center',
-    alignItems: 'center',
-    '&:hover, &$focusVisible': {
-      border: '3px solid #6600ff',
-      background: 'rgba(0, 1, 127, 0.7)'
-    },
-  },
-  nextBtn: {
-    width: 800,
-    color: '#eee',
-    fontSize: 23,
-    background: '#6600ff',
-    justifyContent: 'center',
-    alignItems: 'center',
-    '&:hover, &$focusVisible': {
-      fontSize: 20,
-      border: '3px solid #10d6a9',
-      background: 'rgba(0, 1, 127, 0.7)'
-    },
-  },
-  modal: {
-    marginTop: 33,
-  },
-  inline: {
-    display: 'inline-block'
-  },
-  focusVisible: {},
-  hcLogo: {
-    height: '25%',
-  },
-  closeIcon: {
-    margin: theme.spacing.unit,
-    position: 'fixed',
-    top: 0,
-    right: 0,
-    fontSize: 10,
-    color: '#70a297',
-    border: '1px solid #70a297',
-    background: 'transparent',
-    '&:hover, &$focusVisible': {
-      border: '2px solid red',
-      color: 'red',
-      background: 'transparent',
-    },
-  }
-});
 
 type CoreAppSelectionProps = {
   fetch_state: () => void,
@@ -131,7 +39,7 @@ function ModalTransition(props) {
 }
 
 const coreHapps = [
-  { 
+  {
     type: "Administrator Interface",
     options: ["HC Admin"]
   },{
@@ -166,7 +74,7 @@ const coreHapps = [
       affirm: false
     };
   };
-  
+
   componentDidMount = () => {
     this.setState({
       coreHapps
@@ -190,8 +98,6 @@ const coreHapps = [
       installationNotice: false,
       affirm: true
     });
-    // // navigate to next page... as user has affirmed !!
-    // this.props.history.push(routes.INSTALLATION);
   };
 
   handleCloseWindow = () => {
@@ -214,7 +120,7 @@ const coreHapps = [
           <h2 className={classes.header1}>Select your Core hApps</h2>
           <img src={logo} className={classnames("App-Logo", classes.hcLogo)} alt="logo" />
           <h3 className={classes.header2}>Let us welcome you into the community by introducing ourselves a bit more and offering you some additional resources.</h3>
-          
+
           <Grid className="viewDetails" item xs={12} className={classes.checkboxSection}>
             <Grid className="viewDetails" container justify="center" spacing={16}>
               {this.state.coreHapps.map(hApp => (
@@ -261,28 +167,11 @@ const coreHapps = [
                   <DialogTitle id="responsive-dialog-title">{"Ready to install your hApps?"}</DialogTitle>
                   <DialogContent>
                     <DialogContentText>
-                      It's almost time to celebrate! 
-                      <br/>
-                      As soon as you select 'Install hApps' below, our Holochain container will start preforming magic and complete the installation process of all the hApps you selected into your newly created Holochain environment.
-                      <br/>
-                      So.. as soon as you're ready, select the Install button below. We can't wait to welcome you into our Holochain community!  
+                      Request to install hApps(grouping of services/UIs)...
                     </DialogContentText>
                     <br/>
                     <DialogContentText>
-                      All we need from you is to read over the following list of softare products, and affirm that you agree and are ready to begin their installation.
-                        <br/>
-                        <br/>
-                        - Node (>8v : JavaScript Engine)
-                        <br/>
-                        - Rustup (>1.1 : Rust Toolchain Installer)
-                        <br/>
-                        - Cargo (>1.3 nightly build : Rust Package Manager)
-                        <br/>
-                        - ZeroMQ (>4v : Distributed Messaging Library )
-                        <br/>
-                        ... AND
-                        <br/>
-                        - Holochain Rust (latest version)
+                      ...more text about installing hApps(grouping of services/UIs).
                     </DialogContentText>
                   </DialogContent>
                   <DialogActions>
@@ -297,7 +186,7 @@ const coreHapps = [
                   </DialogActions>
                 </Dialog>
               </div>
-            </div>  
+            </div>
           </Grid>
           {/**/}
 

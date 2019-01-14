@@ -1,22 +1,3 @@
-///////////////////////////////////////////
-      /* Working Container APIs*/
-///////////////////////////////////////////
-// [x]  admin/dna/list()
-// [x]  ~ !! admin/instance/list()
-// [x]  ~ !! admin/instance/running()
-// [x]  info/instances()
-
-// [x]  admin/instance/add({id, dna_id, agent_id})
-// [x]  admin/instance/remove({id})
-// [x]  admin/dna/install_from_file({id, path})
-// [x]  admin/dna/uninstall({id})
-// [x]  ~ !! admin/instance/start({id})
-// [x]  ~ !! admin/instance/stop({id})
-
-// NB: Be sure to set `admin = true` in container basic.toml config
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-// import { getInstance } from '../utils/hc-web-client'
 export const FETCH_STATE = 'FETCH_STATE';
 export const GET_INFO_INSTANCES = 'GET_INFO_INSTANCES';
 
@@ -156,24 +137,28 @@ export function stop_agent_dna_instance(payload) {
   }
 }
 
-///////////////////////////////////////////
-// call for zome: `happ/zome/capability/func`
-// export function call_zome_instance_func() {
-//   console.log(">>ZOME Action Called <<");
-//   return {
-//     type: 'CALL_ZOME_FUNC',
-//     payload: {content:"lisa", in_reply_to:"zoel"},
-//     meta: {
-//       holochainAction: true,
-//       callString: 'QmcAGmNL4TMvqB15odK23X7X7N4GYoZCFAUnXcwY4m2EcB/blog/main/create_post'
-//     }
-//   }
-// }
-///////////////////////////////////////////
-
 // state check
 export function fetch_state() {
   return {
     type: FETCH_STATE
   };
 }
+
+/////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////
+      /* Working Container APIs*/
+///////////////////////////////////////////
+// [x]  admin/dna/list()
+// [x]  ~ !! admin/instance/list()
+// [x]  ~ !! admin/instance/running()
+// [x]  info/instances()
+
+// [x]  admin/instance/add({id, dna_id, agent_id})
+// [x]  admin/instance/remove({id})
+// [x]  admin/dna/install_from_file({id, path})
+// [x]  admin/dna/uninstall({id})
+// [x]  ~ !! admin/instance/start({id})
+// [x]  ~ !! admin/instance/stop({id})
+
+// NB: Be sure to set `admin = true` in container basic.toml config
+/////////////////////////////////////////////////////////////////////////

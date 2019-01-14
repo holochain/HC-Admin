@@ -1,5 +1,5 @@
 // MUI Custom Styling :
-export const styles = theme => ({
+const styles = theme => ({
   root: {
     width: '100%',
     display: 'flex',
@@ -176,43 +176,4 @@ export const styles = theme => ({
   }
 });
 
-// export default importFn = () => {
-//   import * as React from 'react';
-//   import PropTypes from 'prop-types';
-//   import { Link } from 'react-router-dom';
-//   import classnames from 'classnames';
-//   // MUI Imports:
-//   import Grid from '@material-ui/core/Grid';
-//   import ButtonBase from '@material-ui/core/ButtonBase';
-//   import Button from '@material-ui/core/Button';
-//   import Typography from '@material-ui/core/Typography';
-//   import Card from '@material-ui/core/Card';
-//   import CardHeader from '@material-ui/core/CardHeader';
-//   import CardMedia from '@material-ui/core/CardMedia';
-//   import CardContent from '@material-ui/core/CardContent';
-//   import CardActions from '@material-ui/core/CardActions';
-//   import Collapse from '@material-ui/core/Collapse';
-//   import Divider from '@material-ui/core/Divider';
-//   import Paper from '@material-ui/core/Paper';
-//   import Dialog from '@material-ui/core/Dialog';
-//   import DialogActions from '@material-ui/core/DialogActions';
-//   import DialogContent from '@material-ui/core/DialogContent';
-//   import DialogContentText from '@material-ui/core/DialogContentText';
-//   import DialogTitle from '@material-ui/core/DialogTitle';
-//   import Slide from '@material-ui/core/Slide';
-//   import IconButton from '@material-ui/core/IconButton';
-//   import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-//   import Fab from '@material-ui/core/Fab';
-//   import Icon from '@material-ui/core/Icon';
-//   import InputAdornment from '@material-ui/core/InputAdornment';
-//   import TextField from '@material-ui/core/TextField';
-//   import Visibility from '@material-ui/icons/Visibility';
-//   import VisibilityOff from '@material-ui/icons/VisibilityOff';
-//   import { withStyles } from '@material-ui/core/styles';
-//   import Send from '@material-ui/icons/Send';
-//   // local imports:
-//   import routes from '../constants/routes';
-//   // import handleCloseWindow from '../utils/helper-functions';
-//   import logo from '../assets/icons/HC-logo.svg';
-//   import customStyle from './Welcome.css';
-// }
+export default styles;

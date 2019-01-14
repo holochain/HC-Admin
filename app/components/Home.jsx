@@ -1,21 +1,16 @@
 import React, { Component } from 'react';
-
-// IMPORT THE LOGO from its PATH...
-import logo from '../assets/icons/HC-logo.svg';
 import { Link } from 'react-router-dom';
-import routes from '../constants/routes';
 import cmd from 'node-cmd'
-import './Home.css';
-
-import { hcJoin,hcUninstall,hcStart,hcStop } from "../utils/hc-install";
-import { advancedExpandTableHOC } from "./systemTable";
-import { manageAllApps,manageAllDownloadedApps,refactorPS,refactorStats } from "../utils/data-refactor";
-import { filterApps } from "../utils/table-filters";
-import { getRunningApps,decideFreePort } from "../utils/running-app";
-
-// Import React Table
 import ReactTable from "react-table";
 import "react-table/react-table.css";
+import routes from '../constants/routes';
+import { advancedExpandTableHOC } from "./page-components/systemTable";
+import { filterApps } from "../utils/table-filters";
+// import { manageAllApps,manageAllDownloadedApps,refactorPS,refactorStats } from "../utils/data-refactor";
+// import { hcJoin,hcUninstall,hcStart,hcStop } from "../utils/hc-install";
+// import { getRunningApps,decideFreePort } from "../utils/running-app";
+import logo from '../assets/icons/HC-logo.svg';
+import './component-styles/Home.css';
 
 // type Props = {
 //   downloaded_apps: {
@@ -153,12 +148,6 @@ export default class Home extends Component {
       this.callFetchState();
       console.log("Home props after REMOVE_AGENT_DNA_INSTANCE call", this.props);
     })
-
-  /////////////////////////////////////////////////////////////////////
-    // this.props.call_zome_instance_func().then(res => {
-    //   this.callFetchState();
-    //   console.log("Home props after ZOME call", this.props);
-    // })
   }
 
   callFetchState = () => {

@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
-import routes from '../constants/routes';
-import logo from '../assets/icons/HC-logo.svg'
-import styles from './Welcome.css';
+import routes from '../../constants/routes';
+import logo from '../../assets/icons/HC-logo.svg'
+import defaultStyles from '../component-styles/Default.css';
 
 type HelloWorldProps = {
   message: string,
@@ -12,7 +12,7 @@ type HelloWorldProps = {
 // stateless functional component >> therefore no TypedState to pass in...
 export default function HelloWorld(props) {
   return (
-    <div className={styles.container} data-tid="container">
+    <div className="container" data-tid="container">
       <img src={logo} className="App-Logo" alt="logo" />
       <h2>Hello Electron World</h2>
 

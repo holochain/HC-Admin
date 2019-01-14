@@ -1,4 +1,4 @@
-import { UPDATE_DOWNLOADS, UPDATE_INSTALLED, UPDATE_ALL_STATS, FETCH_STATE  } from '../actions/stats';
+import { UPDATE_DOWNLOADS, UPDATE_INSTALLED, UPDATE_ALL_STATS, FETCH_STATE  } from '../../actions/references/stats';
 import { Map } from 'immutable';
 
 // Structure of downloaded_apps, installed_app, and runningApps :

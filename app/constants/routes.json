@@ -1,6 +1,5 @@
 {
   "HELLOWORLD" : "/helloworld",
   "COREAPPS": "/coreappselection",
-  "WELCOME": "/Welcome",
   "HOME": "/"
 }

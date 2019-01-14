@@ -1,11 +1,11 @@
 import * as React from 'react'
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import HelloWorld from '../components/HelloWorld';
+import HelloWorld from '../../components/references/HelloWorld';
 
 // to trigger the action for the ICP call
-import makeActions from '../actions/helloWorld'
-import makeService from '../actions/services'
+import makeActions from '../../actions/references/helloWorld'
+import makeService from '../../actions/references/services'
 export const helloWorldActions = makeActions(makeService())
 
 type HelloWorldProps = {

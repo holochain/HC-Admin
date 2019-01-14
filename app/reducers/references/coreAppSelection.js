@@ -1,5 +1,5 @@
 import { getType } from 'typesafe-actions'
-import { FETCH_STATE, UPDATE_CORE_APPS } from '../actions/coreAppSelection';
+import { FETCH_STATE, UPDATE_CORE_APPS } from '../../actions/references/coreAppSelection';
 
 const INITIAL_STATE : State = {
  core_apps  : []
