@@ -160,9 +160,10 @@ h1, h2, h3, h4, h5, h6 {
 .ReactTable {
   background: #29057ac9; /* a ver... */
   margin-top: 50px;
-  /* border: 2px solid #170246ed; */
+  border: 2px solid #170246ed;
   /* border: 1px solid #999ca7; */
-  box-shadow: 3px solid #eee;
+
+  /* box-shadow: 5px 3px 3px #eee; */
   /* border-radius: 3%; */
 }
 
@@ -176,11 +177,32 @@ h1, h2, h3, h4, h5, h6 {
   color: #282a2f;
 }
 
-/* .ReactTable rt -tr -padRow -even {
-  color: blue;
-  background: #eee !important
-} */
+.-header {
+  color: #eee;
+  background: linear-gradient(45deg, #2d2f5863 10%, #47499063) !important; /* 00838c */
+  font-size: 19px;
+  padding: 10px;
+}
 
+.-even {
+  color: #eee;
+  background: linear-gradient(45deg, #383b8a63 10%, #393b8963) !important;
+  /* text-align: left; */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.-odd {
+  color: #eee;
+  background: linear-gradient(45deg, #050b37eb  10%,  #070f54eb) !important;
+  /* #08125feb  030831eb */
+  /* text-align: left; */
+
+  /* white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; */
+}
 
 .MuiListItem-root-105 {
  display: inline !important;

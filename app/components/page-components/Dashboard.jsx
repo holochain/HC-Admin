@@ -22,7 +22,7 @@ import logo from '../../assets/icons/HC_Logo.svg';
 import styles from '../styles/component-styles/DashboardMuiStyles';
 import MainListItems from './MainListItems';
 
-class Dashboard extends React.Component<WithStyles<typeof styles>, any> {
+class Dashboard extends React.Component {
   constructor(props: any) {
     super(props);
     this.state = {

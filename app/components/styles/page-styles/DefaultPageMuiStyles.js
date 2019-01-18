@@ -2,7 +2,7 @@
 const styles = theme => ({
     root: {
       display: 'flex',
-      background: "#00017fb3"
+      background: "linear-gradient(45deg, #341d40b3 10%, #6e6e96b)"  // #00017fb3
     },
     appBarSpacer:{
       minHeight: 95
@@ -24,7 +24,7 @@ const styles = theme => ({
       padding: theme.spacing.unit * 3,
       height: '100vh',
       overflow: 'auto',
-      background: '#030831eb',
+      background: '#030831eb', // #08125feb ; #030831eb
     },
     appTable : {
       marginTop: 50,

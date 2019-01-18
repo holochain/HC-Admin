@@ -243,6 +243,7 @@
     "@holochain/hc-redux-middleware": "^1.0.8",
     "@material-ui/core": "^3.8.1",
     "@material-ui/icons": "^3.0.1",
+    "@material-ui/styles": "^3.0.0-alpha.8",
     "@storybook/addon-info": "^4.1.4",
     "@storybook/addon-knobs": "^4.1.4",
     "@storybook/addons": "^4.1.6",

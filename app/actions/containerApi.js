@@ -160,5 +160,11 @@ export function fetch_state() {
 // [x]  ~ !! admin/instance/start({id})
 // [x]  ~ !! admin/instance/stop({id})
 
+// [ ] admin/interface/add (starts the interface)
+// [ ] admin/interface/remove (stops the interface)
+// [ ] admin/interface/add_instance (restarts the interface to get change in effect)
+// [ ] admin/interface/remove_instance (restarts the interface to get change in effect)
+// [ ] admin/interface/list
+
 // NB: Be sure to set `admin = true` in container basic.toml config
 /////////////////////////////////////////////////////////////////////////

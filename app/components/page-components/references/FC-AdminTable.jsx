@@ -79,7 +79,7 @@ export default class AdminTableView extends React.Component<AdminTableProps, Adm
     const CERT_LENGTH = ious.length;
     console.log("CERT_LENGTH: ", CERT_LENGTH);
 
-    const insertCertificate = (iou) => {
+    const insertCertificate = (iou) => {  
       console.log("inside insertCertificate");
       console.log("iou", iou);
       if (iou !== parseInt(iou, 10)) {

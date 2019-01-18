@@ -19,6 +19,7 @@ import { monitorUninstalledApps } from "../../utils/helper-functions";
 import { dataRefactor } from "../../utils/data-refactor";
 // import { hcJoin,hcUninstall,hcStart,hcStop } from "../utils/hc-install";
 // import { getRunningApps,decideFreePort } from "../utils/running-app";
+import ToggleButton from "./ToggleButton"
 import logo from '../../assets/icons/HC_Logo.svg';
 // MUI Imports:
 import { withStyles } from '@material-ui/core/styles';
@@ -41,49 +42,19 @@ const columns = [{
       Header: 'Type',
       accessor: 'type'
     }, {
-      Header: 'Hash',
+      Header: 'Hash ID',
       accessor: 'hash'
     },{
       Header: 'Instance ID',
       accessor: 'instanceId'
     }, {
-      Header: 'Status',
+      Header: 'Installed Status',
       accessor: 'status',
-      Cell: row => (
-        <span>
-          <span style={{
-            color: row.value === 'installed' ? '#57d500'
-              : row.value === 'uninstalled' ? '#ff2e00'
-              : '#ffbf00',
-            transition: 'all .3s ease'
-          }}>
-            &#x25cf;
-          </span> {
-            row.value === 'installed' ? `Installed`
-            : row.value === 'uninstalled' ? `Uninstalled`
-            : 'Bridging'
-          }
-        </span>
-      )
+      Cell: row => ( <ToggleButton /> )
     },{
-      Header: 'Running',
+      Header: 'Interface Status',
       accessor: 'running',
-      Cell: row => (
-        <span>
-          <span style={{
-            color: row.value === true ? '#57d500'
-              : row.value === false ? '#ff2e00'
-              : '#ffbf00',
-            transition: 'all .3s ease'
-          }}>
-            &#x25cf;
-          </span> {
-            row.value === true ? `Running`
-            : row.value === false ? `Stopped`
-            : 'Unknown'
-          }
-        </span>
-      )
+      Cell: row => ( <ToggleButton /> )
     }]
   }];
 
@@ -274,7 +245,7 @@ class HCMonitorTable extends React.Component {
 
   render() {
     if (this.state.data.list_of_instance_info.length === 0){
-      return <div>this.props.list_of_instance_info is empty or undefined...</div>
+      return <div/>
     }
 
     const table_data = this.displayData();
@@ -331,3 +302,21 @@ class HCMonitorTable extends React.Component {
 }
 
 export default HCMonitorTable;
+
+// menu >> toggle button
+// <h5>
+// {
+//   row.value === true ? `Installed`
+//   : row.value === false ? `Uninstalled`
+//   : 'Unknown'
+// }
+// </h5>
+
+// <h5>
+// {
+//    row.value === true ? `Running`
+//   : row.value === false ? `Stopped`
+//   : 'Unknown'
+// }
+// }
+// </h5>
