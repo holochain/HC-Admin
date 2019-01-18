@@ -5,16 +5,8 @@ const styles = theme => ({
     display: 'flex',
     flexWrap: 'wrap',
     minWidth: 300,
+    fontWeight: 'bolder'
   },
-  passRoot: {
-   marginTop: -25,
-   width: '100%',
-   maxWidth: 360,
-   margin: 10,
-   backgroundColor: theme.palette.background.paper,
-   color: 'white',
-   borderRadius: 8
- },
   paper: {
     ...theme.mixins.gutters(),
     paddingTop: theme.spacing.unit * 2,
@@ -139,12 +131,6 @@ const styles = theme => ({
       background: 'transparent',
     },
   },
-  sectionInstructions: {
-    margin: `${theme.spacing.unit * 3}px ${theme.spacing.unit * 2}px`,
-  },
-  sectionPassphrase: {
-    margin: theme.spacing.unit * 2,
-  },
   sectionSubmit: {
     margin: `${theme.spacing.unit * 6}px ${theme.spacing.unit * 2}px ${theme.spacing.unit * 2}px`,
   },
@@ -153,27 +139,13 @@ const styles = theme => ({
     marginTop: 10,
     marginBottom: 10
   },
-  instructions: {
-    color: '#eee',
-    marginTop: 10,
-    maxHeight: 450,
-    background: '#4f83a4',
-    border: '3px solid #00017fb3'
-  },
   whiteText: {
     color: "#eee",
     textAlign: 'center'
   },
-  pinPad: {
-    margin: 50,
-    maxHeight: 150,
-    display: 'flex',
-    flexFlow: 'row wrap',
-    padding: 1,
-    justifyContent: 'space-around',
-    aligncontent: 'flex-start',
-    overflow: 'auto',
-  }
+  rightIcon: {
+    marginLeft: theme.spacing.unit,
+  },
 });
 
 export default styles;

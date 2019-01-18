@@ -2,9 +2,9 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import Home from '../components/Home';
+import HCMonitorTablePage from '../components/pages/HCMonitorTablePage';
 import * as ContainerApiActions from '../actions/containerApi.js';
-// import * as StatsActions from "../actions/stats";
+
 
 type Props = {
   fetch_state: () => void,
@@ -12,13 +12,13 @@ type Props = {
   install_dna_from_file: ()=> Promise
 };
 
-class HomePage extends Component<Props> {
+class HomePageContainer extends Component<Props> {
   constructor(props:Props){
     super(props);
   };
 
   render() {
-    return <Home {...this.props} />;
+    return <HCMonitorTablePage {...this.props} />;
   }
 }
 
@@ -32,4 +32,4 @@ class HomePage extends Component<Props> {
     return bindActionCreators(ContainerApiActions, dispatch);
   }
 
-  export default connect(mapStateToProps, mapDispatchToProps)(HomePage);
+  export default connect(mapStateToProps, mapDispatchToProps)(HomePageContainer);

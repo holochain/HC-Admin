@@ -76,9 +76,10 @@ app.on('ready', async () => {
     width: 1050,
     height: 800,
     resizable: false,
-    // titleBarStyle: 'hidden'
+    // titleBarStyle: 'hidden',
     // titleBarStyle: 'customButtonsOnHover',
-    frame: false
+
+    // frame: false
   });
 
   mainWindow.loadURL(`file://${__dirname}/app.html`);

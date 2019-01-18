@@ -22,11 +22,9 @@ import TextField from '@material-ui/core/TextField';
 import { withStyles } from '@material-ui/core/styles';
 // local imports:
 import routes from '../../constants/routes';
-import logo from '../../assets/icons/HC-logo.svg';
-import customStyle from '../component-styles/Default.css';
-import styles from "../component-styles/CoreAppSelectionMuiStyles";
+import logo from '../../assets/icons/HC_Logo.svg';
+import styles from "../styles/component-styles/CoreAppSelectionMuiStyles";
 // import handleCloseWindow from '../utils/helper-functions';
-
 
 type CoreAppSelectionProps = {
   fetch_state: () => void,

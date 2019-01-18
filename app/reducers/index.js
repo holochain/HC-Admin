@@ -7,6 +7,8 @@ import helloWorldReducer from './references/helloWorld';
 import stats from './references/stats';
 import coreAppSelectionReducer from './references/coreAppSelection';
 import containerApiReducer from './containerApiReducer';
+import profileApiReducer from './profileApiReducer';
+
 
 export interface RootState {
   helloWorld: HelloWorldState
@@ -18,6 +20,7 @@ export default function createRootReducer(history: History) {
     // helloWorld: helloWorldReducer,
     // coreAppSelectionReducer,
     // stats,
+    profileApiReducer,
     containerApiReducer
   });
 }

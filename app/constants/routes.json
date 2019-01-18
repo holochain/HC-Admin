@@ -1,5 +1,8 @@
 {
-  "HELLOWORLD" : "/helloworld",
+  "INSTALL" : "/install",
+  "UITABLE": "/uitable",
+  "DNATABLE": "/dnatable",
+  "HELP": "/help",
   "COREAPPS": "/coreappselection",
-  "HOME": "/"
+  "HCMONITORTABLE": "/"
 }

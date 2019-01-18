@@ -259,6 +259,7 @@
     "lodash.set": "^4.3.2",
     "namor": "^1.1.1",
     "node-cmd": "^3.0.0",
+    "rc-queue-anim": "^1.6.10",
     "react": "^16.6.3",
     "react-docgen-typescript-webpack-plugin": "^1.1.0",
     "react-dom": "^16.6.3",

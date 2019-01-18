@@ -1,0 +1,24 @@
+main {
+  /* background: linear-gradient(180deg,#00a0ee,#3668ff 50%); */
+  /* background: radial-gradient(#3a4058, #2d2f38); */
+
+  /* background: radial-gradient( #c4bebe, #6c6f75); */
+  background: radial-gradient( #3a4058, #2d2f38);
+  color: #02747c; /* #f8f5f5; */
+  margin: 0 auto;
+}
+
+.text-muted {
+  color: rgb(64, 87, 86) !important;
+}
+
+.btn-secondary {
+  background: #00838c;
+  border-color: #0c5e5b;
+}
+
+@media (min-width: 576px) {
+  .btn-secondary {
+    margin-left: 25.666667%;
+  }
+}

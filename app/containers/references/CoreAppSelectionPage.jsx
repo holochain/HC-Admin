@@ -2,7 +2,7 @@ import { createHolochainAsyncAction } from '@holochain/hc-redux-middleware'
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import CoreAppSelection from '../../components/references/CoreAppSelection';
+import CoreAppSelection from '../../components/page-components/CoreAppSelection';
 import * as coreAppSelectionActions from '../../actions/references/coreAppSelection';
 
 type Props = {
