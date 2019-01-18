@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/styles';
-import purple from '@material-ui/core/colors/purple';
+// import purple from '@material-ui/core/colors/purple';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
@@ -10,17 +10,17 @@ const styles = theme => ({
   colorBar: {},
   colorChecked: {},
   toggleBtnSwitchBase: {
-    color: purple[300],
+    color: '#567dbb',
     '&$colorChecked': {
-      color: purple[500],
+      color: '#567dbb',
       '& + $colorBar': {
-        backgroundColor: purple[500],
+        backgroundColor:"#567dbb",
       },
     },
     '&$installedTrue': {
       color: theme.palette.common.white,
       '& + $toggleBtnBar': {
-        backgroundColor: '#52d869',
+        backgroundColor: '#00838c',
       },
     },
     transition: theme.transitions.create('transform', {
@@ -29,7 +29,7 @@ const styles = theme => ({
     }),
   },
   installedTrue: {
-    transform: 'translateX(15px)',
+    transform: 'translateX(40px)',
     '& + $toggleBtnBar': {
       opacity: 1,
       border: 'none',
@@ -38,9 +38,9 @@ const styles = theme => ({
   toggleBtnBar: {
     borderRadius: 13,
     width: 55,
-    height: 26,
-    marginTop: -13,
-    marginLeft: -29,
+    height: 16,
+    marginBottom: 3,
+    marginLeft: -15,
     border: 'solid 1px',
     borderColor: theme.palette.grey[400],
     backgroundColor: theme.palette.grey[50],
@@ -48,8 +48,8 @@ const styles = theme => ({
     transition: theme.transitions.create(['background-color', 'border']),
   },
   toggleIcon: {
-    width: 30,
-    height: 24,
+    width: 18,
+    height: 17,
   },
   toggleIconChecked: {
     boxShadow: theme.shadows[1],
@@ -60,18 +60,34 @@ class ToggleButton extends React.Component {
   constructor(props: any) {
     super(props);
     this.state = {
-      row: "installed",
+      row: this.props.uninstallInstance ? `installed` : `running`,
       installed: false,
-      running: false,
+      running: false
     }
   };
 
   handleChange = name => event => {
+    // call the api to change the status for either installed or running here..
+    console.log("ABOUT TO CALL THE ACTION EVENT FOR >> EVENT NAME:", name);
+    if (this.props.uninstallInstance && name === "installed") {
+      const { instanceId } = this.props.installed;
+      this.props.uninstallInstance(instanceId);
+    }
+    else if (this.props.stopInstance && name === "running"){
+      const { instanceId } = this.props.running;
+      this.props.stopInstance(instanceId);
+    }
     this.setState({ [name]: event.target.checked });
   };
 
   render() {
-    const { classes } = this.props;
+    const { classes, running, installed } = this.props;
+    console.log("togglebutton props", this.props);
+    console.log("ToggleButton state", this.state);
+
+    console.log("CHECKED? : ", this.props.uninstallInstance ?
+      this.props.installed.status === "installed" ? true : false
+      : this.props.running.running);
 
     return (
       <FormControlLabel
@@ -85,9 +101,12 @@ class ToggleButton extends React.Component {
           checked: classes.installedTrue,
         }}
         disableRipple
-        checked={this.state.installed}
-        onChange={this.handleChange('installed')}
-        value="installed"
+        checked={ this.props.uninstallInstance ?
+          this.props.installed.status === "installed" ? true : false
+          : this.props.running.running
+        }
+        onChange={this.handleChange(`${this.props.uninstallInstance ? `installed` : `running`}`)}
+        value={this.props.uninstallInstance ? `installed` : `running`}
         />
       }
     />
@@ -100,3 +119,22 @@ export default withStyles(styles)(ToggleButton);
 //     this.state.installed === true ? `Installed`: `Uninstalled`
 //   : this.state.running === true ? `Running`: `Stopped`
 // }
+
+
+// menu >> toggle button
+// <h5>
+// {
+//   row.value === true ? `Installed`
+//   : row.value === false ? `Uninstalled`
+//   : 'Unknown'
+// }
+// </h5>
+
+// <h5>
+// {
+//    row.value === true ? `Running`
+//   : row.value === false ? `Stopped`
+//   : 'Unknown'
+// }
+// }
+// </h5>

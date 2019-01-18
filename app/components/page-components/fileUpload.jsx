@@ -112,12 +112,13 @@ class FileUpload extends React.Component<FileUploadProps, FileUploadState>  {
   }
 }
 
-const mapStateToProps = ({currentAgent}) => ({currentAgent});
-const mapDispatchToProps = dispatch => ({
-  uploadRequest: () =>  dispatch({type: 'UPLOAD_FILE_REQUEST'}),
-  uploadFileSuccess: () =>  dispatch({type: 'UPLOAD_FILE_SUCCESS'}),
-  uploadFileError: () =>  dispatch({type: 'UPLOAD_FILE_ERROR'}),
-  returnState: () => dispatch({type: 'RETURN_STATE'})
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(FileUpload);
+// const mapStateToProps = ({currentAgent}) => ({currentAgent});
+// const mapDispatchToProps = dispatch => ({
+//   uploadRequest: () =>  dispatch({type: 'UPLOAD_FILE_REQUEST'}),
+//   uploadFileSuccess: () =>  dispatch({type: 'UPLOAD_FILE_SUCCESS'}),
+//   uploadFileError: () =>  dispatch({type: 'UPLOAD_FILE_ERROR'}),
+//   returnState: () => dispatch({type: 'RETURN_STATE'})
+// })
+//
+// export default connect(mapStateToProps, mapDispatchToProps)(FileUpload);
+export default FileUpload;

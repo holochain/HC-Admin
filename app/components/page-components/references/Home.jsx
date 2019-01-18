@@ -125,7 +125,7 @@ const columns = [{
       Cell: row => (
         <span>
           <span style={{
-            color: row.value !== '-' ? '#57d500'
+            color: row.value !== '-' ? '#00838c'
               : '#ff2e00',
             transition: 'all .3s ease'
           }}>
@@ -141,7 +141,7 @@ const columns = [{
       Cell: row => (
         <span>
           <span style={{
-            color: row.value === 'installed' ? '#57d500'
+            color: row.value === 'installed' ? '#00838c'
               : row.value === 'uninstalled' ? '#ff2e00'
               : '#ffbf00',
             transition: 'all .3s ease'

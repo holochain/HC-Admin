@@ -31,7 +31,7 @@ class HCMonitorTablePage extends Component<Props> {
       <Dashboard>
         <main className={classes.content}>
           <div className={classes.appBarSpacer} />
-          <Typography className={classes.mainHeader} style={{color:"#e4e4e4", fontFamily:"Raleway"}} variant="display1" gutterBottom={gutterBottom} component="h2" >
+          <Typography className={classes.mainHeader} style={{color:"rgb(149, 185, 237)", fontFamily:"Raleway"}} variant="display1" gutterBottom={gutterBottom} component="h2" >
             {this.props.history.location === "/UI" ? `UI`: `DNA` } Overview Table
           </Typography>
           <div className={classes.tableContainer}>

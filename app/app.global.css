@@ -21,6 +21,8 @@
   100% { background-image: linear-gradient(45deg,rgba(0, 1, 127, 0.7), rgba(0, 216, 255, 0.5) 55%, rgba(0, 1, 127, 0.7)); }
 }
 
+22272ceb
+
 @keyframes holo-motion {
   0%   { background-position: 0% 95%; }
   50%  { background-position: 35% 19%; }
@@ -158,13 +160,9 @@ h1, h2, h3, h4, h5, h6 {
  }
 
 .ReactTable {
-  background: #29057ac9; /* a ver... */
+  background: transparent; /* a ver... */
   margin-top: 50px;
-  border: 2px solid #170246ed;
-  /* border: 1px solid #999ca7; */
-
-  /* box-shadow: 5px 3px 3px #eee; */
-  /* border-radius: 3%; */
+  box-shadow:-2px 3px 11px 2px #111a58eb, 2px -2px 9px 5px #111a58eb,-1px -5px 27px 2px #111a58eb;
 }
 
 .ReactTable .-pagination .-btn {
@@ -177,16 +175,24 @@ h1, h2, h3, h4, h5, h6 {
   color: #282a2f;
 }
 
+.rt-thead {
+  color: rgb(149, 185, 237);
+  background: #111a58eb;
+  /* background: linear-gradient(45deg, #48497cb3 10%,  #111a58eb) !important; */
+}
+
 .-header {
-  color: #eee;
-  background: linear-gradient(45deg, #2d2f5863 10%, #47499063) !important; /* 00838c */
+  color: rgb(149, 185, 237);
+  background: #47499063 !important; /* 00838c */
   font-size: 19px;
   padding: 10px;
 }
 
 .-even {
-  color: #eee;
-  background: linear-gradient(45deg, #383b8a63 10%, #393b8963) !important;
+  color: #567dbb;
+  background: #47499063 !important;
+  /* background: transparent; */
+
   /* text-align: left; */
   white-space: nowrap;
   overflow: hidden;
@@ -194,8 +200,9 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .-odd {
-  color: #eee;
-  background: linear-gradient(45deg, #050b37eb  10%,  #070f54eb) !important;
+  color: #567dbb;
+  background: #111a58eb,
+  /* background: linear-gradient(45deg, #48497cb3 10%,  #111a58eb) !important; */
   /* #08125feb  030831eb */
   /* text-align: left; */
 

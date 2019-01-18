@@ -10,11 +10,12 @@ const styles = theme => ({
     title: {
       textTransform: "uppercase",
       flexGrow: 1,
-      color: "white",
+      color: 'rgb(149, 185, 237)',
     },
     mainHeader: {
       marginTop: 160,
       textAlign: "center",
+      color: 'rgb(149, 185, 237)',
     },
     tableContainer: {
       height: 320,
@@ -24,7 +25,8 @@ const styles = theme => ({
       padding: theme.spacing.unit * 3,
       height: '100vh',
       overflow: 'auto',
-      background: '#030831eb', // #08125feb ; #030831eb
+      background: "#111a58eb" // 343752eb 111a58eb
+      // background: 'linear-gradient(45deg,#47499063 10%, #111a58eb)', // #08125feb ; #030831eb
     },
     appTable : {
       marginTop: 50,

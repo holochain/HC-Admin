@@ -8,67 +8,89 @@ export const dataRefactor = (list_of_instance_info, list_of_dna, list_of_running
   const insertInstanceLog = (fileInstance) => {
     if (fileInstance !== parseInt(fileInstance, 10)) {
       let hash = "";
-      let status = "installed";
-      let running = false;
+      let status = {};
+      let running = {};
 
-      const uninstalled_apps = monitorUninstalledApps(fileInstance, downloaded_apps);
-      // const uninstalled_apps = [];
-      for (let uApp of uninstalled_apps) {
-        if (fileInstance.dna === uApp.dna) {
-          status === "uninstalled";
-        }
-        else {
-          status === "installed";
-        }
-      }
 
       for (let file of list_of_dna) {
         if (fileInstance.dna === file.id) {
           hash = file.id;
-        }
+        };
       }
 
-      for (let file of list_of_running_instances) {
-        if (fileInstance.id === file.id) {
-          running = true;
+      const uninstalled_apps = monitorUninstalledApps(fileInstance, downloaded_apps);
+      for (let instance_info of list_of_instance_info) {
+        for (let uApp of uninstalled_apps) {
+          if (instance_info.dna === uApp.dna) {
+            status = {
+              instance: instance_info.id,
+              dna: hash,
+              status:"uninstalled"
+             };
+           }
+         }
+
+         if (fileInstance.id === instance_info.id) {
+            status = {
+              instance: instance_info.id,
+              dna: hash,
+              status:"installed"
+            };
+          }
         }
+
+        for (let running_instance of list_of_running_instances) {
+          if (fileInstance.id === running_instance.id) {
+            running = {
+              instance: fileInstance.id,
+              dna: hash,
+              running : true
+            };
+          }
+          else {
+            running = {
+              instance: fileInstance.id,
+              dna: hash,
+              running : false
+            };
+          }
+        }
+
+        const newInstanceObj = {
+          appName: fileInstance.dna,
+          agent_id: fileInstance.agent,
+          type: "DNA", // fileIntance.storage.type >>> wil this eventually say wether it is a DNA or UI?? or only state "file" ??
+          hash,
+          instanceId: fileInstance.id,
+          status,
+          running
+        };
+
+        console.log("newInstanceObj", newInstanceObj);
+        return newInstanceObj;
       }
-
-      const newInstanceObj = {
-        appName: fileInstance.dna,
-        agent_id: fileInstance.agent,
-        type: "DNA",
-        hash,
-        instanceId: fileInstance.id,
-        status,
-        running
-      };
-
-      console.log("newInstanceObj", newInstanceObj);
-      return newInstanceObj;
+      else {
+        return "";
+      }
     }
-    else {
-      return "";
-    }
-  }
 
-  const range = (length) => {
-    const lengthArray: Array<any> = [];
-    for (let i = 0; i < length; i++) {
-      lengthArray.push(i);
-    }
-    return lengthArray;
-  };
+    const range = (length) => {
+      const lengthArray: Array<any> = [];
+      for (let i = 0; i < length; i++) {
+        lengthArray.push(i);
+      }
+      return lengthArray;
+    };
 
-  const dataGenerate = (length = INSTANCE_INFO_LENGTH) => {
-    return list_of_instance_info.map(infoInstance => {
-      return {
-        ...insertInstanceLog(infoInstance),
-        children: range(length - 1).map(insertInstanceLog) // # per page...
-      };
-    })
-  }
-  return dataGenerate()
+    const dataGenerate = (length = INSTANCE_INFO_LENGTH) => {
+      return list_of_instance_info.map(infoInstance => {
+        return {
+          ...insertInstanceLog(infoInstance),
+          children: range(length - 1).map(insertInstanceLog) // # per page...
+        };
+      })
+    }
+    return dataGenerate()
 }
 
 const monitorUninstalledApps = (installed_apps, downloaded_apps) => {

@@ -25,20 +25,36 @@ const gutterBottom : boolean = true;
 
 
 class MainListItems extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      file: "",
+      file_path: "",
+      errorMessage: "",
+    };
+    this.handleUpload = this.handleUpload.bind(this);
+  }
+
+  handleClick() {
+    this.refs.fileInput.click();
+  }
 
   handleUpload = (event) => {
-    console.log("event :", event);
-    console.log("file :", file);
+    console.log("YOU CLICKED >>> event.target :", event.target);
 
      const input = event.target.files[0]
      const fileName = input.name;
-
-     let fileUrl = "";
-     const reader = new FileReader();
-     reader.onload = () => {
-       fileUrl = reader.result;
-       console.log("fileURL : ", fileUrl);
-     };
+     const filePath = input.path
+     console.log("UPLOADED FILE INPUT : ", input);
+     this.setState({file_path:filePath});
+     const uploadFile = confirm(`Would you like to upload this file? File Name: ${ fileName } File Path: ${filePath} ?`);
+     if (uploadFile === true) {
+       // make Container API call to uplaod the file with the given path..
+       // Inform User that file will be uploaded...
+     }
+     else {
+       //dismiss the dialog box... ?? and give an confimation message of dismissal ??
+     }
   };
 
 
@@ -76,13 +92,14 @@ class MainListItems extends React.Component {
           </Typography>
         </Link>
         </ListItem>
-        <ListItem style={{paddingTop: "45px"}} button={button}>
-          <Button variant="contained" color="default" style={{ marginRight: "5px", background:"#95b9ed" }} autoFocus onClick={() => this.handleUpload()}>
-            <CloudUploadIcon style={{ background:"#95b9ed" }}  />
-            <Typography style={{ marginRight: "5px"}}  variant="subheading">
-              Install
-            </Typography>
-          </Button>
+        <ListItem style={{paddingTop: "45px"}} button={button} onClick={() => this.handleClick()}>
+          <input id="linkUpload" type="file" accept=".zip" name="fileInput" onChange={this.handleUpload} ref="fileInput" style={{display:"none"}}/>
+            <Button variant="contained" color="default" style={{ marginRight: "5px", background:"#95b9ed" }} autoFocus>
+              <CloudUploadIcon style={{ background:"#95b9ed" }}  />
+              <Typography style={{ marginRight: "5px"}}  variant="subheading">
+                Install
+              </Typography>
+            </Button>
         </ListItem>
       <Divider />
     </div>

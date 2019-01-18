@@ -24,39 +24,108 @@ import logo from '../../assets/icons/HC_Logo.svg';
 // MUI Imports:
 import { withStyles } from '@material-ui/core/styles';
 
-
+/* ReactTable */
 const AdvancedExpandReactTable = advancedExpandTableHOC(ReactTable);
 /* Table Headers */
-const columns = [{
-    Header: 'App Info',
+const table_columns = (props) => {
+  console.log("Table Columns Props", props);
+  //
+  // const currentRowInstance = row._original.instanceId
+  // console.log("Table Columns Row info", currentRowInstance);
+
+  const table_columns = [{
+    Header: '',
     columns: [{
       Header: 'App Name',
-      accessor: 'appName'
+      accessor: 'appName',
+      Cell: row => (
+        <div style={{ padding: '5px' }}>
+        { row.value }
+        </div>
+      )
     }, {
       Header: 'Username',
       accessor: 'agent_id',
+      Cell: row => (
+        <div style={{ padding: '5px' }}>
+        { row.value }
+        </div>
+      )
     }]
   }, {
-    Header: 'App Details',
+    Header: '',
     columns: [{
       Header: 'Type',
-      accessor: 'type'
+      accessor: 'type',
+      Cell: row => (
+        <div style={{ padding: '5px' }}>
+        { row.value }
+        </div>
+      )
     }, {
       Header: 'Hash ID',
-      accessor: 'hash'
+      accessor: 'hash',
+      Cell: row => (
+        <div style={{ padding: '5px' }}>
+        { row.value }
+        </div>
+      )
     },{
       Header: 'Instance ID',
-      accessor: 'instanceId'
+      accessor: 'instanceId',
+      Cell: row => (
+        <div style={{ padding: '5px' }}>
+        { row.value }
+        </div>
+      )
     }, {
-      Header: 'Installed Status',
+      Header: 'Status',
       accessor: 'status',
-      Cell: row => ( <ToggleButton /> )
+      Cell: row => (
+        <div>
+          <span style={{
+            color: row.value.status === 'installed' ? '#57d500'
+            : '#ff2e00',
+            transition: 'all .3s ease'
+          }}>
+          &#x25cf;
+          </span>
+        { " " + row.value.status }
+          <br/>
+          <ToggleButton installed={row.value} currentFileInfo={row.value} uninstallInstance={props.uninstall_dna_by_id} />
+        </div>
+      )
     },{
-      Header: 'Interface Status',
+      Header: 'Running',
       accessor: 'running',
-      Cell: row => ( <ToggleButton /> )
+      Cell: row => (
+        <div>
+          <span style={{
+            color: row.value.running ? '#57d500'
+            : '#ff2e00',
+            transition: 'all .3s ease'
+          }}>
+          &#x25cf;
+          </span>
+          { " " + row.value.running }
+          <br/>
+          <ToggleButton running={row.value} currentFileInfo={row.value} stopInstance={props.stop_agent_dna_instance} />
+        </div>
+      )
+    },
+    {
+      Header: 'Interface',
+      accessor: 'interface',
+      Cell: row => (
+        <div>
+        { row.value }
+        </div>
+      )
     }]
   }];
+
+  return table_columns;
+}
 
 type HCMonitorTableProps = {
   list_of_dna : [{
@@ -242,6 +311,30 @@ class HCMonitorTable extends React.Component {
     }
   }
 
+    renderStatusButton = (appName, status, running) => {
+      const STOPBUTTON=(<button className="StopButton" type="button">Stop</button>);
+      const STARTBUTTON=(<button className="StartButton" type="button">Start</button>);
+      if(running){
+        return (STOPBUTTON)
+      }else if (!running){
+        if(status==="installed"){
+          return (STARTBUTTON)
+        }
+      }
+    }
+
+    renderRunningButton = (appName, status, running) => {
+      const INSTALLBUTTON=(<button className="InstallButton" type="button">Install</button>);
+      const UNINSTALLBUTTON=(<button className="InstallButton" type="button">Uninstall</button>);
+      if (!running){
+        if (status === "installed") {
+          return UNINSTALLBUTTON
+        } else if (status === 'uninstalled') {
+          return INSTALLBUTTON
+        }
+      }
+    }
+
 
   render() {
     if (this.state.data.list_of_instance_info.length === 0){
@@ -249,74 +342,59 @@ class HCMonitorTable extends React.Component {
     }
 
     const table_data = this.displayData();
-    console.log("Table Data: ", table_data);
+
+    const columns = table_columns(this.props);
+    console.log("table_columns: ", columns);
 
     return (
       <div className={classnames("App")}>
         <AdvancedExpandReactTable
-          data={table_data}
-          columns={columns}
           defaultPageSize={500}
           className="-striped -highlight"
+          data={table_data}
+          columns={columns}
           SubComponent={({ row, nestingPath, toggleRowSubComponent }) => {
-            <div/>
+            <div>
 // ******** TODO: USE / reconfigure THE SubComponent Below for displaying the UI DNA dependencies, or the DNA links to/pairings with UI. ***********
-
-          // SubComponent={({ row, nestingPath, toggleRowSubComponent }) => {
-          //   if(row._original.ui_pairing!==undefined){
-          //     return (
-          //       <div style={{ padding: "20px" }}>
-          //           UI Link: {row._original.uiLink}
-          //           <br/>
-          //           {this.renderStatusButton(row._original.appName,row._original.status,row._original.running)}
-          //           {this.renderRunningButton(row._original.appName,row._original.status,row._original.running)}
-          //       </div>
-          //     );
-          //   }else if (row._original.dna_dependencies!==undefined) {
-          //     return (
-          //       <div style={{ padding: "20px" }}>
-          //           DNA Dependencies:
-          //              <ul>
-          //                <li>{row._original.appName} : {row._original.dna}</li>
-          //              </ul>
-          //           <br/>
-          //           {this.renderStatusButton(row._original.appName,row._original.status,row._original.running)}
-          //           {this.renderRunningButton(row._original.appName,row._original.status,row._original.running)}
-          //       </div>
-          //     );
-          //   }
-          //   else{
-          //     return (
-          //       <div style={{ padding: "20px" }}>
-          //           No Bridges
-          //           <br/>
-          //           {this.renderStatusButton(row._original.appName,row._original.status,row._original.running)}
-                //     {this.renderRunningButton(row._original.appName,row._original.status,row._original.running)}
-                // </div>);
-            // }
-          }}
-        />
-      </div>
-    )
-  }
+              SubComponent={({ row, nestingPath, toggleRowSubComponent }) => {
+                console.log("row._original.ui_pairing", row._original.ui_pairing);
+                if (row._original.ui_pairing!==undefined){
+                  return (
+                    <div style={{ padding: "20px" }}>
+                        UI Link: {row._original.appName}
+                        <br/>
+                        {this.renderStatusButton(row._original.appName,row._original.status,row._original.running)}
+                        {this.renderRunningButton(row._original.appName,row._original.status,row._original.running)}
+                    </div>
+                  );
+                } else if (row._original.dna_dependencies!==undefined) {
+                  return (
+                    <div style={{ padding: "20px" }}>
+                        DNA Dependencies:
+                           <ul>
+                             <li>{row._original.appName} : {row._original.dna}</li>
+                           </ul>
+                        <br/>
+                        {this.renderStatusButton(row._original.appName,row._original.status,row._original.running)}
+                        {this.renderRunningButton(row._original.appName,row._original.status,row._original.running)}
+                    </div>
+                  );
+                }
+                else {
+                  return (
+                    <div style={{ padding: "20px" }}>
+                        No DNA Dependencies or UI Pairings
+                        <br/>
+                        {this.renderStatusButton(row._original.appName,row._original.status,row._original.running)}
+                        {this.renderRunningButton(row._original.appName,row._original.status,row._original.running)}
+                    </div>);
+                }
+              }}
+          </div>
+        }}
+      />
+    </div>
+  )}
 }
 
 export default HCMonitorTable;
-
-// menu >> toggle button
-// <h5>
-// {
-//   row.value === true ? `Installed`
-//   : row.value === false ? `Uninstalled`
-//   : 'Unknown'
-// }
-// </h5>
-
-// <h5>
-// {
-//    row.value === true ? `Running`
-//   : row.value === false ? `Stopped`
-//   : 'Unknown'
-// }
-// }
-// </h5>
