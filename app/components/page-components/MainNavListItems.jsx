@@ -30,6 +30,7 @@ class MainListItems extends React.Component {
     this.state = {
       file: "",
       file_path: "",
+      message: "",
       errorMessage: "",
     };
     this.handleUpload = this.handleUpload.bind(this);
@@ -44,21 +45,33 @@ class MainListItems extends React.Component {
 
      const input = event.target.files[0]
      const fileName = input.name;
-     const filePath = input.path
+     const filePath = input.path;
      console.log("UPLOADED FILE INPUT : ", input);
      this.setState({file_path:filePath});
      const uploadFile = confirm(`Would you like to upload this file? File Name: ${ fileName } File Path: ${filePath} ?`);
      if (uploadFile === true) {
        // make Container API call to uplaod the file with the given path..
-       // Inform User that file will be uploaded...
+       const dna_file = {
+        id: "app spec :: DNA id example",
+        path: filePath
+      };
+
+      console.log(">>>>>>>>>. !! dna_file DELIVERED to install_dna_from_file !! <<<<<<<<<<<");
+      this.props.install_dna_from_file(dna_file).then(res => {
+        this.state({message: "Your app was successfully installed.." })
+        console.log("YOUR APP SHOULD BE INSTALLED..");
+      });
      }
      else {
        //dismiss the dialog box... ?? and give an confimation message of dismissal ??
+       console.log("APP WAS DISMISSED, AND NOT INSTALLED..");
      }
   };
 
 
   render () {
+    // console.log("PROPS inside the MAIN-NAVV--LIST-ITEMS file...", this.props);
+
     return (
       <div>
         <br />

@@ -28,7 +28,7 @@ class HCMonitorTablePage extends Component<Props> {
     const gutterBottom : boolean = true;
 
     return (
-      <Dashboard>
+      <Dashboard {...this.props}>
         <main className={classes.content}>
           <div className={classes.appBarSpacer} />
           <Typography className={classes.mainHeader} style={{color:"rgb(149, 185, 237)", fontFamily:"Raleway"}} variant="display1" gutterBottom={gutterBottom} component="h2" >

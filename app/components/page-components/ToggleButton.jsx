@@ -70,12 +70,15 @@ class ToggleButton extends React.Component {
     // call the api to change the status for either installed or running here..
     console.log("ABOUT TO CALL THE ACTION EVENT FOR >> EVENT NAME:", name);
     if (this.props.uninstallInstance && name === "installed") {
-      const { instanceId } = this.props.installed;
-      this.props.uninstallInstance(instanceId);
+      const { instance } = this.props.installed;
+      console.log("INSTANCEID for uninstall_dna_by_id", instance);
+      const instance_id = { id : instance}
+      this.props.uninstallInstance(instance_id);
     }
     else if (this.props.stopInstance && name === "running"){
-      const { instanceId } = this.props.running;
-      this.props.stopInstance(instanceId);
+      const { instance } = this.props.running;
+      const instance_id = { id : instance}
+      this.props.stopInstance(instance_id);
     }
     this.setState({ [name]: event.target.checked });
   };
@@ -106,7 +109,7 @@ class ToggleButton extends React.Component {
           : this.props.running.running
         }
         onChange={this.handleChange(`${this.props.uninstallInstance ? `installed` : `running`}`)}
-        value={this.props.uninstallInstance ? `installed` : `running`}
+        value={this.props.uninstallInstance ? this.state.installed : this.state.running}
         />
       }
     />

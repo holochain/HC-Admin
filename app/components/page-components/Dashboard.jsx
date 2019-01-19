@@ -20,7 +20,7 @@ import InputBase from '@material-ui/core/InputBase';
 import SearchIcon from '@material-ui/icons/Search';
 import logo from '../../assets/icons/HC_Logo.svg';
 import styles from '../styles/component-styles/DashboardMuiStyles';
-import MainListItems from './MainListItems';
+import MainNavListItems from './MainNavListItems';
 
 class Dashboard extends React.Component {
   constructor(props: any) {
@@ -55,7 +55,7 @@ class Dashboard extends React.Component {
             </Typography>
 
             <List className={classnames(classes.navMenuItemsWrapper, "nav-links")}>
-              <MainListItems className={classnames(classes.navMenuItems, "nav-links")}/>
+              <MainNavListItems className={classnames(classes.navMenuItems, "nav-links")} {...this.props}/>
             </List>
 
             <div className={classes.search}>

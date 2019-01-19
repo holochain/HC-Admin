@@ -55,6 +55,18 @@ export function get_info_instances() {
   }
 }
 
+// call LIST_OF_INTERFACES ()
+export function list_of_insterfaces() {
+  console.log(">> LIST_OF_INTERFACES : payload <<");
+  return {
+    type: 'LIST_OF_INTERFACES',
+    payload: [],
+    meta: {
+    	holochainAction: true,
+    	callString: `admin/interface/list`
+    }
+  }
+}
 
 ////////////////////////////////////////////////////////
     /* Updating Container DNAs/DNA-instances */
@@ -136,6 +148,66 @@ export function stop_agent_dna_instance(payload) {
     }
   }
 }
+// STARTS INTERFACE:
+// call START_INTERFACE ()
+export function start_interface() {
+  console.log(">> START_INTERFACE <<");
+  return {
+    type: 'START_INTERFACE',
+    payload,
+    meta: {
+    	holochainAction: true,
+    	callString: `admin/interface/add`
+    }
+  }
+}
+
+// STOPS INTERFACE
+// call STOP_INTERFACE ()
+export function stop_interface() {
+  console.log(">> ST0P_INTERFACE <<");
+  return {
+    type: 'ST0P_INTERFACE',
+    payload,
+    meta: {
+    	holochainAction: true,
+    	callString: `admin/interface/remove`
+    }
+  }
+}
+
+// ADDS INTANCE TO INTERFACE
+// call ADD_INTERFACE_INSTANCE ()
+// NB: This call restarts the interface FIRST, to get change in effect
+export function add_interface_instance(payload) {
+  console.log(">> ADD_INTERFACE_INSTANCE : payload <<");
+  return {
+    type: 'ADD_INTERFACE_INSTANCE',
+    payload,
+    meta: {
+    	holochainAction: true,
+    	callString: `admin/interface/add_instance `
+    }
+  }
+}
+
+// REMOVES INSTANCE FROM INTERFACE
+// call REMOVE_INTERFACE_INSTANCE ()
+// NB: This call restarts the interface FIRST, to get change in effect
+export function remove_interface_instance(payload) {
+  console.log(">> REMOVE_INTERFACE_INSTANCE : payload <<");
+  return {
+    type: 'REMOVE_INTERFACE_INSTANCE',
+    payload,
+    meta: {
+    	holochainAction: true,
+    	callString: `admin/interface/remove_instance `
+    }
+  }
+}
+
+
+/////////////////////////////////////////////////////////////////////////
 
 // state check
 export function fetch_state() {

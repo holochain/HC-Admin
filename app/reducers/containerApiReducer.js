@@ -4,7 +4,8 @@ const INITIAL_STATE : State = {
  list_of_dna : [],
  list_of_instances : [],
  list_of_running_instances :[],
- list_of_instance_info : []
+ list_of_instance_info : [],
+ list_of_interfaces : []
 }
 
 export default function(state = INITIAL_STATE, action: Action) : State {
@@ -42,6 +43,12 @@ export default function(state = INITIAL_STATE, action: Action) : State {
       const list_of_instance_info = JSON.parse(payload);
       console.log("Parsed REDUCER VERSION OF >>>> info_instances <<<<<", list_of_instance_info);
       return { ...state, list_of_instance_info };
+    }
+
+// LIST_OF_INSTANCES
+    case 'LIST_OF_INTERFACES_SUCCESS': {
+      console.log("LIST_OF_INTERFACES_SUCCESS payload", payload);
+      return { ...state, list_of_interfaces : payload };
     }
 
 ////////////////////////////////////////////////////////
@@ -110,6 +117,53 @@ export default function(state = INITIAL_STATE, action: Action) : State {
 
     case 'STOP_AGENT_DNA_INSTANCE_FAILURE': {
       console.log("STOP_AGENT_DNA_INSTANCE_FAILURE payload", payload);
+      return { ...state };
+    }
+
+////////////////////////////////////////////////////////////////////////
+                  // INTERFACE API calls
+////////////////////////////////////////////////////////////////////////
+    // START_INTERFACE
+    case 'START_INTERFACE_SUCCESS': {
+      console.log("START_INTERFACE_SUCCESS payload", payload);
+      return { ...state };
+    }
+
+    case 'START_INTERFACE_FAILURE': {
+      console.log("START_INTERFACE_FAILURE payload", payload);
+      return { ...state };
+    }
+
+    // STOP_INTERFACE
+    case 'STOP_INTERFACE_SUCCESS': {
+      console.log("STOP_INTERFACE_SUCCESS payload", payload);
+      return { ...state };
+    }
+
+    case 'STOP_INTERFACE_FAILURE': {
+      console.log("STOP_INTERFACE_FAILURE payload", payload);
+      return { ...state };
+    }
+
+    // ADD_INTERFACE_INSTANCE
+    case 'ADD_INTERFACE_INSTANCE_SUCCESS': {
+      console.log("ADD_INTERFACE_INSTANCE_SUCCESS payload", payload);
+      return { ...state };
+    }
+
+    case 'ADD_INTERFACE_INSTANCE_FAILURE': {
+      console.log("ADD_INTERFACE_INSTANCE_FAILURE payload", payload);
+      return { ...state };
+    }
+
+    // REMOVE_INTERFACE_INSTANCE
+    case 'REMOVE_INTERFACE_INSTANCE_SUCCESS': {
+      console.log("REMOVE_INTERFACE_INSTANCE_SUCCESS payload", payload);
+      return { ...state };
+    }
+
+    case 'REMOVE_INTERFACE_INSTANCE_FAILURE': {
+      console.log("REMOVE_INTERFACE_INSTANCE_FAILURE payload", payload);
       return { ...state };
     }
 
