@@ -16,7 +16,7 @@ import "react-table/react-table.css";
 import routes from '../../constants/routes';
 import { filterApps } from "../../utils/table-filters";
 import { monitorUninstalledApps } from "../../utils/helper-functions";
-import { dataRefactor } from "../../utils/data-refactor";
+import { dataRefactor, manageAllDownloadedApps } from "../../utils/data-refactor";
 // import { hcJoin,hcUninstall,hcStart,hcStop } from "../utils/hc-install";
 // import { getRunningApps,decideFreePort } from "../utils/running-app";
 import ToggleButton from "./ToggleButton"
@@ -92,7 +92,12 @@ const table_columns = (props) => {
           </span>
         { " " + row.value.status }
           <br/>
-          <ToggleButton installed={row.value} currentFileInfo={row.value} uninstallInstance={props.uninstall_dna_by_id} />
+          <ToggleButton
+            installed={row.value}
+            listInstances={props.get_info_instances}
+            uninstallInstance={props.uninstall_dna_by_id}
+            installInstance={props.install_dna_from_file}
+          />
         </div>
       )
     },{
@@ -109,7 +114,12 @@ const table_columns = (props) => {
           </span>
           { " " + row.value.running }
           <br/>
-          <ToggleButton running={row.value} currentFileInfo={row.value} stopInstance={props.stop_agent_dna_instance} />
+          <ToggleButton
+            running={row.value}
+            listRunningInstances={props.list_of_running_instances}
+            stopInstance={props.stop_agent_dna_instance}
+            startInstance={props.start_agent_dna_instance}
+          />
         </div>
       )
     },
@@ -158,66 +168,20 @@ type HCMonitorTableProps = {
 
 type HCMonitorTableState = {
   data: {} | null,
+  installed_apps: {} | null,
+  downloaded_apps: {} | null,
   row: String,
   filter: any,
-  ////////
-  list_of_dna : [{
-    id: String,
-    hash: String
-  }],
-  list_of_instances : [{
-    id: String,
-    dna: String,
-    agent: String
-  }],
-  list_of_running_instances :[{
-    id: String,
-    dna: String,
-    agent: String
-  }],
-  list_of_instance_info : [{
-    id: String,
-    dna: String,
-    agent: String,
-    storage: {
-      path: String,
-      type: String
-    }
-  }],
 }
 
 class HCMonitorTable extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      list_of_dna : [{
-        id: "",
-        hash: ""
-      }],
-      list_of_instances : [{
-        id: "",
-        dna: "",
-        agent: ""
-      }],
-      list_of_running_instances :[{
-        id: "",
-        dna: "",
-        agent: ""
-      }],
-      list_of_instance_info : [{
-        id: "",
-        dna: "",
-        agent: "",
-        storage: {
-          path: "",
-          type: "file"
-        }
-      }],
-      downloaded_apps: {
-        appName: ""
-      },
-   // React Table data
       data: {},
+      installed_apps: {},
+      downloaded_apps: {},
+   // React Table data
       row: "",
       filter: null,
     };
@@ -250,7 +214,7 @@ class HCMonitorTable extends React.Component {
 
   beginAppMontoring = () => {
     // call to CMD to monitor all downloaded_apps
-    // this.getDownloadedApps();
+    this.getDownloadedApps();
 
     // call for GET_INFO_INSTANCES()
     this.props.get_info_instances().then(res => {
@@ -260,7 +224,7 @@ class HCMonitorTable extends React.Component {
         // console.log("................installed_apps : ", installed_apps);
         this.setState({
           installed_apps,
-          downloaded_apps: installed_apps // TODO: delete this part once the DOWNLOAD FOLDER functionality is in place.
+          // downloaded_apps: installed_apps // TODO: delete this part once the DOWNLOAD FOLDER functionality is in place.
         });
 
         // call for LIST_OF_DNA()
@@ -286,7 +250,7 @@ class HCMonitorTable extends React.Component {
       `cd ~/.hcadmin/holochain-download && ls`,
       function(err, data, stderr) {
         if (!err) {
-          console.log('~/.hcadmin/holochain-download contains these files :\n>>', data)
+          console.log('~/.hcadmin/holochain-download contains these files =>> :\n', data)
           self.setState({
             downloaded_apps: manageAllDownloadedApps(data)
           });

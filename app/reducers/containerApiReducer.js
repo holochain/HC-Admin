@@ -38,10 +38,10 @@ export default function(state = INITIAL_STATE, action: Action) : State {
 
 // GET_INFO_INSTANCE
     case 'GET_INFO_INSTANCES_SUCCESS': {
-      console.log("GET_INFO_INSTANCES_SUCCESS payload", payload);
+      // console.log("GET_INFO_INSTANCES_SUCCESS payload", payload);
 
       const list_of_instance_info = JSON.parse(payload);
-      console.log("Parsed REDUCER VERSION OF >>>> info_instances <<<<<", list_of_instance_info);
+      // console.log("Parsed REDUCER VERSION OF >>>> info_instances <<<<<", list_of_instance_info);
       return { ...state, list_of_instance_info };
     }
 

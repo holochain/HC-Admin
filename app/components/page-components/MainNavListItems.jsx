@@ -43,12 +43,13 @@ class MainListItems extends React.Component {
   handleUpload = (event) => {
     console.log("YOU CLICKED >>> event.target :", event.target);
 
+
      const input = event.target.files[0]
      const fileName = input.name;
      const filePath = input.path;
      console.log("UPLOADED FILE INPUT : ", input);
      this.setState({file_path:filePath});
-     const uploadFile = confirm(`Would you like to upload this file? File Name: ${ fileName } File Path: ${filePath} ?`);
+     const uploadFile = confirm(`Would you like to upload this file?\n File Name: ${ fileName }\n File Path: ${filePath} ?`);
      if (uploadFile === true) {
        // make Container API call to uplaod the file with the given path..
        const dna_file = {
@@ -59,6 +60,7 @@ class MainListItems extends React.Component {
       console.log(">>>>>>>>>. !! dna_file DELIVERED to install_dna_from_file !! <<<<<<<<<<<");
       this.props.install_dna_from_file(dna_file).then(res => {
         this.state({message: "Your app was successfully installed.." })
+        this.props.
         console.log("YOUR APP SHOULD BE INSTALLED..");
       });
      }

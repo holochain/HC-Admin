@@ -71,14 +71,36 @@ class ToggleButton extends React.Component {
     console.log("ABOUT TO CALL THE ACTION EVENT FOR >> EVENT NAME:", name);
     if (this.props.uninstallInstance && name === "installed") {
       const { instance } = this.props.installed;
-      console.log("INSTANCEID for uninstall_dna_by_id", instance);
-      const instance_id = { id : instance}
-      this.props.uninstallInstance(instance_id);
+      const instance_id = { id : instance};
+      // console.log("INSTANCEID for uninstall_dna_by_id", instance);
+
+      this.props.listInstances().then(res => {
+        console.log("INFO INSTATANCES RES: ", res);
+        for(resInstance of res) {
+          if (resInstance.id === instance){
+            this.props.uninstallInstance(instance_id);
+          }
+          else {
+            const path_of_file = '~/.hcadmin/holochain-download/'
+            this.props.installInstance({...instance_id, path:path_of_file});
+          }
+        }
+     })
+
     }
     else if (this.props.stopInstance && name === "running"){
       const { instance } = this.props.running;
-      const instance_id = { id : instance}
-      this.props.stopInstance(instance_id);
+      const instance_id = { id : instance};
+
+      this.props.runningInstances().then(res => {
+        console.log("RUNNING INSTATANCES RES: ", res);
+        if (resInstance.id === instance){
+          this.props.stopInstance(instance_id)
+        }
+        else {
+          this.props.startInstance(instance_id);
+        }
+     })
     }
     this.setState({ [name]: event.target.checked });
   };

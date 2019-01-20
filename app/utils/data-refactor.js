@@ -13,8 +13,11 @@ export const dataRefactor = (list_of_instance_info, list_of_dna, list_of_running
 
 
       for (let file of list_of_dna) {
+        console.log("LIST OF DNA:", list_of_dna);
+        console.log("INSTANCE DNA: ", fileInstance.dna);
         if (fileInstance.dna === file.id) {
-          hash = file.id;
+          hash = file.hash;
+          console.log("FILE HASH: ", hash);
         };
       }
 
@@ -24,7 +27,10 @@ export const dataRefactor = (list_of_instance_info, list_of_dna, list_of_running
           if (instance_info.dna === uApp.dna) {
             status = {
               instance: instance_info.id,
-              dna: hash,
+              dna: {
+                appName:fileInstance.dna,
+                hash: hash
+              },
               status:"uninstalled"
              };
            }
@@ -33,7 +39,10 @@ export const dataRefactor = (list_of_instance_info, list_of_dna, list_of_running
          if (fileInstance.id === instance_info.id) {
             status = {
               instance: instance_info.id,
-              dna: hash,
+              dna: {
+                appName:fileInstance.dna,
+                hash: hash
+              },
               status:"installed"
             };
           }
@@ -102,4 +111,15 @@ const filter_installed_apps =  downloaded_apps.filter((d_apps) => {
 });
 // console.log("MONITORUNINSTALLEDAPPS >> uninstalled_apps : ", uninstalled_apps)
 return [...new Set([...uninstalled_apps])]
+}
+
+export const manageAllDownloadedApps=(allApps)=>{
+  let listOfApps = allApps.split("\n");
+  listOfApps = listOfApps.filter((app)=>{
+    return app !== "";
+  });
+  const app_details = listOfApps.map((app)=>{
+    return {"app_name":app}
+  });
+  return app_details;
 }
