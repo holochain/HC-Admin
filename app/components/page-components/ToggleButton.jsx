@@ -81,8 +81,10 @@ class ToggleButton extends React.Component {
             this.props.uninstallInstance(instance_id);
           }
           else {
-            const path_of_file = '~/.hcadmin/holochain-download/'
-            this.props.installInstance({...instance_id, path:path_of_file});
+            const { app_name } = this.props.downloaded;
+            const path_of_file = `~/.hcadmin/holochain-download/${app_name}`;
+            console.log("{...instance_id, path: path_of_file}", {...instance_id, path: path_of_file});
+            this.props.installInstance({...instance_id, path: path_of_file});
           }
         }
      })

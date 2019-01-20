@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { BrowserRouter, Route, Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import cmd from 'node-cmd'
+import cmd from 'node-cmd';
 // electron:
 import * as electron from "electron";
 // ReactTable Imports
@@ -15,8 +15,8 @@ import "react-table/react-table.css";
 // Local Imports
 import routes from '../../constants/routes';
 import { filterApps } from "../../utils/table-filters";
-import { monitorUninstalledApps } from "../../utils/helper-functions";
-import { dataRefactor, manageAllDownloadedApps } from "../../utils/data-refactor";
+import { manageAllDownloadedApps } from "../../utils/helper-functions";
+import { dataRefactor, listInstalledApps, listDownloadedApps, monitorUninstalledApps } from "../../utils/data-refactor";
 // import { hcJoin,hcUninstall,hcStart,hcStop } from "../utils/hc-install";
 // import { getRunningApps,decideFreePort } from "../utils/running-app";
 import ToggleButton from "./ToggleButton"
@@ -27,8 +27,9 @@ import { withStyles } from '@material-ui/core/styles';
 /* ReactTable */
 const AdvancedExpandReactTable = advancedExpandTableHOC(ReactTable);
 /* Table Headers */
-const table_columns = (props) => {
+const table_columns = (props, state) => {
   console.log("Table Columns Props", props);
+  // console.log("Table Columns State", state);
   //
   // const currentRowInstance = row._original.instanceId
   // console.log("Table Columns Row info", currentRowInstance);
@@ -94,6 +95,7 @@ const table_columns = (props) => {
           <br/>
           <ToggleButton
             installed={row.value}
+            downloaded={state.downloaded_apps}
             listInstances={props.get_info_instances}
             uninstallInstance={props.uninstall_dna_by_id}
             installInstance={props.install_dna_from_file}
@@ -255,7 +257,8 @@ class HCMonitorTable extends React.Component {
             downloaded_apps: manageAllDownloadedApps(data)
           });
           console.log("Apps state: ", self.state)
-        } else {
+        }
+        else {
           console.log('error', err)
         }
       }
@@ -270,8 +273,15 @@ class HCMonitorTable extends React.Component {
 
       // const filtered_apps = filterApps(installed_apps, downloaded_apps);
       const app_data = dataRefactor(list_of_instance_info, list_of_dna, list_of_running_instances, downloaded_apps);
-      console.log("App Data: ",app_data);
-      return app_data;
+      // console.log("App Data: ",app_data);
+
+      const table_dna_instance_info =  listInstalledApps(list_of_instance_info, list_of_dna, list_of_running_instances);
+      const table_downloaded_files = listDownloadedApps(downloaded_apps); ;
+
+      const combined_file_data = filterApps(table_dna_instance_info, table_downloaded_files )
+
+      console.log("DATA GOING TO TABLE >>>> !! combined_file_data !! <<<<<<<< : ", combined_file_data);
+      return combined_file_data;
     }
   }
 
@@ -307,7 +317,7 @@ class HCMonitorTable extends React.Component {
 
     const table_data = this.displayData();
 
-    const columns = table_columns(this.props);
+    const columns = table_columns(this.props, this.state);
     console.log("table_columns: ", columns);
 
     return (

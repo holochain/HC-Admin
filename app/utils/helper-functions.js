@@ -5,17 +5,17 @@ export const handleCloseWindow = () => {
   ipcRenderer.send("window:close", quit);
 };
 
-const manageAllDownloadedApps = (allApps) => {
+const manageAllDownloadedApps=(allApps)=>{
   let listOfApps = allApps.split("\n");
-  listOfApps=listOfApps.filter((app)=>{
-    return app!=="";
-  })
-  const app_details=listOfApps.map((app)=>{
-    return {"app_name":app}
-  })
-  return dataRefactor(app_details);
+  listOfApps = listOfApps.filter((app)=>{
+    return app !== "";
+  });
+  const app_details = listOfApps.map((app)=>{
+    return { "app_name": app,
+     "path": `~/.hcadmin/holochain-download/${app}` }
+  });
+  return app_details;
 }
-
 export default manageAllDownloadedApps;
 
 //////////////////////////////////////////

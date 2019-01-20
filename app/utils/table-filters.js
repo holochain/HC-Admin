@@ -1,8 +1,9 @@
 export const filterApps = (installed_apps, downloaded_apps) => {
   const mergedAppsList = mergeApps(installed_apps,downloaded_apps);
+  return mergedAppsList;
+  
   // const allAppsWithStats = addStats(mergedAppsList,allStats)
   // return allAppsWithStats;
-  return mergedAppsList;
 }
 
 ////////////////////////////////////////////////////////////////////////
