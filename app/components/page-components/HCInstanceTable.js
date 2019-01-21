@@ -16,7 +16,7 @@ import "react-table/react-table.css";
 import routes from '../../constants/routes';
 import { filterApps } from "../../utils/table-filters";
 import manageAllDownloadedApps from "../../utils/helper-functions";
-import { dataRefactor, listInstalledInstances, listDownloadedApps, monitorUninstalledApps } from "../../utils/data-refactor";
+import { dataRefactor, refactorInstanceData, listDownloadedApps, monitorUninstalledApps } from "../../utils/data-refactor";
 // import { hcJoin,hcUninstall,hcStart,hcStop } from "../utils/hc-install";
 // import { getRunningApps,decideFreePort } from "../utils/running-app";
 import InstanceToggleButton from "./InstanceToggleButton"
@@ -40,7 +40,7 @@ console.log("Table Columns Props", props);
     Header: '',
     columns: [{
       Header: 'App Name',
-      accessor: 'appName',
+      accessor: 'dna_id',
       Cell: row => (
         <div style={{ padding: '5px' }}>
         { row.value }
@@ -146,7 +146,7 @@ type HCMonitorTableProps = {
     dna: String,
     agent: String
   }],
-  list_of_instance_info : [{
+  list_of_installed_instances : [{
     id: String,
     dna: String,
     agent: String,
@@ -180,13 +180,13 @@ class HCInstanceTable extends React.Component {
   }
 
   static getDerivedStateFromProps(props, state) {
-    const { list_of_running_instances, list_of_instance_info } = props.containerApiCalls;
+    const { list_of_running_instances, list_of_installed_instances } = props.containerApiCalls;
 
-    if (!list_of_instance_info) {
+    if (!list_of_installed_instances) {
       return null;
     }
     else {
-      const appData = { list_of_instance_info, list_of_running_instances };
+      const appData = { list_of_installed_instances, list_of_running_instances };
       const prevProps = state.prevProps || {};
       const data = prevProps.value !== appData ? appData : state.data
       console.log("data", data);
@@ -204,46 +204,36 @@ class HCInstanceTable extends React.Component {
 
   beginAppMontoring = () => {
     // call for list_of_instances()
-    // this.props.list_of_instances().then(res=>{
-    //   console.log("LIST OF INSTANCE: ",this.props);
-    // })
-    this.props.list_of_instances().then(res => {
-      console.log("Home props after INFO/INSTANCES call", this.props);
-      if(this.props.containerApiCalls.list_of_instance_info) {
-        const installed_instances = this.props.containerApiCalls.list_of_instance_info;
-        // console.log("................installed_instances : ", installed_instances);
-        this.setState({
-          installed_instances
-        });
-
-        // call for LIST_OF_RUNNING_INSTANCES ()
-        this.props.list_of_running_instances().then(res => {
-          console.log("Home props after LIST_OF_RUNNING_INSTANCES call", this.props);
-        })
-
-        console.log("this.state AFTER CONTAINER API CALLS", this.state);
-      }
+    this.props.get_info_instances().then(res=>{
+      console.log("GET INFO INSTANCES: ",this.props);
+    })
+    this.props.list_of_installed_instances().then(res => {
+      console.log("Home props after list_of_installed_instances call", this.props);
+      console.log("this.state AFTER CONTAINER API CALLS", this.state);
+    })
+    // call for LIST_OF_RUNNING_INSTANCES ()
+    this.props.list_of_running_instances().then(res => {
+      console.log("Home props after LIST_OF_RUNNING_INSTANCES call", this.props);
     })
   }
 
   displayData = () => {
     console.log("this.state inside displayData", this.state);
-    if (this.state.installed_instances){
-      const { installed_instances} = this.state;
-      const { list_of_running_instances, list_of_instance_info } = this.props.containerApiCalls;
+    if (this.props.containerApiCalls.list_of_installed_instances){
+      const { list_of_running_instances, list_of_installed_instances ,list_of_instance_info} = this.props.containerApiCalls;
 
       // const filtered_apps = filterApps(installed_apps, downloaded_apps);
-      // const app_data = dataRefactor(list_of_instance_info, list_of_dna, list_of_running_instances, downloaded_apps);
+      // const app_data = dataRefactor(list_of_installed_instances, list_of_dna, list_of_running_instances, downloaded_apps);
       // console.log("App Data: ",app_data);
 
-      const table_dna_instance_info =  listInstalledInstances(list_of_instance_info, list_of_running_instances);
+      const table_dna_instance_info =  refactorInstanceData(list_of_instance_info, list_of_installed_instances, list_of_running_instances);
 
       console.log("DATA GOING TO TABLE >>>> !! table_dna_instance_info !! <<<<<<<< : ", table_dna_instance_info);
       return table_dna_instance_info;
     }
   }
 
-    renderStatusButton = (appName, status, running) => {
+    renderStatusButton = (dna_id, status, running) => {
       const STOPBUTTON=(<button className="StopButton" type="button">Stop</button>);
       const STARTBUTTON=(<button className="StartButton" type="button">Start</button>);
       if(running){
@@ -255,7 +245,7 @@ class HCInstanceTable extends React.Component {
       }
     }
 
-    renderRunningButton = (appName, status, running) => {
+    renderRunningButton = (dna_id, status, running) => {
       const INSTALLBUTTON=(<button className="InstallButton" type="button">Install</button>);
       const UNINSTALLBUTTON=(<button className="InstallButton" type="button">Uninstall</button>);
       if (!running){
@@ -269,7 +259,7 @@ class HCInstanceTable extends React.Component {
 
 
   render() {
-    if (this.state.data.list_of_instance_info.length === 0){
+    if (this.state.data.list_of_installed_instances.length === 0){
       return <div/>
     }
 
@@ -294,10 +284,10 @@ class HCInstanceTable extends React.Component {
                 if (row._original.ui_pairing!==undefined){
                   return (
                     <div style={{ padding: "20px" }}>
-                        UI Link: {row._original.appName}
+                        UI Link: {row._original.dna_id}
                         <br/>
-                        {this.renderStatusButton(row._original.appName,row._original.status,row._original.running)}
-                        {this.renderRunningButton(row._original.appName,row._original.status,row._original.running)}
+                        {this.renderStatusButton(row._original.dna_id,row._original.status,row._original.running)}
+                        {this.renderRunningButton(row._original.dna_id,row._original.status,row._original.running)}
                     </div>
                   );
                 } else if (row._original.dna_dependencies!==undefined) {
@@ -305,11 +295,11 @@ class HCInstanceTable extends React.Component {
                     <div style={{ padding: "20px" }}>
                         DNA Dependencies:
                            <ul>
-                             <li>{row._original.appName} : {row._original.dna}</li>
+                             <li>{row._original.dna_id} : {row._original.dna}</li>
                            </ul>
                         <br/>
-                        {this.renderStatusButton(row._original.appName,row._original.status,row._original.running)}
-                        {this.renderRunningButton(row._original.appName,row._original.status,row._original.running)}
+                        {this.renderStatusButton(row._original.dna_id,row._original.status,row._original.running)}
+                        {this.renderRunningButton(row._original.dna_id,row._original.status,row._original.running)}
                     </div>
                   );
                 }
@@ -318,8 +308,8 @@ class HCInstanceTable extends React.Component {
                     <div style={{ padding: "20px" }}>
                         No DNA Dependencies or UI Pairings
                         <br/>
-                        {this.renderStatusButton(row._original.appName,row._original.status,row._original.running)}
-                        {this.renderRunningButton(row._original.appName,row._original.status,row._original.running)}
+                        {this.renderStatusButton(row._original.dna_id,row._original.status,row._original.running)}
+                        {this.renderRunningButton(row._original.dna_id,row._original.status,row._original.running)}
                     </div>);
                 }
               }}

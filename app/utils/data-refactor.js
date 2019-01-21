@@ -8,7 +8,7 @@ const dataRefactor = (app_details) => {
     // console.log("app", app);
     if (app !== parseInt(app, 10)) {
       const newInstanceObj = {
-        appName: app.appName,
+        dna_id: app.dna_id,
         agent_id: app.agent_id,
         type: app.type,
         hash: app.hash,
@@ -42,9 +42,10 @@ const dataRefactor = (app_details) => {
   }
   return dataGenerate()
 }
-export const listInstalledInstances = (list_of_instance_info, list_of_running_instances) => {
-  // const INSTANCE_INFO_LENGTH = list_of_instance_info.length;
-  console.log("LOGGGGGG::",list_of_instance_info);
+export const refactorInstanceData = (list_of_instance_info, list_of_installed_instances, list_of_running_instances) => {
+  // const INSTANCE_INFO_LENGTH = list_of_installed_instances.length;
+  console.log("list_of_instance_info::",list_of_instance_info);
+  console.log("LOGGGGGG::",list_of_installed_instances);
   console.log("LOGGGGGG Running::",list_of_running_instances);
   const info_instance_log = list_of_instance_info.map((fileInstance) => {
     if (fileInstance !== parseInt(fileInstance, 10)) {
@@ -52,14 +53,30 @@ export const listInstalledInstances = (list_of_instance_info, list_of_running_in
       let status = {};
       let running = {};
 
-      status = {
-        instance: fileInstance.id,
-        dna: {
-          appName:fileInstance.dna,
-          hash: hash
-        },
-        status:"installed"
-      };
+      let check_installed = list_of_installed_instances.find((i_instances)=>{
+        return i_instances.id ===fileInstance.id
+      })
+        if (check_installed===undefined){
+          status = {
+            instance: fileInstance.id,
+            dna: {
+              dna_id:fileInstance.dna,
+              hash: hash
+            },
+            agent_id:fileInstance.agent,
+            status:"uninstalled"
+          };
+      }else{
+        status = {
+          instance: fileInstance.id,
+          dna: {
+            dna_id:fileInstance.dna,
+            hash: hash
+          },
+          agent_id:fileInstance.agent,
+          status:"installed"
+        };
+      }
 
       let check_running = list_of_running_instances.find((ri)=>{
         return ri.id ===fileInstance.id
@@ -79,7 +96,7 @@ export const listInstalledInstances = (list_of_instance_info, list_of_running_in
       }
 
       const newInstanceObj = {
-        appName: fileInstance.dna,
+        dna_id: fileInstance.dna,
         agent_id: fileInstance.agent,
         type: "DNA", // fileInstance.storage.type >>> will this eventually say whether it is a DNA or UI?? or only state "file" ??
         hash,
@@ -119,7 +136,7 @@ export const listInstalledApps = (list_of_instance_info, list_of_running_instanc
           status = {
             instance: instance_info.id,
             dna: {
-              appName:fileInstance.dna,
+              dna_id:fileInstance.dna,
               hash: hash
             },
             status:"installed"
@@ -129,7 +146,7 @@ export const listInstalledApps = (list_of_instance_info, list_of_running_instanc
            status = {
              instance: instance_info.id,
              dna: {
-               appName:fileInstance.dna,
+               dna_id:fileInstance.dna,
                hash: hash
              },
              status:"unknown"
@@ -155,7 +172,7 @@ export const listInstalledApps = (list_of_instance_info, list_of_running_instanc
       }
 
       const newInstanceObj = {
-        appName: fileInstance.dna,
+        dna_id: fileInstance.dna,
         agent_id: fileInstance.agent,
         type: "DNA", // fileInstance.storage.type >>> will this eventually say whether it is a DNA or UI?? or only state "file" ??
         hash,
@@ -182,14 +199,14 @@ export const listDownloadedApps = (downloaded_apps, list_of_instance_info) => {
         status = {
           instance: "N/A",
           dna: {
-            appName: downloaded_apps.app_name,
+            dna_id: downloaded_apps.app_name,
             hash: "N/A"
           },
           status:"uninstalled"
         };
 
         const newDownloadObj = {
-          appName: downloaded_apps.app_name,
+          dna_id: downloaded_apps.app_name,
           agent_id: "N/A",
           type: "DNA", // fileIntance.storage.type >>> wil this eventually say wether it is a DNA or UI?? or only state "file" ??
           hash: "N/A",

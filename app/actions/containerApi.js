@@ -18,7 +18,7 @@ export function list_of_dna() {
 }
 
 // call LIST_OF_INSTANCES ()
-export function list_of_instances() {
+export function list_of_installed_instances() {
   console.log(">> LIST_OF_INSTANCES : payload <<");
   return {
     type: 'LIST_OF_INSTANCES',

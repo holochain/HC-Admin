@@ -38,7 +38,7 @@ const table_columns = (props, state) => {
     Header: '',
     columns: [{
       Header: 'App Name',
-      accessor: 'appName',
+      accessor: 'dna_id',
       Cell: row => (
         <div style={{ padding: '5px' }}>
         { row.value }
@@ -285,7 +285,7 @@ class HCDnaTable extends React.Component {
     }
   }
 
-    renderStatusButton = (appName, status, running) => {
+    renderStatusButton = (dna_id, status, running) => {
       const STOPBUTTON=(<button className="StopButton" type="button">Stop</button>);
       const STARTBUTTON=(<button className="StartButton" type="button">Start</button>);
       if(running){
@@ -297,7 +297,7 @@ class HCDnaTable extends React.Component {
       }
     }
 
-    renderRunningButton = (appName, status, running) => {
+    renderRunningButton = (dna_id, status, running) => {
       const INSTALLBUTTON=(<button className="InstallButton" type="button">Install</button>);
       const UNINSTALLBUTTON=(<button className="InstallButton" type="button">Uninstall</button>);
       if (!running){
@@ -335,10 +335,10 @@ class HCDnaTable extends React.Component {
                 if (row._original.ui_pairing!==undefined){
                   return (
                     <div style={{ padding: "20px" }}>
-                        UI Link: {row._original.appName}
+                        UI Link: {row._original.dna_id}
                         <br/>
-                        {this.renderStatusButton(row._original.appName,row._original.status,row._original.running)}
-                        {this.renderRunningButton(row._original.appName,row._original.status,row._original.running)}
+                        {this.renderStatusButton(row._original.dna_id,row._original.status,row._original.running)}
+                        {this.renderRunningButton(row._original.dna_id,row._original.status,row._original.running)}
                     </div>
                   );
                 } else if (row._original.dna_dependencies!==undefined) {
@@ -346,11 +346,11 @@ class HCDnaTable extends React.Component {
                     <div style={{ padding: "20px" }}>
                         DNA Dependencies:
                            <ul>
-                             <li>{row._original.appName} : {row._original.dna}</li>
+                             <li>{row._original.dna_id} : {row._original.dna}</li>
                            </ul>
                         <br/>
-                        {this.renderStatusButton(row._original.appName,row._original.status,row._original.running)}
-                        {this.renderRunningButton(row._original.appName,row._original.status,row._original.running)}
+                        {this.renderStatusButton(row._original.dna_id,row._original.status,row._original.running)}
+                        {this.renderRunningButton(row._original.dna_id,row._original.status,row._original.running)}
                     </div>
                   );
                 }
@@ -359,8 +359,8 @@ class HCDnaTable extends React.Component {
                     <div style={{ padding: "20px" }}>
                         No DNA Dependencies or UI Pairings
                         <br/>
-                        {this.renderStatusButton(row._original.appName,row._original.status,row._original.running)}
-                        {this.renderRunningButton(row._original.appName,row._original.status,row._original.running)}
+                        {this.renderStatusButton(row._original.dna_id,row._original.status,row._original.running)}
+                        {this.renderRunningButton(row._original.dna_id,row._original.status,row._original.running)}
                     </div>);
                 }
               }}

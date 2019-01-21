@@ -70,16 +70,19 @@ class InstanceToggleButton extends React.Component {
     // call the api to change the status for either installed or running here..
     console.log("ABOUT TO CALL THE ACTION EVENT FOR >> EVENT NAME:", name);
     if (name === "installed") {
-      const { instance } = this.props.installed;
+      const { instance, dna , agent_id } = this.props.installed;
       const instance_id = { id : instance};
+      // const add_instance = { id : instance , dna_id: dna.dna_id, agent_id}
       // console.log("INSTANCEID for uninstall_dna_by_id", instance);
       if (this.props.installed.status === 'installed'){
         this.props.removeInstance(instance_id).then(res=>{
-          console.log("List INSTANCES:: *****",this.props)
+          // console.log("List INSTANCES:: *****",this.props)
         });
       }else{
         // this.addInstance()
-        console.log("TODO: NEED TO INSTALL DNA INSTANCE");
+        this.props.addInstance({ id : instance , dna_id: dna.dna_id, agent_id}).then(res=>{
+          // console.log("Added List INSTANCES:: *****",this.props)
+        });
       }
     }
 
@@ -94,7 +97,6 @@ class InstanceToggleButton extends React.Component {
       }
     }
     this.setState({ [name]: event.target.checked });
-    render()
   };
 
   render() {

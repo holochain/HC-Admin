@@ -180,7 +180,7 @@ type HomeProps = {
   list_of_dna : [],
   list_of_instances : [],
   list_of_running_instances :[],
-  list_of_instance_info : [],
+  list_of_installed_instances : [],
   fetch_state: () => void,
   get_info_instances: () => Promise,
   install_dna_from_file: ()=> Promise
