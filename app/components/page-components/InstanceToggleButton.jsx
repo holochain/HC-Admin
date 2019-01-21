@@ -56,11 +56,11 @@ const styles = theme => ({
   },
 });
 
-class ToggleButton extends React.Component {
+class InstanceToggleButton extends React.Component {
   constructor(props: any) {
     super(props);
     this.state = {
-      row: this.props.uninstallInstance ? `installed` : `running`,
+      row: this.props.removeInstance ? `installed` : `running`,
       installed: false,
       running: false
     }
@@ -69,52 +69,42 @@ class ToggleButton extends React.Component {
   handleChange = name => event => {
     // call the api to change the status for either installed or running here..
     console.log("ABOUT TO CALL THE ACTION EVENT FOR >> EVENT NAME:", name);
-    if (this.props.uninstallInstance && name === "installed") {
+    if (name === "installed") {
       const { instance } = this.props.installed;
       const instance_id = { id : instance};
       // console.log("INSTANCEID for uninstall_dna_by_id", instance);
-
-      this.props.listInstances().then(res => {
-        console.log("INFO INSTANCES RES: ", res);
-        for(let resInstance of res) {
-          if (resInstance.id === instance){
-            this.props.uninstallInstance(instance_id);
-          }
-          else {
-            const { app_name } = this.props.downloaded;
-            const path_of_file = `~/.hcadmin/holochain-download/${app_name}`;
-            console.log("{...instance_id, path: path_of_file}", {...instance_id, path: path_of_file});
-            this.props.installInstance({...instance_id, path: path_of_file});
-          }
-        }
-     })
-
+      if (this.props.installed.status === 'installed'){
+        this.props.removeInstance(instance_id).then(res=>{
+          console.log("List INSTANCES:: *****",this.props)
+        });
+      }else{
+        // this.addInstance()
+        console.log("TODO: NEED TO INSTALL DNA INSTANCE");
+      }
     }
+
     else if (this.props.stopInstance && name === "running"){
       const { instance } = this.props.running;
       const instance_id = { id : instance};
-
-      this.props.runningInstances().then(res => {
-        console.log("RUNNING INSTATANCES RES: ", res);
-        if (resInstance.id === instance){
-          this.props.stopInstance(instance_id)
-        }
-        else {
+      console.log("STATUS::",this.props.running.running);
+      if (this.props.running.running){
+      this.props.stopInstance(instance_id)
+      }else{
           this.props.startInstance(instance_id);
-        }
-     })
+      }
     }
     this.setState({ [name]: event.target.checked });
+    render()
   };
 
   render() {
     const { classes, running, installed, downloaded } = this.props;
-    console.log("togglebutton props", this.props);
-    console.log("ToggleButton state", this.state);
+    console.log("InstanceToggleButton props", this.props);
+    console.log("InstanceToggleButton state", this.state);
+    console.log("installed state", this.props.installed );
+    console.log("running state", this.props.running );
 
-    console.log("CHECKED? : ", this.props.uninstallInstance ?
-      this.props.installed.status === "installed" ? true : false
-      : this.props.running.running);
+    let checkedStatus = this.props.removeInstance ? this.props.installed.status === "installed" ? true : false : this.props.running.running;
 
     return (
       <FormControlLabel
@@ -128,12 +118,9 @@ class ToggleButton extends React.Component {
           checked: classes.installedTrue,
         }}
         disableRipple
-        checked={ this.props.uninstallInstance ?
-          this.props.installed.status === "installed" ? true : false
-          : this.props.running.running
-        }
-        onChange={this.handleChange(`${this.props.uninstallInstance ? `installed` : `running`}`)}
-        value={this.props.uninstallInstance ? this.state.installed : this.state.running}
+        checked={ checkedStatus }
+        onChange={this.handleChange(`${this.props.removeInstance ? `installed` : `running`}`)}
+        value={this.props.removeInstance ? this.state.installed : this.state.running}
         />
       }
     />
@@ -141,27 +128,4 @@ class ToggleButton extends React.Component {
 }
 
 
-export default withStyles(styles)(ToggleButton);
-// label={this.state.row === "installed" ?
-//     this.state.installed === true ? `Installed`: `Uninstalled`
-//   : this.state.running === true ? `Running`: `Stopped`
-// }
-
-
-// menu >> toggle button
-// <h5>
-// {
-//   row.value === true ? `Installed`
-//   : row.value === false ? `Uninstalled`
-//   : 'Unknown'
-// }
-// </h5>
-
-// <h5>
-// {
-//    row.value === true ? `Running`
-//   : row.value === false ? `Stopped`
-//   : 'Unknown'
-// }
-// }
-// </h5>
+export default withStyles(styles)(InstanceToggleButton);

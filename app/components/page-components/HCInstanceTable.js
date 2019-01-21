@@ -19,7 +19,7 @@ import manageAllDownloadedApps from "../../utils/helper-functions";
 import { dataRefactor, listInstalledInstances, listDownloadedApps, monitorUninstalledApps } from "../../utils/data-refactor";
 // import { hcJoin,hcUninstall,hcStart,hcStop } from "../utils/hc-install";
 // import { getRunningApps,decideFreePort } from "../utils/running-app";
-import ToggleButton from "./ToggleButton"
+import InstanceToggleButton from "./InstanceToggleButton"
 import logo from '../../assets/icons/HC_Logo.svg';
 // MUI Imports:
 import { withStyles } from '@material-ui/core/styles';
@@ -31,7 +31,7 @@ const table_columns = (props, state) => {
 
 
 console.log("Table Columns Props", props);
-  // console.log("Table Columns State", state);
+  console.log("Table Columns State", state);
   //
   // const currentRowInstance = row._original.instanceId
   // console.log("Table Columns Row info", currentRowInstance);
@@ -95,12 +95,11 @@ console.log("Table Columns Props", props);
           </span>
         { " " + row.value.status }
           <br/>
-          <ToggleButton
+          <InstanceToggleButton
             installed={row.value}
-            downloaded={state.downloaded_apps}
-            listInstances={props.get_info_instances}
-            uninstallInstance={props.uninstall_dna_by_id}
-            installInstance={props.install_dna_from_file}
+            listInstances={props.list_of_instances}
+            removeInstance={props.remove_agent_dna_instance}
+            addInstance={props.add_agent_dna_instance}
           />
         </div>
       )
@@ -118,7 +117,7 @@ console.log("Table Columns Props", props);
           </span>
           { " " + row.value.running }
           <br/>
-          <ToggleButton
+          <InstanceToggleButton
             running={row.value}
             listRunningInstances={props.list_of_running_instances}
             stopInstance={props.stop_agent_dna_instance}
@@ -157,7 +156,7 @@ type HCMonitorTableProps = {
     // }
   }],
   fetch_state: () => void,
-  get_info_instances: () => Promise,
+  list_of_instances: () => Promise,
 };
 
 type HCMonitorTableState = {
@@ -204,8 +203,11 @@ class HCInstanceTable extends React.Component {
   // }
 
   beginAppMontoring = () => {
-    // call for GET_INFO_INSTANCES()
-    this.props.get_info_instances().then(res => {
+    // call for list_of_instances()
+    // this.props.list_of_instances().then(res=>{
+    //   console.log("LIST OF INSTANCE: ",this.props);
+    // })
+    this.props.list_of_instances().then(res => {
       console.log("Home props after INFO/INSTANCES call", this.props);
       if(this.props.containerApiCalls.list_of_instance_info) {
         const installed_instances = this.props.containerApiCalls.list_of_instance_info;

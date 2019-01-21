@@ -44,60 +44,38 @@ const dataRefactor = (app_details) => {
 }
 export const listInstalledInstances = (list_of_instance_info, list_of_running_instances) => {
   // const INSTANCE_INFO_LENGTH = list_of_instance_info.length;
+  console.log("LOGGGGGG::",list_of_instance_info);
+  console.log("LOGGGGGG Running::",list_of_running_instances);
   const info_instance_log = list_of_instance_info.map((fileInstance) => {
     if (fileInstance !== parseInt(fileInstance, 10)) {
       let hash = "";
       let status = {};
       let running = {};
 
+      status = {
+        instance: fileInstance.id,
+        dna: {
+          appName:fileInstance.dna,
+          hash: hash
+        },
+        status:"installed"
+      };
 
-      // for (let file of list_of_dna) {
-      //   if (fileInstance.dna === file.id) {
-      //     hash = file.hash;
-      //   }
-      //   else {
-      //     hash = "unknown";
-      //   }
-      // }
-
-      for (let instance_info of list_of_instance_info) {
-        if (fileInstance.id === instance_info.id) {
-          status = {
-            instance: instance_info.id,
-            dna: {
-              appName:fileInstance.dna,
-              hash: hash
-            },
-            status:"installed"
-          };
-         }
-         else {
-           status = {
-             instance: instance_info.id,
-             dna: {
-               appName:fileInstance.dna,
-               hash: hash
-             },
-             status:"unknown"
-           };
-         }
-      }
-
-      for (let running_instance of list_of_running_instances) {
-        if (fileInstance.id === running_instance.id) {
-          running = {
-            instance: fileInstance.id,
-            dna: hash,
-            running : true
-          };
-        }
-        else {
-          running = {
-            instance: fileInstance.id,
-            dna: hash,
-            running : false
-          };
-        }
+      let check_running = list_of_running_instances.find((ri)=>{
+        return ri.id ===fileInstance.id
+      })
+        if (check_running===undefined){
+            running = {
+              instance: fileInstance.id,
+              dna: hash,
+              running : false
+            };
+      }else{
+        running = {
+           instance: fileInstance.id,
+           dna: hash,
+           running : true
+         };
       }
 
       const newInstanceObj = {

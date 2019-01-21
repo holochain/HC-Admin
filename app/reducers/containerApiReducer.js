@@ -27,7 +27,7 @@ export default function(state = INITIAL_STATE, action: Action) : State {
 // LIST_OF_INSTANCES
     case 'LIST_OF_INSTANCES_SUCCESS': {
       console.log("LIST_OF_INSTANCES_SUCCESS payload", payload);
-      return { ...state, list_of_instances : payload };
+      return { ...state, list_of_instance_info : payload };
     }
 
 // LIST_OF_RUNNING_INSTANCES
@@ -38,7 +38,7 @@ export default function(state = INITIAL_STATE, action: Action) : State {
 
 // GET_INFO_INSTANCE
     case 'GET_INFO_INSTANCES_SUCCESS': {
-      // console.log("GET_INFO_INSTANCES_SUCCESS payload", payload);
+      console.log("GET_INFO_INSTANCES_SUCCESS payload", payload);
 
       // const list_of_instance_info = JSON.parse(payload);
       // console.log("Parsed REDUCER VERSION OF >>>> info_instances <<<<<", list_of_instance_info);
