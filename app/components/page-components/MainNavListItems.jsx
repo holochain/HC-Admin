@@ -53,14 +53,13 @@ class MainListItems extends React.Component {
      if (uploadFile === true) {
        // make Container API call to uplaod the file with the given path..
        const dna_file = {
-        id: "app spec :: DNA id example", // this should be the file name
+        id: fileName, // this should be the file name
         path: filePath
       };
 
       console.log(">>>>>>>>>. !! dna_file DELIVERED to install_dna_from_file !! <<<<<<<<<<<");
       this.props.install_dna_from_file(dna_file).then(res => {
-        this.state({message: "Your app was successfully installed.." })
-        this.props.
+        this.setState({message: "Your app was successfully installed.." })
         console.log("YOUR APP SHOULD BE INSTALLED..");
       });
      }
