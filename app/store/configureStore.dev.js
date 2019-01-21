@@ -4,8 +4,9 @@ import { createHashHistory } from 'history';
 import { routerMiddleware, routerActions } from 'connected-react-router';
 import { createLogger } from 'redux-logger';
 import createRootReducer from '../reducers';
-import * as helloWorldActions from '../actions/helloWorld';
-import type { counterStateType } from '../reducers/types';
+import * as helloWorldActions from '../actions/references/helloWorld';
+import * as containerApiActions from '../actions/containerApi';
+import type { counterStateType } from '../reducers/references/types';
 
 // ** Middleware for HC Rust Container Communication ** >> Reference Holochain-UI //
 import { holochainMiddleware } from '@holochain/hc-redux-middleware'
@@ -44,6 +45,7 @@ const configureStore = (initialState?: counterStateType) => {
 
   // Redux DevTools Configuration
   const actionCreators = {
+    ...containerApiActions,
     ...helloWorldActions,
     ...routerActions
   };

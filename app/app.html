@@ -2,7 +2,13 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>HC Installer</title>
+    <title>HC Admin</title>
+
+  <!-- TODO: Review Tab enablement further >> Chrome Tab Enablement -->
+    <!-- <script src="https://unpkg.com/draggabilly@2.1.1/dist/draggabilly.pkgd.min.js"></script>
+    <script src="js/chrome-tabs.js"></script> -->
+
+    <!-- Super Style Script File Creation -->
     <script>
       (function() {
         if (!process.env.HOT) {
@@ -41,6 +47,11 @@
             .map(script => `<script defer src="${script}"><\/script>`)
             .join('')
         );
+
+        document.addEventListener("DOMContentLoaded", function(){
+          // add custom rounded corners to window...
+          document.getElementById("root").style.borderRadius = "5%";
+        });
       }
     </script>
   </body>

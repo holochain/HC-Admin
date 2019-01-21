@@ -1,0 +1,13 @@
+.loader-container {
+  text-align: center;
+}
+
+.loader {
+  animation: App-logo-spin  1s infinite linear;
+  height: 175px;
+}
+
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}

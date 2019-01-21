@@ -1,0 +1,20 @@
+.react-table-style .-striped .-highlight {
+  border: 1px solid #999ca7;
+  box-shadow: 2px solid whitesmoke;
+  background: #eee;
+}
+
+.ReactTable .-pagination .-btn {
+  background: #00838c;
+  color: #eee;
+}
+
+.ReactTable .-pagination input, .ReactTable .-pagination select {
+  background: #e4e4e4;
+  color: #282a2f;
+}
+
+.ReactTable .rt-thead.-header {
+  color: #eee;
+  background: #00838c !important;
+}

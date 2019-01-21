@@ -1,0 +1,135 @@
+.form-container {
+  font-family:'helvetica neue';
+  font-size: 20px;
+  font-weight: 200;
+}
+
+.image {
+  width: 100%;
+  height: 100vh;
+  box-sizing: border-box;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+@keyframes fade-in-zoom-out {
+  0% {
+    transform: scale(.9);
+  }
+  50% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(.9);
+  }
+}
+
+.overlay {
+  position: absolute;
+  bottom: 30vh;
+  left: 0;
+  right: 0;
+  background-color: #b3c0d1;
+  border: 10px solid #526b8b;
+  opacity: .9;
+  overflow: hidden;
+  width: 60%;
+  height: 60%;
+  transform: scale(.9);
+  transition: .3s ease;
+}
+
+.container:hover .overlay {
+  transform: scale(1);
+}
+
+.text {
+  color: white;
+  font-size: 20px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.title-part1 {
+  margin-bottom: 15px;
+  font-size: 1.4em;
+}
+
+.title-part2 {
+  font-size: 3em;
+  margin: 25px 5px 30px 5px;
+}
+
+.form-instructions {
+  margin-bottom: 10px;
+}
+
+.register-form {
+  margin: 10px
+}
+
+.register-form-label {
+  font-weight: 600;
+}
+
+.register-form-input {
+  margin-top: 10px;
+}
+
+.register-button {
+  color: #eee;
+  background: #526b8b;
+  width: 80px;
+  padding: 5px;
+}
+
+.register-email-input {
+  width: 60%;
+  border-radius: 2px;
+}
+
+.register-jwt-input {
+  border-radius: 2px;
+}
+
+/* ////////////////////////////////////// */
+/*  REVIEW AND AMMEND THE BELOW: */
+/* /////////////////////////////////////// */
+.login-div {
+    width: 80%;
+    margin: 5% 10% auto 10%;
+}
+
+.login-div .btn-block {
+    margin-right: 39%;
+    margin-left: 39%;
+}
+
+.login-form {
+    border: 1px solid #222222;
+    border-radius: 6px;
+    padding: 3%;
+    margin: 3%;
+}
+
+.login-btn {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.login-box1, .login-box2 {
+    display: grid;
+    grid-template-columns: 1.5fr 4fr;
+    padding: 2% 3% 2% 3%;
+}
+
+.login-box1 label, .login-box2 label {
+    line-height: 8vh;
+}

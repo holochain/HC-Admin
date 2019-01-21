@@ -1,20 +1,23 @@
 import * as React from 'react';
 import { Switch, Route } from 'react-router';
 import routes from './constants/routes';
-import App from './containers/App';
-import WelcomePage from './containers/WelcomePage';
-import HelloWorldPage from './containers/HelloWorldPage';
-import CoreAppSelectionPage from './containers/CoreAppSelectionPage';
 
-import Home from './containers/HomePage';
+import CoreAppSelectionPage from './containers/references/CoreAppSelectionPage';
+
+import ErrorPage from './components/pages/ErrorPage';
+import HCMonitorTablePageContainer from './containers/HCMonitorTablePageContainer';
+import AppRenderer from './containers/AppRenderer';
 
 export default () => (
-  <App>
+  <AppRenderer>
     <Switch>
-      // <Route path={routes.HELLOWORLD} component={HelloWorldPage} />
-      // <Route path={routes.COREAPPS} component={CoreAppSelectionPage} />
-      // <Route path={routes.WELCOME} component={WelcomePage} />
-      <Route path={routes.HOME} component={Home} />
+      // <Route exact path={routes.COREAPPS} component={CoreAppSelectionPage} />
+      <Route exact path={routes.UI} component={HCMonitorTablePageContainer} />
+      <Route exact path={routes.DNA} component={HCMonitorTablePageContainer} />
+      <Route exact path={routes.INSTANCE} component={HCMonitorTablePageContainer} />
+      <Route  path={routes.ERROR} component={ErrorPage} />
     </Switch>
-  </App>
+  </AppRenderer>
 );
+
+// <Route exact path={routes.HCMONITORTABLE} component={HCMonitorTablePageContainer} />

@@ -1,22 +1,3 @@
-///////////////////////////////////////////
-      /* Working Container APIs*/
-///////////////////////////////////////////
-// [x]  admin/dna/list()
-// [x]  ~ !! admin/instance/list()
-// [x]  ~ !! admin/instance/running()
-// [x]  info/instances()
-
-// [x]  admin/instance/add({id, dna_id, agent_id})
-// [x]  admin/instance/remove({id})
-// [x]  admin/dna/install_from_file({id, path})
-// [x]  admin/dna/uninstall({id})
-// [x]  ~ !! admin/instance/start({id})
-// [x]  ~ !! admin/instance/stop({id})
-
-// NB: Be sure to set `admin = true` in container basic.toml config
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-// import { getInstance } from '../utils/hc-web-client'
 export const FETCH_STATE = 'FETCH_STATE';
 export const GET_INFO_INSTANCES = 'GET_INFO_INSTANCES';
 
@@ -37,7 +18,7 @@ export function list_of_dna() {
 }
 
 // call LIST_OF_INSTANCES ()
-export function list_of_instances() {
+export function list_of_installed_instances() {
   console.log(">> LIST_OF_INSTANCES : payload <<");
   return {
     type: 'LIST_OF_INSTANCES',
@@ -74,6 +55,18 @@ export function get_info_instances() {
   }
 }
 
+// call LIST_OF_INTERFACES ()
+export function list_of_insterfaces() {
+  console.log(">> LIST_OF_INTERFACES : payload <<");
+  return {
+    type: 'LIST_OF_INTERFACES',
+    payload: [],
+    meta: {
+    	holochainAction: true,
+    	callString: `admin/interface/list`
+    }
+  }
+}
 
 ////////////////////////////////////////////////////////
     /* Updating Container DNAs/DNA-instances */
@@ -155,21 +148,66 @@ export function stop_agent_dna_instance(payload) {
     }
   }
 }
+// STARTS INTERFACE:
+// call START_INTERFACE ()
+export function start_interface() {
+  console.log(">> START_INTERFACE <<");
+  return {
+    type: 'START_INTERFACE',
+    payload,
+    meta: {
+    	holochainAction: true,
+    	callString: `admin/interface/add`
+    }
+  }
+}
 
-///////////////////////////////////////////
-// call for zome: `happ/zome/capability/func`
-// export function call_zome_instance_func() {
-//   console.log(">>ZOME Action Called <<");
-//   return {
-//     type: 'CALL_ZOME_FUNC',
-//     payload: {content:"lisa", in_reply_to:"zoel"},
-//     meta: {
-//       holochainAction: true,
-//       callString: 'QmcAGmNL4TMvqB15odK23X7X7N4GYoZCFAUnXcwY4m2EcB/blog/main/create_post'
-//     }
-//   }
-// }
-///////////////////////////////////////////
+// STOPS INTERFACE
+// call STOP_INTERFACE ()
+export function stop_interface() {
+  console.log(">> ST0P_INTERFACE <<");
+  return {
+    type: 'ST0P_INTERFACE',
+    payload,
+    meta: {
+    	holochainAction: true,
+    	callString: `admin/interface/remove`
+    }
+  }
+}
+
+// ADDS INTANCE TO INTERFACE
+// call ADD_INTERFACE_INSTANCE ()
+// NB: This call restarts the interface FIRST, to get change in effect
+export function add_interface_instance(payload) {
+  console.log(">> ADD_INTERFACE_INSTANCE : payload <<");
+  return {
+    type: 'ADD_INTERFACE_INSTANCE',
+    payload,
+    meta: {
+    	holochainAction: true,
+    	callString: `admin/interface/add_instance `
+    }
+  }
+}
+
+// REMOVES INSTANCE FROM INTERFACE
+// call REMOVE_INTERFACE_INSTANCE ()
+// NB: This call restarts the interface FIRST, to get change in effect
+export function remove_interface_instance(payload) {
+  console.log(">> REMOVE_INTERFACE_INSTANCE : payload <<");
+  return {
+    type: 'REMOVE_INTERFACE_INSTANCE',
+    payload,
+    meta: {
+    	holochainAction: true,
+    	callString: `admin/interface/remove_instance `
+    }
+  }
+}
+
+
+/////////////////////////////////////////////////////////////////////////
 
 // state check
 export function fetch_state() {
@@ -177,3 +215,28 @@ export function fetch_state() {
     type: FETCH_STATE
   };
 }
+
+/////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////
+      /* Working Container APIs*/
+///////////////////////////////////////////
+// [x]  admin/dna/list()
+// [x]  ~ !! admin/instance/list()
+// [x]  ~ !! admin/instance/running()
+// [x]  info/instances()
+
+// [x]  admin/instance/add({id, dna_id, agent_id})
+// [x]  admin/instance/remove({id})
+// [x]  admin/dna/install_from_file({id, path})
+// [x]  admin/dna/uninstall({id})
+// [x]  ~ !! admin/instance/start({id})
+// [x]  ~ !! admin/instance/stop({id})
+
+// [ ] admin/interface/add (starts the interface)
+// [ ] admin/interface/remove (stops the interface)
+// [ ] admin/interface/add_instance (restarts the interface to get change in effect)
+// [ ] admin/interface/remove_instance (restarts the interface to get change in effect)
+// [ ] admin/interface/list
+
+// NB: Be sure to set `admin = true` in container basic.toml config
+/////////////////////////////////////////////////////////////////////////

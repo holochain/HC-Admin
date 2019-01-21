@@ -4,12 +4,11 @@ const INITIAL_STATE : State = {
  list_of_dna : [],
  list_of_instances : [],
  list_of_running_instances :[],
- list_of_instance_info : []
+ list_of_installed_instances : [],
+ list_of_interfaces : []
 }
 
 export default function(state = INITIAL_STATE, action: Action) : State {
-  // console.log(">>>>>>>>>>>>>>>REDUCER",action);
-
   const { type, payload } = action
   switch (type) {
     case FETCH_STATE: {
@@ -22,13 +21,13 @@ export default function(state = INITIAL_STATE, action: Action) : State {
     // LIST_OF_DNA
     case 'LIST_OF_DNA_SUCCESS': {
       console.log("LIST_OF_DNA_SUCCESS payload", payload);
-      return { ...state, list_of_dna : false };
+      return { ...state, list_of_dna : payload };
     }
 
 // LIST_OF_INSTANCES
     case 'LIST_OF_INSTANCES_SUCCESS': {
       console.log("LIST_OF_INSTANCES_SUCCESS payload", payload);
-      return { ...state, list_of_instances : payload };
+      return { ...state, list_of_installed_instances : payload };
     }
 
 // LIST_OF_RUNNING_INSTANCES
@@ -40,9 +39,16 @@ export default function(state = INITIAL_STATE, action: Action) : State {
 // GET_INFO_INSTANCE
     case 'GET_INFO_INSTANCES_SUCCESS': {
       console.log("GET_INFO_INSTANCES_SUCCESS payload", payload);
-      const list_of_instance_info = JSON.parse(payload);
-      console.log("REDUCER VERSION OF >>>> info_instances <<<<<", list_of_instance_info);
-      return { ...state, list_of_instance_info };
+
+      // const list_of_installed_instances = JSON.parse(payload);
+      // console.log("Parsed REDUCER VERSION OF >>>> info_instances <<<<<", list_of_installed_instances);
+      return { ...state, list_of_instance_info : payload };
+    }
+
+// LIST_OF_INTERFACES
+    case 'LIST_OF_INTERFACES_SUCCESS': {
+      console.log("LIST_OF_INTERFACES_SUCCESS payload", payload);
+      return { ...state, list_of_interfaces : payload };
     }
 
 ////////////////////////////////////////////////////////
@@ -114,17 +120,53 @@ export default function(state = INITIAL_STATE, action: Action) : State {
       return { ...state };
     }
 
-    ///////////////////////////////////////////
-    // case 'CALL_ZOME_FUNC_SUCCESS': {
-    //   console.log("CALL_HOLOCHAIN_FUNC_SUCCESS state", payload);
-    //   return { ...state};
-    // }
-    //
-    // case 'CALL_ZOME_FUNC_FAILURE': {
-    //   console.log("CALL_ZOME_FUNC_FAILURE state", payload);
-    //   return { ...state};
-    // }
-    ///////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+                  // INTERFACE API calls
+////////////////////////////////////////////////////////////////////////
+    // START_INTERFACE
+    case 'START_INTERFACE_SUCCESS': {
+      console.log("START_INTERFACE_SUCCESS payload", payload);
+      return { ...state };
+    }
+
+    case 'START_INTERFACE_FAILURE': {
+      console.log("START_INTERFACE_FAILURE payload", payload);
+      return { ...state };
+    }
+
+    // STOP_INTERFACE
+    case 'STOP_INTERFACE_SUCCESS': {
+      console.log("STOP_INTERFACE_SUCCESS payload", payload);
+      return { ...state };
+    }
+
+    case 'STOP_INTERFACE_FAILURE': {
+      console.log("STOP_INTERFACE_FAILURE payload", payload);
+      return { ...state };
+    }
+
+    // ADD_INTERFACE_INSTANCE
+    case 'ADD_INTERFACE_INSTANCE_SUCCESS': {
+      console.log("ADD_INTERFACE_INSTANCE_SUCCESS payload", payload);
+      return { ...state };
+    }
+
+    case 'ADD_INTERFACE_INSTANCE_FAILURE': {
+      console.log("ADD_INTERFACE_INSTANCE_FAILURE payload", payload);
+      return { ...state };
+    }
+
+    // REMOVE_INTERFACE_INSTANCE
+    case 'REMOVE_INTERFACE_INSTANCE_SUCCESS': {
+      console.log("REMOVE_INTERFACE_INSTANCE_SUCCESS payload", payload);
+      return { ...state };
+    }
+
+    case 'REMOVE_INTERFACE_INSTANCE_FAILURE': {
+      console.log("REMOVE_INTERFACE_INSTANCE_FAILURE payload", payload);
+      return { ...state };
+    }
+
     default:
       return state
   }

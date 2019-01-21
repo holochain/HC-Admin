@@ -1,6 +1,8 @@
 {
-  "HELLOWORLD" : "/helloworld",
+  "INSTALL" : "/install",
+  "UI": "/ui",
+  "HELP": "/help",
   "COREAPPS": "/coreappselection",
-  "WELCOME": "/Welcome",
-  "HOME": "/"
+  "INSTANCE": "/instances",
+  "DNA": "/"
 }

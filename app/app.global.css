@@ -4,9 +4,10 @@
  */
 
 @import "../node_modules/react-table/react-table.css";
+@import "../node_modules/typeface-raleway/index.css";
+/* @import "~typeface-raleway"; */
 
 @import "~@fortawesome/fontawesome-free/css/all.css";
-@import "~typeface-raleway";
 
 /* Animations */
 /* @keyframes holo-lamp {
@@ -20,6 +21,14 @@
   100% { background-image: linear-gradient(45deg,rgba(0, 1, 127, 0.7), rgba(0, 216, 255, 0.5) 55%, rgba(0, 1, 127, 0.7)); }
 }
 
+22272ceb
+
+@keyframes holo-motion {
+  0%   { background-position: 0% 95%; }
+  50%  { background-position: 35% 19%; }
+  100% { background-position: 0% 95%; }
+}
+
 @keyframes App-logo-spin {
   from { transform: rotate(0deg);}
   to {transform: rotate(360deg);}
@@ -30,11 +39,12 @@ body {
   position: relative;
   height: 100vh;
   color: white;
+  font-size: 16px;
   font-family: Raleway, sans-serif;
   letter-spacing: -0.025em;
-  font-weight: lighter;
-  background-color: #232c39;
-  background-image: linear-gradient(45deg, rgba(0, 216, 255, 0.5) 10%, rgba(0, 1, 127, 0.7));
+  font-weight: bolder;
+  background-color: #00017fb3;
+  background-image: linear-gradient(45deg, #00017fb3 10%, #00017fb3);
   /* animation: holo-lamp infinite 90s linear; */
   overflow-y: hidden;
   overflow-x: hidden;
@@ -126,7 +136,6 @@ h1, h2, h3, h4, h5, h6 {
 
  .App-logo {
    animation: App-logo-spin infinite 20s linear;
-   height: 80px;
  }
 
  .App-header {
@@ -149,6 +158,63 @@ h1, h2, h3, h4, h5, h6 {
      transform: rotate(360deg);
    }
  }
+
+.ReactTable {
+  background: transparent; /* a ver... */
+  margin-top: 50px;
+  box-shadow:-2px 3px 11px 2px #111a58eb, 2px -2px 9px 5px #111a58eb,-1px -5px 27px 2px #111a58eb;
+}
+
+.ReactTable .-pagination .-btn {
+  background: #00838c;
+  color: #eee;
+}
+
+.ReactTable .-pagination input, .ReactTable .-pagination select {
+  background: #e4e4e4;
+  color: #282a2f;
+}
+
+.rt-thead {
+  color: rgb(149, 185, 237);
+  background: #111a58eb;
+  /* background: linear-gradient(45deg, #48497cb3 10%,  #111a58eb) !important; */
+}
+
+.-header {
+  color: rgb(149, 185, 237);
+  background: #47499063 !important; /* 00838c */
+  font-size: 19px;
+  padding: 10px;
+}
+
+.-even {
+  color: #567dbb;
+  background: #47499063 !important;
+  /* background: transparent; */
+
+  /* text-align: left; */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.-odd {
+  color: #567dbb;
+  background: #111a58eb,
+  /* background: linear-gradient(45deg, #48497cb3 10%,  #111a58eb) !important; */
+  /* #08125feb  030831eb */
+  /* text-align: left; */
+
+  /* white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; */
+}
+
+.MuiListItem-root-105 {
+ display: inline !important;
+}
+
 
  .InstallButton {
    background: #073763;
@@ -188,3 +254,9 @@ h1, h2, h3, h4, h5, h6 {
    text-align: center;
    text-shadow: 0px 0px #ffff00;
  }
+
+ /* #holoMotion {
+   background-image: linear-gradient(240deg, #9900ff, #8500ff, #6600ff, #3d65d6, #21acba, #10d6a9, #0fe19f, #10d6a9, #21acba, #3d65d6, #6600ff, #8500ff, #9900ff);
+   -webkit-animation: HoloMotion 30s linear infinite;
+   animation: HoloMotion 30s linear infinite;
+ } */
