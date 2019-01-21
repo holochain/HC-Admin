@@ -53,7 +53,7 @@ class MainListItems extends React.Component {
      if (uploadFile === true) {
        // make Container API call to uplaod the file with the given path..
        const dna_file = {
-        id: "app spec :: DNA id example",
+        id: "app spec :: DNA id example", // this should be the file name
         path: filePath
       };
 
@@ -78,7 +78,7 @@ class MainListItems extends React.Component {
       <div>
         <br />
         <ListItem style={{paddingTop: "10px"}} button={button}>
-          <Link to={routes.UITABLE}>
+          <Link to={routes.UI}>
             <ListItemIcon style={{color:"#0e88efde"}}>
               <DashboardIcon />
             </ListItemIcon>
@@ -88,7 +88,7 @@ class MainListItems extends React.Component {
           </Link>
         </ListItem>
         <ListItem style={{paddingTop: "45px"}} button={button}>
-          <Link to={routes.DNATABLE}>
+          <Link to={routes.DNA}>
             <ListItemIcon style={{color:"#0e88efde"}}>
               <LayersIcon />
             </ListItemIcon>
@@ -108,7 +108,7 @@ class MainListItems extends React.Component {
         </Link>
         </ListItem>
         <ListItem style={{paddingTop: "45px"}} button={button} onClick={() => this.handleClick()}>
-          <input id="linkUpload" type="file" accept=".zip" name="fileInput" onChange={this.handleUpload} ref="fileInput" style={{display:"none"}}/>
+          <input id="linkUpload" type="file" accept=".hcpkg" name="fileInput" onChange={this.handleUpload} ref="fileInput" style={{display:"none"}}/>
             <Button variant="contained" color="default" style={{ marginRight: "5px", background:"#95b9ed" }} autoFocus>
               <CloudUploadIcon style={{ background:"#95b9ed" }}  />
               <Typography style={{ marginRight: "5px"}}  variant="subheading">

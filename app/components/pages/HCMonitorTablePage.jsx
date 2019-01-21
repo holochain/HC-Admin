@@ -2,7 +2,8 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import HCMonitorTable from '../page-components/HCMonitorTable';
+import HCDnaTable from '../page-components/HCDnaTable';
+import HCInstanceTable from '../page-components/HCInstanceTable';
 import Dashboard from '../page-components/Dashboard'
 import * as ContainerApiActions from '../../actions/containerApi';
 import { withStyles } from '@material-ui/core/styles';
@@ -26,16 +27,26 @@ class HCMonitorTablePage extends Component<Props> {
   render() {
     const { classes } = this.props;
     const gutterBottom : boolean = true;
-
+    const {location} = this.props.history;
+    console.log(">>>> location: >>>", location);
     return (
       <Dashboard {...this.props}>
         <main className={classes.content}>
           <div className={classes.appBarSpacer} />
           <Typography className={classes.mainHeader} style={{color:"rgb(149, 185, 237)", fontFamily:"Raleway"}} variant="display1" gutterBottom={gutterBottom} component="h2" >
-            {this.props.history.location === "/UI" ? `UI`: `DNA` } Overview Table
+            {location.pathname === "/" ? `Instance`: location.pathname.toString().toUpperCase() } Overview Table
           </Typography>
           <div className={classes.tableContainer}>
-            <HCMonitorTable className={classes.appTable} {...this.props} />
+          {location.pathname === "/" ?
+            <HCInstanceTable className={classes.appTable} {...this.props} />
+          :
+            location.pathname === "/dna" ?
+            // this should be the dna table
+            <HCDnaTable className={classes.appTable} {...this.props} />
+          :
+            // this should be the ui table
+            <HCDnaTable className={classes.appTable} {...this.props} />
+          }
           </div>
         </main>
       </Dashboard>

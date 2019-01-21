@@ -12,7 +12,7 @@ type Props = {
   install_dna_from_file: ()=> Promise
 };
 
-class HomePageContainer extends Component<Props> {
+class HCMonitorTablePageContainer extends Component<Props> {
   constructor(props:Props){
     super(props);
   };
@@ -32,4 +32,4 @@ class HomePageContainer extends Component<Props> {
     return bindActionCreators(ContainerApiActions, dispatch);
   }
 
-  export default connect(mapStateToProps, mapDispatchToProps)(HomePageContainer);
+  export default connect(mapStateToProps, mapDispatchToProps)(HCMonitorTablePageContainer);

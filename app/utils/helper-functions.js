@@ -6,6 +6,7 @@ export const handleCloseWindow = () => {
 };
 
 const manageAllDownloadedApps=(allApps)=>{
+  console.log("helper function manageAllDownloadedApps...");
   let listOfApps = allApps.split("\n");
   listOfApps = listOfApps.filter((app)=>{
     return app !== "";

@@ -40,12 +40,12 @@ export default function(state = INITIAL_STATE, action: Action) : State {
     case 'GET_INFO_INSTANCES_SUCCESS': {
       // console.log("GET_INFO_INSTANCES_SUCCESS payload", payload);
 
-      const list_of_instance_info = JSON.parse(payload);
+      // const list_of_instance_info = JSON.parse(payload);
       // console.log("Parsed REDUCER VERSION OF >>>> info_instances <<<<<", list_of_instance_info);
-      return { ...state, list_of_instance_info };
+      return { ...state, list_of_instance_info : payload };
     }
 
-// LIST_OF_INSTANCES
+// LIST_OF_INTERFACES
     case 'LIST_OF_INTERFACES_SUCCESS': {
       console.log("LIST_OF_INTERFACES_SUCCESS payload", payload);
       return { ...state, list_of_interfaces : payload };
