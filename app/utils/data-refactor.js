@@ -2,7 +2,7 @@
     Table Data Generation Helper Function MAIN
  ////////////////////////////////////////////////////*/
 const dataRefactor = (app_details) => {
-  console.log("APDETAILS:-------------->",app_details);
+  console.log("APPDETAILS:-------------->",app_details);
   const APP_LIST_LENGTH = app_details.length;
   const insertAppDetails = (app) => {
     // console.log("app", app);
@@ -42,77 +42,8 @@ const dataRefactor = (app_details) => {
   }
   return dataGenerate()
 }
-export const refactorInstanceData = (list_of_instance_info, list_of_installed_instances, list_of_running_instances) => {
-  // const INSTANCE_INFO_LENGTH = list_of_installed_instances.length;
-  console.log("list_of_instance_info::",list_of_instance_info);
-  console.log("LOGGGGGG::",list_of_installed_instances);
-  console.log("LOGGGGGG Running::",list_of_running_instances);
-  const info_instance_log = list_of_instance_info.map((fileInstance) => {
-    if (fileInstance !== parseInt(fileInstance, 10)) {
-      let hash = "";
-      let status = {};
-      let running = {};
 
-      let check_installed = list_of_installed_instances.find((i_instances)=>{
-        return i_instances.id ===fileInstance.id
-      })
-        if (check_installed===undefined){
-          status = {
-            instance: fileInstance.id,
-            dna: {
-              dna_id:fileInstance.dna,
-              hash: hash
-            },
-            agent_id:fileInstance.agent,
-            status:"uninstalled"
-          };
-      }else{
-        status = {
-          instance: fileInstance.id,
-          dna: {
-            dna_id:fileInstance.dna,
-            hash: hash
-          },
-          agent_id:fileInstance.agent,
-          status:"installed"
-        };
-      }
-
-      let check_running = list_of_running_instances.find((ri)=>{
-        return ri.id ===fileInstance.id
-      })
-        if (check_running===undefined){
-            running = {
-              instance: fileInstance.id,
-              dna: hash,
-              running : false
-            };
-      }else{
-        running = {
-           instance: fileInstance.id,
-           dna: hash,
-           running : true
-         };
-      }
-
-      const newInstanceObj = {
-        dna_id: fileInstance.dna,
-        agent_id: fileInstance.agent,
-        type: "DNA", // fileInstance.storage.type >>> will this eventually say whether it is a DNA or UI?? or only state "file" ??
-        hash,
-        instanceId: fileInstance.id,
-        status,
-        running
-      };
-
-      console.log("newInstanceObj", newInstanceObj);
-      return newInstanceObj;
-    }});
-
-  return dataRefactor(info_instance_log);
-}
-
-
+///////////////////////
 export const listInstalledApps = (list_of_instance_info, list_of_running_instances, list_of_dna) => {
   // const INSTANCE_INFO_LENGTH = list_of_instance_info.length;
   const info_instance_log = list_of_instance_info.map((fileInstance) => {
@@ -188,47 +119,58 @@ export const listInstalledApps = (list_of_instance_info, list_of_running_instanc
   return dataRefactor(info_instance_log);
 }
 
-export const listDownloadedApps = (downloaded_apps, list_of_instance_info) => {
-  if (downloaded_apps !== parseInt(downloaded_apps, 10)) {
+export const refactorListOfDnas = (downloaded_apps, list_of_dna) => {
+  // if (downloaded_apps !== parseInt(downloaded_apps, 10)) {
     let status = {};
-    const uninstalled_apps = monitorUninstalledApps(downloaded_apps, list_of_instance_info);
+    const uninstalled_apps = monitorUninstalledApps(downloaded_apps, list_of_dna);
     console.log("uninstalled_apps >> check to see list of uninstalled : ", uninstalled_apps);
+    console.log("list_of_dna >> check to see list of uninstalled : ", list_of_dna);
 
-    const downloaded_list_log = downloaded_apps.map(() => {
-      for (let u_app in uninstalled_apps) {
-        status = {
-          instance: "N/A",
-          dna: {
-            dna_id: downloaded_apps.app_name,
-            hash: "N/A"
-          },
-          status:"uninstalled"
-        };
-
-        const newDownloadObj = {
-          dna_id: downloaded_apps.app_name,
+    const list_of_installed = list_of_dna.map((app) => {
+        return {
+          dna_id: app.id,
           agent_id: "N/A",
           type: "DNA", // fileIntance.storage.type >>> wil this eventually say wether it is a DNA or UI?? or only state "file" ??
           hash: "N/A",
           instanceId: "N/A",
-          status,
+          status: {
+            instance: "N/A",
+            dna: {
+              dna_id: app.id,
+              hash: "N/A"
+            },
+            status:"installed"
+          },
           running: false
         };
-
-        console.log("newDownloadObj", newDownloadObj);
-        return newDownloadObj;
-      }
-    })};
-  return dataRefactor(listDownloadedApps);
+    })
+    const list_of_uninstalled = uninstalled_apps.map((app) => {
+        return {
+          dna_id: app.dna_id,
+          agent_id: "N/A",
+          type: "DNA", // fileIntance.storage.type >>> wil this eventually say wether it is a DNA or UI?? or only state "file" ??
+          hash: "N/A",
+          instanceId: "N/A",
+          status: {
+            instance: "N/A",
+            dna: {
+              dna_id: app.id,
+              hash: "N/A"
+            },
+            status:"uninstalled"
+          },
+          running: false
+        };
+    })
+  return dataRefactor(list_of_installed.concat(list_of_uninstalled));
 }
 
-const monitorUninstalledApps = (downloaded_apps, list_of_instance_info) => {
-  console.log("MONITORUNINSTALLEDAPPS >> downloaded_apps : ", downloaded_apps);
+const monitorUninstalledApps = (downloaded_apps, list_of_dna) => {
   let uninstalled_apps = [];
-  uninstalled_apps = list_of_instance_info.filter((info_instance) => {
-    for (let d_app of downloaded_apps) {
-      return d_app.path !== info_instance.storage.path
-    }
+  uninstalled_apps = downloaded_apps.filter(down_app=>{
+    return !list_of_dna.find(app=>{
+        return down_app.dna_id === app.id
+    });
   });
   // for (let info_instance of list_of_instance_info) {
   //   // console.log("downloaded_apps.path", downloaded_apps.path);
@@ -251,3 +193,72 @@ const monitorUninstalledApps = (downloaded_apps, list_of_instance_info) => {
 //   });
 //   return app_details;
 // }
+export const refactorInstanceData = (list_of_instance_info, list_of_installed_instances, list_of_running_instances) => {
+  // const INSTANCE_INFO_LENGTH = list_of_installed_instances.length;
+  // console.log("list_of_instance_info::",list_of_instance_info);
+  // console.log("LOGGGGGG::",list_of_installed_instances);
+  // console.log("LOGGGGGG Running::",list_of_running_instances);
+  const info_instance_log = list_of_instance_info.map((fileInstance) => {
+    if (fileInstance !== parseInt(fileInstance, 10)) {
+      let hash = "";
+      let status = {};
+      let running = {};
+
+      let check_installed = list_of_installed_instances.find((i_instances)=>{
+        return i_instances.id ===fileInstance.id
+      })
+        if (check_installed===undefined){
+          status = {
+            instance: fileInstance.id,
+            dna: {
+              dna_id:fileInstance.dna,
+              hash: hash
+            },
+            agent_id:fileInstance.agent,
+            status:"uninstalled"
+          };
+      }else{
+        status = {
+          instance: fileInstance.id,
+          dna: {
+            dna_id:fileInstance.dna,
+            hash: hash
+          },
+          agent_id:fileInstance.agent,
+          status:"installed"
+        };
+      }
+
+      let check_running = list_of_running_instances.find((ri)=>{
+        return ri.id ===fileInstance.id
+      })
+        if (check_running===undefined){
+            running = {
+              instance: fileInstance.id,
+              dna: hash,
+              running : false
+            };
+      }else{
+        running = {
+           instance: fileInstance.id,
+           dna: hash,
+           running : true
+         };
+      }
+
+      const newInstanceObj = {
+        dna_id: fileInstance.dna,
+        agent_id: fileInstance.agent,
+        type: "DNA", // fileInstance.storage.type >>> will this eventually say whether it is a DNA or UI?? or only state "file" ??
+        hash,
+        instanceId: fileInstance.id,
+        status,
+        running
+      };
+
+      console.log("newInstanceObj", newInstanceObj);
+      return newInstanceObj;
+    }});
+
+  return dataRefactor(info_instance_log);
+}

@@ -16,7 +16,7 @@ import "react-table/react-table.css";
 import routes from '../../constants/routes';
 import { filterApps } from "../../utils/table-filters";
 import manageAllDownloadedApps from "../../utils/helper-functions";
-import { dataRefactor, listInstalledApps, listDownloadedApps, monitorUninstalledApps } from "../../utils/data-refactor";
+import { dataRefactor, listInstalledApps, refactorListOfDnas, monitorUninstalledApps } from "../../utils/data-refactor";
 // import { hcJoin,hcUninstall,hcStart,hcStop } from "../utils/hc-install";
 // import { getRunningApps,decideFreePort } from "../utils/running-app";
 import ToggleButton from "./ToggleButton"
@@ -191,7 +191,7 @@ class HCDnaTable extends React.Component {
 
   static getDerivedStateFromProps(props, state) {
     const { list_of_dna, list_of_instances, list_of_running_instances, list_of_instance_info } = props.containerApiCalls;
-
+    console.log("DNA TABLE > Derived State: list_of_instance_info", list_of_instance_info);
     if (!list_of_instance_info) {
       return null;
     }
@@ -206,6 +206,7 @@ class HCDnaTable extends React.Component {
   }
 
   componentDidMount = () => {
+    console.log("inside DNA TABLE... componentDidMount");
     // this.triggerWebClientCallTest();
     this.beginAppMontoring();
   }
@@ -228,21 +229,19 @@ class HCDnaTable extends React.Component {
           installed_apps,
           // downloaded_apps: installed_apps // TODO: delete this part once the DOWNLOAD FOLDER functionality is in place.
         });
-
-        // call for LIST_OF_DNA()
-        this.props.list_of_dna().then(res => {
-          this.callFetchState();
-          console.log("Home props after LIST_OF_DNA call", this.props);
-        })
-
-        // call for LIST_OF_RUNNING_INSTANCES ()
-        this.props.list_of_running_instances().then(res => {
-          this.callFetchState();
-          console.log("Home props after LIST_OF_RUNNING_INSTANCES call", this.props);
-        })
-
         console.log("this.state AFTER CONTAINER API CALLS", this.state);
       }
+    })
+    // call for LIST_OF_DNA()
+    this.props.list_of_dna().then(res => {
+      // this.callFetchState();
+      console.log("Home props after LIST_OF_DNA call", this.props);
+    })
+
+    // call for LIST_OF_RUNNING_INSTANCES ()
+    this.props.list_of_running_instances().then(res => {
+      // this.callFetchState();
+      console.log("Home props after LIST_OF_RUNNING_INSTANCES call", this.props);
     })
   }
 
@@ -275,13 +274,13 @@ class HCDnaTable extends React.Component {
       // const app_data = dataRefactor(list_of_instance_info, list_of_dna, list_of_running_instances, downloaded_apps);
       // console.log("App Data: ",app_data);
 
-      const table_dna_instance_info =  listInstalledApps(list_of_instance_info, list_of_dna, list_of_running_instances);
-      const table_downloaded_files = listDownloadedApps(downloaded_apps, list_of_instance_info); ;
+      // const table_dna_instance_info =  listInstalledApps(list_of_instance_info, list_of_dna, list_of_running_instances);
+      const table_files = refactorListOfDnas(downloaded_apps, list_of_dna); ;
 
-      const combined_file_data = filterApps(table_dna_instance_info, table_downloaded_files )
+      // const combined_file_data = filterApps(table_dna_instance_info, table_downloaded_files )
 
-      console.log("DATA GOING TO TABLE >>>> !! combined_file_data !! <<<<<<<< : ", combined_file_data);
-      return combined_file_data;
+      // console.log("DATA GOING TO TABLE >>>> !! combined_file_data !! <<<<<<<< : ", combined_file_data);
+      return table_files;
     }
   }
 
@@ -311,7 +310,9 @@ class HCDnaTable extends React.Component {
 
 
   render() {
-    if (this.state.data.list_of_instance_info.length === 0){
+    console.log("PROPS:: ", this.props);
+    // console.log("! THIS.STATE.DATA.list_of_instance_info: ", !this.state.data.list_of_instance_info);
+    if (!this.state.data.list_of_dna || this.state.data.list_of_dna.length === 0){
       return <div/>
     }
 

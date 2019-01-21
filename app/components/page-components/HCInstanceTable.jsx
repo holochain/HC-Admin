@@ -16,7 +16,7 @@ import "react-table/react-table.css";
 import routes from '../../constants/routes';
 import { filterApps } from "../../utils/table-filters";
 import manageAllDownloadedApps from "../../utils/helper-functions";
-import { dataRefactor, refactorInstanceData, listDownloadedApps, monitorUninstalledApps } from "../../utils/data-refactor";
+import { dataRefactor, refactorInstanceData } from "../../utils/data-refactor";
 // import { hcJoin,hcUninstall,hcStart,hcStop } from "../utils/hc-install";
 // import { getRunningApps,decideFreePort } from "../utils/running-app";
 import InstanceToggleButton from "./InstanceToggleButton"

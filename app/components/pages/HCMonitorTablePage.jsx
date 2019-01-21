@@ -34,13 +34,13 @@ class HCMonitorTablePage extends Component<Props> {
         <main className={classes.content}>
           <div className={classes.appBarSpacer} />
           <Typography className={classes.mainHeader} style={{color:"rgb(149, 185, 237)", fontFamily:"Raleway"}} variant="display1" gutterBottom={gutterBottom} component="h2" >
-            {location.pathname === "/" ? `Instance`: location.pathname.toString().toUpperCase() } Overview Table
+            {location.pathname === "/instance" ? `Instance`: location.pathname.toString().toUpperCase() } Overview Table
           </Typography>
           <div className={classes.tableContainer}>
-          {location.pathname === "/" ?
+          {location.pathname === "/instance" ?
             <HCInstanceTable className={classes.appTable} {...this.props} />
           :
-            location.pathname === "/dna" ?
+            location.pathname === "/" ?
             // this should be the dna table
             <HCDnaTable className={classes.appTable} {...this.props} />
           :
