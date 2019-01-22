@@ -1,13 +1,5 @@
-sudo: false
-
 language: node_js
-
 node_js:
-  - "6"
-  - "8"
-  - "10"
-
-script:
-  - npm run lint
-  - npm test
-  - npm run coverage
+  - "0.10"
+  - "0.12"
+  - "iojs"

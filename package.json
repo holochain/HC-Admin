@@ -218,6 +218,7 @@
     "react-test-renderer": "^16.6.3",
     "redux-logger": "^3.0.6",
     "rimraf": "^2.6.2",
+    "rpc-websockets": "^4.3.5",
     "sass-loader": "^7.1.0",
     "sinon": "^7.1.1",
     "spectron": "^5.0.0",
@@ -240,7 +241,7 @@
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.5.0",
-    "@holochain/hc-redux-middleware": "^1.0.8",
+    "@holochain/hc-redux-middleware": "^1.0.9",
     "@material-ui/core": "^3.8.1",
     "@material-ui/icons": "^3.0.1",
     "@material-ui/styles": "^3.0.0-alpha.8",

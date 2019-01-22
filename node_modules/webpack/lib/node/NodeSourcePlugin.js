@@ -116,6 +116,9 @@ module.exports = class NodeSourcePlugin {
 				normalModuleFactory.hooks.parser
 					.for("javascript/dynamic")
 					.tap("NodeSourcePlugin", handler);
+				normalModuleFactory.hooks.parser
+					.for("javascript/esm")
+					.tap("NodeSourcePlugin", handler);
 			}
 		);
 		compiler.hooks.afterResolvers.tap("NodeSourcePlugin", compiler => {
