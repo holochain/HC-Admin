@@ -211,10 +211,9 @@ h1, h2, h3, h4, h5, h6 {
   text-overflow: ellipsis; */
 }
 
-.MuiListItem-root-105 {
+.MuiListItem-root-105, .MuiListItem-root-106 {
  display: inline !important;
 }
-
 
  .InstallButton {
    background: #073763;

@@ -247,6 +247,7 @@ class HCDnaTable extends React.Component {
 
   getDownloadedApps = () => {
     let self = this;
+    console.log("******************::GET DOWNLOADED APPS::");
     cmd.get(
       `cd ~/.hcadmin/holochain-download && ls`,
       function(err, data, stderr) {
@@ -312,7 +313,7 @@ class HCDnaTable extends React.Component {
   render() {
     console.log("PROPS:: ", this.props);
     // console.log("! THIS.STATE.DATA.list_of_instance_info: ", !this.state.data.list_of_instance_info);
-    if (!this.state.data.list_of_dna || this.state.data.list_of_dna.length === 0){
+    if (!this.state.data.list_of_dna || this.state.data.list_of_dna.length === 0 ){
       return <div/>
     }
 

@@ -243,18 +243,6 @@ eval("module.exports = classnames;\n\n//# sourceURL=webpack://renderer/external_
 
 /***/ }),
 
-/***/ "devtron":
-/*!**************************!*\
-  !*** external "devtron" ***!
-  \**************************/
-/*! no static exports found */
-/*! all exports used */
-/***/ (function(module, exports) {
-
-eval("module.exports = devtron;\n\n//# sourceURL=webpack://renderer/external_%22devtron%22?");
-
-/***/ }),
-
 /***/ "electron-debug":
 /*!*********************************!*\
   !*** external "electron-debug" ***!
