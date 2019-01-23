@@ -116,3 +116,10 @@ ipcMain.on("window:close", ( event, quit ) => {
     app.quit()
   }
 });
+
+// handle refreshing window (as menu will no longer be enabled) :
+ipcMain.on("window:refresh", ( event, refresh ) => {
+  if(refresh === 'refresh') {
+    mainWindow.webContents.reload();
+  }
+});

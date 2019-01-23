@@ -137,7 +137,7 @@ export default function(state = INITIAL_STATE, action: Action) : State {
     // STOP_INTERFACE
     case 'STOP_INTERFACE_SUCCESS': {
       console.log("STOP_INTERFACE_SUCCESS payload", payload);
-      return { ...state };
+      return { ...state };        
     }
 
     case 'STOP_INTERFACE_FAILURE': {
@@ -146,24 +146,24 @@ export default function(state = INITIAL_STATE, action: Action) : State {
     }
 
     // ADD_INTERFACE_INSTANCE
-    case 'ADD_INTERFACE_INSTANCE_SUCCESS': {
-      console.log("ADD_INTERFACE_INSTANCE_SUCCESS payload", payload);
+    case 'ADD_INSTANCE_TO_INTERFACE_SUCCESS': {
+      console.log("ADD_INSTANCE_TO_INTERFACE_SUCCESS payload", payload);
       return { ...state };
     }
 
-    case 'ADD_INTERFACE_INSTANCE_FAILURE': {
-      console.log("ADD_INTERFACE_INSTANCE_FAILURE payload", payload);
+    case 'ADD_INSTANCE_TO_INTERFACE_FAILURE': {
+      console.log("ADD_INSTANCE_TO_INTERFACE_FAILURE payload", payload);
       return { ...state };
     }
 
     // REMOVE_INTERFACE_INSTANCE
-    case 'REMOVE_INTERFACE_INSTANCE_SUCCESS': {
-      console.log("REMOVE_INTERFACE_INSTANCE_SUCCESS payload", payload);
+    case 'REMOVE_INSTANCE_FROM_INTERFACE_SUCCESS': {
+      console.log("REMOVE_INSTANCE_FROM_INTERFACE_SUCCESS payload", payload);
       return { ...state };
     }
 
-    case 'REMOVE_INTERFACE_INSTANCE_FAILURE': {
-      console.log("REMOVE_INTERFACE_INSTANCE_FAILURE payload", payload);
+    case 'REMOVE_INSTANCE_FROM_INTERFACE_FAILURE': {
+      console.log("REMOVE_INSTANCE_FROM_INTERFACE_FAILURE payload", payload);
       return { ...state };
     }
 

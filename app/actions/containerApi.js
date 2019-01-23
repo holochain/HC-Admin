@@ -56,7 +56,7 @@ export function get_info_instances() {
 }
 
 // call LIST_OF_INTERFACES ()
-export function list_of_insterfaces() {
+export function list_of_interfaces() {
   console.log(">> LIST_OF_INTERFACES : payload <<");
   return {
     type: 'LIST_OF_INTERFACES',
@@ -148,13 +148,17 @@ export function stop_agent_dna_instance(payload) {
     }
   }
 }
-// STARTS INTERFACE:
+
+////////////////////////////////////////////////////////////////////////
+                // INTERFACE API calls
+////////////////////////////////////////////////////////////////////////
 // call START_INTERFACE ()
+// NB: This call starts the INTERFACE by adding a new interface
 export function start_interface() {
   console.log(">> START_INTERFACE <<");
   return {
     type: 'START_INTERFACE',
-    payload,
+    payload: [],
     meta: {
     	holochainAction: true,
     	callString: `admin/interface/add`
@@ -162,13 +166,13 @@ export function start_interface() {
   }
 }
 
-// STOPS INTERFACE
 // call STOP_INTERFACE ()
+// NB: This call stops the INTERFACE by removal of interface entirely
 export function stop_interface() {
   console.log(">> ST0P_INTERFACE <<");
   return {
     type: 'ST0P_INTERFACE',
-    payload,
+    payload: [],
     meta: {
     	holochainAction: true,
     	callString: `admin/interface/remove`
@@ -176,13 +180,12 @@ export function stop_interface() {
   }
 }
 
-// ADDS INTANCE TO INTERFACE
-// call ADD_INTERFACE_INSTANCE ()
-// NB: This call restarts the interface FIRST, to get change in effect
-export function add_interface_instance(payload) {
-  console.log(">> ADD_INTERFACE_INSTANCE : payload <<");
+// call ADD_INSTANCE_TO_INTERFACE ({ PUT PAYLOAD REQS HERE })
+// NB: This call restarts the interface to get change in effect
+export function add_instance_to_interface(payload) {
+  console.log(">> ADD_INSTANCE_TO_INTERFACE : payload <<");
   return {
-    type: 'ADD_INTERFACE_INSTANCE',
+    type: 'ADD_INSTANCE_TO_INTERFACE',
     payload,
     meta: {
     	holochainAction: true,
@@ -191,13 +194,12 @@ export function add_interface_instance(payload) {
   }
 }
 
-// REMOVES INSTANCE FROM INTERFACE
-// call REMOVE_INTERFACE_INSTANCE ()
-// NB: This call restarts the interface FIRST, to get change in effect
-export function remove_interface_instance(payload) {
-  console.log(">> REMOVE_INTERFACE_INSTANCE : payload <<");
+// call REMOVE_INSTANCE_FROM_INTERFACE({ PUT PAYLOAD REQS HERE })
+// NB: This call restarts the interface to get change in effect
+export function remove_instance_from_interface(payload) {
+  console.log(">> REMOVE_INSTANCE_FROM_INTERFACE : payload <<");
   return {
-    type: 'REMOVE_INTERFACE_INSTANCE',
+    type: 'REMOVE_INSTANCE_FROM_INTERFACE',
     payload,
     meta: {
     	holochainAction: true,

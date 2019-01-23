@@ -1,5 +1,5 @@
-import * as React from "react";
-import * as PropTypes from "prop-types";
+import React, { Component } from "react";
+import PropTypes from "prop-types";
 import set from "lodash.set";
 import get from "lodash.get";
 
@@ -46,7 +46,7 @@ export const columnsWithToggle = (columns, expandFuncs) =>
   });
 
 export const advancedExpandTableHOC = TableComponent =>
-  class AdvancedExpandTable extends React.Component {
+  class AdvancedExpandTable extends Component {
     constructor(props) {
       super(props);
       this.state = {
