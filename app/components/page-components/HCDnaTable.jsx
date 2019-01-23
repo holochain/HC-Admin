@@ -118,6 +118,16 @@ class HCDnaTable extends React.Component {
       // this.callFetchState();
       console.log("Home props after LIST_OF_RUNNING_INSTANCES call", this.props);
     });
+
+    this.props.list_of_installed_instances().then(res => {
+      // this.callFetchState();
+      console.log("Home props after list_of_installed_instances call", this.props);
+    });
+
+    this.props.get_agent_list().then(res => {
+      // this.callFetchState();
+      console.log("Home props after GET_AGENT_LIST call", this.props);
+    });
   }
 
   getDownloadedApps = () => {
@@ -143,10 +153,14 @@ class HCDnaTable extends React.Component {
 
   displayData = () => {
     // console.log("this.state inside displayData", this.state);
+
     const { downloaded_apps } = this.state;
-    if (downloaded_apps && downloaded_apps!== {}){
+    console.log('downloaded_apps && Object.keys(downloaded_apps).length > 0', downloaded_apps && Object.keys(downloaded_apps).length > 0);
+
+    if (downloaded_apps && Object.keys(downloaded_apps).length > 0){
       const { list_of_dna, list_of_running_instances, list_of_instance_info } = this.props.containerApiCalls;
 
+      console.log("downloaded_apps", Object.keys(downloaded_apps));
       const table_files = refactorListOfDnas(downloaded_apps, list_of_dna, list_of_instance_info);
 
       // console.log("DATA GOING TO DNA TABLE >>>> !! table_files !! <<<<<<<< : ", table_files);
@@ -200,14 +214,28 @@ class HCDnaTable extends React.Component {
             else {
               const dna_instance_data = this.displaySubComponentData(row);
               const dna_instance_columns = dna_instance_list_table_columns(this.props, this.state);
+
+              const addInstance = () => {
+                const { dna_id } = row.original;
+                const agent_id = this.props.containerApiCalls
+.agent_list[0].id;// HC AGENT ID
+                const id = dna_id + agent_id
+                this.props.add_agent_dna_instance({id, dna_id, agent_id})
+              }
+
               return (
                 <div style={{ paddingTop: "2px" }}>
+
+                <div style={{ justifyItems: "center", display:"inline" }}>
+                  <button onClick={addInstance}>Add Instance</button>
+                </div>
+
                 <ReactTable
-                data={dna_instance_data}
-                columns={dna_instance_columns}
-                defaultPageSize={dna_instance_data.length}
-                showPagination={false}
-                style = {{ margin: "0 auto", marginBottom: "50px", width:"90%", justifyItems:"center" }}
+                  data={dna_instance_data}
+                  columns={dna_instance_columns}
+                  defaultPageSize={dna_instance_data.length}
+                  showPagination={false}
+                  style = {{ margin: "0 auto", marginBottom: "50px", width:"90%", justifyItems:"center" }}
                 />
                 </div>
               );

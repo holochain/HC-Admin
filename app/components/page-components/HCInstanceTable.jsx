@@ -127,7 +127,7 @@ class HCInstanceTable extends React.Component {
 
       const table_dna_instance_info =  refactorInstanceData(list_of_instance_info, list_of_installed_instances, list_of_running_instances);
 
-      console.log("DATA GOING TO INSTANCE MAIN TABLE >>>> !! table_dna_instance_info !! <<<<<<<< : ", table_dna_instance_info);
+      // console.log("DATA GOING TO INSTANCE MAIN TABLE >>>> !! table_dna_instance_info !! <<<<<<<< : ", table_dna_instance_info);
       return table_dna_instance_info;
     }
   }
@@ -139,7 +139,7 @@ class HCInstanceTable extends React.Component {
       const instance_dna_id = row.original.dna_id;
       const instance_base_dna_table_info = refactorBaseDna(instance_dna_id, list_of_dna);
 
-      console.log("DATA GOING TO INSTANCE SubComponent (the BASE DNA TABLE) >>>> !! instance_base_dna_table_info !! <<<<<<<< : ", instance_base_dna_table_info);
+      // console.log("DATA GOING TO INSTANCE SubComponent (the BASE DNA TABLE) >>>> !! instance_base_dna_table_info !! <<<<<<<< : ", instance_base_dna_table_info);
       return instance_base_dna_table_info;
     }
   }

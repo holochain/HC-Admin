@@ -191,6 +191,27 @@ export const refactorDnaInstanceData = (current_dna_instances, list_of_installed
       /* Data for Instance Table Overview */
 ////////////////////////////////////////////////////////
 export const refactorInstanceData = (list_of_instance_info, list_of_installed_instances, list_of_running_instances) => {
+  // HACK:
+  // const installed_but_not_info = list_of_installed_instances.filter((ii)=>{
+  //   return !list_of_instance_info.find((i_info)=>i_info.id===ii.id)
+  // });
+  // if(installed_but_not_info!== undefined){
+  //   {
+  //     dna_id: fileInstance.dna,
+  //     agent_id: fileInstance.agent,
+  //     type: "DNA Instance", // fileInstance.storage.type >>> will this eventually say whether it is a DNA or UI?? or only state "file" ??
+  //     instanceId: fileInstance.id,
+  //     status:{
+  //       instance: fileInstance.id,
+  //       dna: {
+  //         dna_id:fileInstance.dna
+  //       },
+  //       agent_id:fileInstance.agent,
+  //       status:"installed"
+  //     },
+  //     running
+  //   };
+  // }
   const info_instance_log = list_of_instance_info.map((fileInstance) => {
     if (fileInstance !== parseInt(fileInstance, 10)) {
       let hash = "";

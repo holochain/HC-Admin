@@ -6,8 +6,8 @@ import InstanceToggleButton from "./InstanceToggleButton";
 
 /* Instance Overview : Main Table Headers */
 const instance_table_columns = (props, state) => {
-  console.log("Table Columns Props", props);
-  console.log("Table Columns State", state);
+  // console.log("Table Columns Props", props);
+  // console.log("Table Columns State", state);
 
   const table_columns = [{
     Header: '',
@@ -88,6 +88,8 @@ const instance_table_columns = (props, state) => {
             getInstances={props.list_of_installed_instances}
             stopInstance={props.stop_agent_dna_instance}
             startInstance={props.start_agent_dna_instance}
+            addInterface={props.add_instance_to_interface}
+
           />
         </div>
       )
@@ -139,8 +141,8 @@ export default instance_table_columns;
 
 
 export const instance_base_dna_table_columns = (props, state) => {
-  console.log("Table Columns Props", props);
-  console.log("Table Columns State", state);
+  // console.log("Table Columns Props", props);
+  // console.log("Table Columns State", state);
   const table_columns = [{
     Header: 'Instance Base DNA',
     columns: [{
@@ -183,7 +185,7 @@ export const instance_base_dna_table_columns = (props, state) => {
           <br/>
           <InstanceToggleButton // change this to ToggleButton, once it is complete...
             installed={row.value}
-            listInstances={props.list_of_instances}
+            addInterface={props.add_instance_to_interface}
             removeInstance={props.remove_agent_dna_instance}
             addInstance={props.add_agent_dna_instance}
           />

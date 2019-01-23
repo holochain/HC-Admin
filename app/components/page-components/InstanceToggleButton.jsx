@@ -31,9 +31,11 @@ class InstanceToggleButton extends React.Component {
       }
       else {
         console.log("Props Add INSTANCES:: *****",this.props);
-        this.props.addInstance({ id : instance , dna_id: dna.dna_id, agent_id}).then(res => {
-          handleRefreshApp();
-        });
+
+          this.props.addInstance({ id : instance , dna_id: dna.dna_id, agent_id}).then(res => {
+            handleRefreshApp();
+          })
+
       }
     }
 
@@ -51,10 +53,10 @@ class InstanceToggleButton extends React.Component {
         // this.props.getInstances(instance_id).then(res => {
         //   this.props.startInstance(instance_id)
         // })
-
+        this.props.addInterface({ interface_id:"websocket interface", instance_id:instance })
         this.props.startInstance(instance_id).then(res => {
-          handleRefreshApp();
-        })
+            handleRefreshApp();
+          })
       }
     }
     this.setState({ [name]: event.target.checked });
@@ -62,10 +64,10 @@ class InstanceToggleButton extends React.Component {
 
   render() {
     const { classes, running, installed, downloaded } = this.props;
-    console.log("InstanceToggleButton props", this.props);
-    console.log("InstanceToggleButton state", this.state);
-    console.log("installed state", this.props.installed );
-    console.log("running state", this.props.running );
+    // console.log("InstanceToggleButton props", this.props);
+    // console.log("InstanceToggleButton state", this.state);
+    // console.log("installed state", this.props.installed );
+    // console.log("running state", this.props.running );
 
     let checkedStatus = this.props.removeInstance ? this.props.installed.status === "installed" ? true : false : this.props.running.running;
 

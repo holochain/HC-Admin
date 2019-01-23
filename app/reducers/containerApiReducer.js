@@ -5,7 +5,8 @@ const INITIAL_STATE : State = {
  list_of_instances : [],
  list_of_running_instances :[],
  list_of_installed_instances : [],
- list_of_interfaces : []
+ list_of_interfaces : [],
+ agent_list:[]
 }
 
 export default function(state = INITIAL_STATE, action: Action) : State {
@@ -137,7 +138,7 @@ export default function(state = INITIAL_STATE, action: Action) : State {
     // STOP_INTERFACE
     case 'STOP_INTERFACE_SUCCESS': {
       console.log("STOP_INTERFACE_SUCCESS payload", payload);
-      return { ...state };        
+      return { ...state };
     }
 
     case 'STOP_INTERFACE_FAILURE': {
@@ -166,7 +167,16 @@ export default function(state = INITIAL_STATE, action: Action) : State {
       console.log("REMOVE_INSTANCE_FROM_INTERFACE_FAILURE payload", payload);
       return { ...state };
     }
+    // GET_AGENT_LIST
+    case 'GET_AGENT_LIST_SUCCESS': {
+      console.log("GET_AGENT_LIST_SUCCESS payload", payload);
+      return { ...state, agent_list:payload };
+    }
 
+    case 'GET_AGENT_LIST_FAILURE': {
+      console.log("GET_AGENT_LIST_FAILURE payload", payload);
+      return { ...state };
+    }
     default:
       return state
   }

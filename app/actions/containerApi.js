@@ -180,7 +180,7 @@ export function stop_interface() {
   }
 }
 
-// call ADD_INSTANCE_TO_INTERFACE ({ PUT PAYLOAD REQS HERE })
+// call ADD_INSTANCE_TO_INTERFACE ({ interface_id, instance_id })
 // NB: This call restarts the interface to get change in effect
 export function add_instance_to_interface(payload) {
   console.log(">> ADD_INSTANCE_TO_INTERFACE : payload <<");
@@ -189,7 +189,7 @@ export function add_instance_to_interface(payload) {
     payload,
     meta: {
     	holochainAction: true,
-    	callString: `admin/interface/add_instance `
+    	callString: `admin/interface/add_instance`
     }
   }
 }
@@ -207,7 +207,21 @@ export function remove_instance_from_interface(payload) {
     }
   }
 }
-
+////////////////////////////////////////////////////////////////////////
+                // AGENT API calls
+////////////////////////////////////////////////////////////////////////
+// admin/agent/list
+export function get_agent_list() {
+  console.log(">> GET_AGENT_LIST <<");
+  return {
+    type: 'GET_AGENT_LIST',
+    payload:[],
+    meta: {
+    	holochainAction: true,
+    	callString: `admin/agent/list`
+    }
+  }
+}
 
 /////////////////////////////////////////////////////////////////////////
 
