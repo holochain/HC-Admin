@@ -9,6 +9,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
+import InfoIcon from '@material-ui/icons/Info';
 import PeopleIcon from '@material-ui/icons/People';
 import LayersIcon from '@material-ui/icons/Layers';
 import AssignmentIcon from '@material-ui/icons/Assignment';
@@ -82,7 +83,7 @@ class MainListItems extends React.Component {
             <ListItemIcon style={{color:"#0e88efde"}}>
               <DashboardIcon />
             </ListItemIcon>
-            <Typography variant="subheading" style={{color:"#95b9ed", textDecoration: "none", display: "inline-block", marginLeft: "15px" }} gutterBottom={gutterBottom}>
+            <Typography variant="subheading" style={{color:"#95b9ed", textDecoration: "none", display: "inline-block", marginLeft: "5px" }} gutterBottom={gutterBottom}>
               UI Overview
             </Typography>
           </Link>
@@ -92,7 +93,7 @@ class MainListItems extends React.Component {
             <ListItemIcon style={{color:"#0e88efde"}}>
               <LayersIcon />
             </ListItemIcon>
-            <Typography variant="subheading" style={{color:"#95b9ed", textDecoration: "none", display: "inline-block", marginLeft: "15px" }} gutterBottom={gutterBottom}>
+            <Typography variant="subheading" style={{color:"#95b9ed", textDecoration: "none", display: "inline-block", marginLeft: "5px" }} gutterBottom={gutterBottom}>
               DNA Overview
             </Typography>
           </Link>
@@ -102,7 +103,7 @@ class MainListItems extends React.Component {
           <ListItemIcon style={{color:"#0e88efde"}}>
             <PeopleIcon />
           </ListItemIcon>
-          <Typography variant="subheading" style={{color:"#95b9ed", textDecoration: "none", display: "inline-block", marginLeft: "15px" }} gutterBottom={gutterBottom}>
+          <Typography variant="subheading" style={{color:"#95b9ed", textDecoration: "none", display: "inline-block", marginLeft: "5px" }} gutterBottom={gutterBottom}>
             Instances Overview
           </Typography>
         </Link>
@@ -110,9 +111,9 @@ class MainListItems extends React.Component {
         <ListItem style={{paddingTop: "45px"}} button={button}>
           <Link to={routes.HELP}>
           <ListItemIcon style={{color:"#0e88efde"}}>
-            <PeopleIcon />
+            <InfoIcon />
           </ListItemIcon>
-          <Typography variant="subheading" style={{color:"#95b9ed", textDecoration: "none", display: "inline-block", marginLeft: "15px" }} gutterBottom={gutterBottom}>
+          <Typography variant="subheading" style={{color:"#95b9ed", textDecoration: "none", display: "inline-block", marginLeft: "5px" }} gutterBottom={gutterBottom}>
             Help
           </Typography>
         </Link>
