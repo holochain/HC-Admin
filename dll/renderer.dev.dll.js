@@ -147,6 +147,18 @@ eval("module.exports = @material-ui/icons;\n\n//# sourceURL=webpack://renderer/e
 
 /***/ }),
 
+/***/ "@material-ui/styles":
+/*!**************************************!*\
+  !*** external "@material-ui/styles" ***!
+  \**************************************/
+/*! no static exports found */
+/*! all exports used */
+/***/ (function(module, exports) {
+
+eval("module.exports = @material-ui/styles;\n\n//# sourceURL=webpack://renderer/external_%22@material-ui/styles%22?");
+
+/***/ }),
+
 /***/ "@storybook/addon-info":
 /*!****************************************!*\
   !*** external "@storybook/addon-info" ***!
@@ -231,18 +243,6 @@ eval("module.exports = classnames;\n\n//# sourceURL=webpack://renderer/external_
 
 /***/ }),
 
-/***/ "devtron":
-/*!**************************!*\
-  !*** external "devtron" ***!
-  \**************************/
-/*! no static exports found */
-/*! all exports used */
-/***/ (function(module, exports) {
-
-eval("module.exports = devtron;\n\n//# sourceURL=webpack://renderer/external_%22devtron%22?");
-
-/***/ }),
-
 /***/ "electron-debug":
 /*!*********************************!*\
   !*** external "electron-debug" ***!
@@ -291,6 +291,42 @@ eval("module.exports = history;\n\n//# sourceURL=webpack://renderer/external_%22
 
 /***/ }),
 
+/***/ "lodash.get":
+/*!*****************************!*\
+  !*** external "lodash.get" ***!
+  \*****************************/
+/*! no static exports found */
+/*! all exports used */
+/***/ (function(module, exports) {
+
+eval("module.exports = lodash.get;\n\n//# sourceURL=webpack://renderer/external_%22lodash.get%22?");
+
+/***/ }),
+
+/***/ "lodash.set":
+/*!*****************************!*\
+  !*** external "lodash.set" ***!
+  \*****************************/
+/*! no static exports found */
+/*! all exports used */
+/***/ (function(module, exports) {
+
+eval("module.exports = lodash.set;\n\n//# sourceURL=webpack://renderer/external_%22lodash.set%22?");
+
+/***/ }),
+
+/***/ "namor":
+/*!************************!*\
+  !*** external "namor" ***!
+  \************************/
+/*! no static exports found */
+/*! all exports used */
+/***/ (function(module, exports) {
+
+eval("module.exports = namor;\n\n//# sourceURL=webpack://renderer/external_%22namor%22?");
+
+/***/ }),
+
 /***/ "node-cmd":
 /*!***************************!*\
   !*** external "node-cmd" ***!
@@ -300,6 +336,18 @@ eval("module.exports = history;\n\n//# sourceURL=webpack://renderer/external_%22
 /***/ (function(module, exports) {
 
 eval("module.exports = node-cmd;\n\n//# sourceURL=webpack://renderer/external_%22node-cmd%22?");
+
+/***/ }),
+
+/***/ "rc-queue-anim":
+/*!********************************!*\
+  !*** external "rc-queue-anim" ***!
+  \********************************/
+/*! no static exports found */
+/*! all exports used */
+/***/ (function(module, exports) {
+
+eval("module.exports = rc-queue-anim;\n\n//# sourceURL=webpack://renderer/external_%22rc-queue-anim%22?");
 
 /***/ }),
 
@@ -384,6 +432,18 @@ eval("module.exports = react-router;\n\n//# sourceURL=webpack://renderer/externa
 /***/ (function(module, exports) {
 
 eval("module.exports = react-router-dom;\n\n//# sourceURL=webpack://renderer/external_%22react-router-dom%22?");
+
+/***/ }),
+
+/***/ "react-table":
+/*!******************************!*\
+  !*** external "react-table" ***!
+  \******************************/
+/*! no static exports found */
+/*! all exports used */
+/***/ (function(module, exports) {
+
+eval("module.exports = react-table;\n\n//# sourceURL=webpack://renderer/external_%22react-table%22?");
 
 /***/ }),
 
