@@ -131,15 +131,15 @@ class AddInstance extends React.Component<AddInstanceProps, AddInstanceState>{
                         margin="normal"
                         variant="outlined"
                      >
-                        {[availableAgentList].map(option => (
-                          <MenuItem key={option.value + [option]} value={option.value}>
+                        {availableAgentList.map(option => (
+                          <MenuItem key={option.id} value={option.id}>
                             {option.name} : {option.id}
                           </MenuItem>
                         ))}
                      </TextField>
                     </div>
 
-                    <div style={{ marginTop:"5px", width :"100%" }}>
+                    <div style={{ marginTop:"5px", width :"100%", display:"flex", flexWrap:"wrap" }}>
                       <TextField
                         id="interface_id"
                         name="interface_id"
@@ -154,7 +154,7 @@ class AddInstance extends React.Component<AddInstanceProps, AddInstanceState>{
                               className: classes.menu,
                             },
                           }}
-                          helperText="Please select your Interface ID"
+                          helperText="Please select your Interface Type"
                           margin="normal"
                           variant="outlined"
                        >

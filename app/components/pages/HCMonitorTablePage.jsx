@@ -19,9 +19,6 @@ type Props = {
 class HCMonitorTablePage extends Component<Props> {
   constructor(props:Props){
     super(props);
-    this.state = {
-      open:true,
-    }
   };
 
   render() {
