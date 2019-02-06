@@ -38,6 +38,10 @@ class Dashboard extends React.Component {
     this.setState({ open: false });
   };
 
+  makeSearch = () => {
+    // TODO: place logic to serach table at hand here....
+  }
+
   render() {
     const { classes } = this.props;
     const noWrap : boolean = true;
@@ -49,8 +53,8 @@ class Dashboard extends React.Component {
             position="absolute"
             className={classnames(classes.topNav)}
           >
+            <img src={logo} className={classnames(classes.navAppLogo, "App-logo")} alt="logo" />
             <Typography className={classes.title} style={{color: "#e4e4e4", textAlign: "center", marginTop:"20px"}} noWrap={noWrap} variant="display1" component="h3" >
-              <span><img src={logo} className={classnames(classes.navAppLogo, "App-logo")} alt="logo" /></span>
               HC Admin
             </Typography>
 
@@ -60,10 +64,11 @@ class Dashboard extends React.Component {
 
             <div className={classes.search}>
               <div className={classes.searchIcon}>
-                <SearchIcon />
+                <SearchIcon style={{ color:"#95b9ed"}} />
               </div>
               <InputBase
                 placeholder="Search…"
+                onEnter={this.makeSearch}
                 classes={{
                   root: classes.inputRoot,
                   input: classes.inputInput,

@@ -6,12 +6,11 @@ import createStyles from '@material-ui/core/styles/createStyles';
 import Typography from '@material-ui/core/Typography';
 import QueueAnim from 'rc-queue-anim';
 
-import Dashboard from "../Dashboard"
-import Settings from "../Settings";
+import Dashboard from "../page-components/Dashboard"
 import styles from '../styles/page-styles/DefaultPageMuiStyles';
 
 
-class SettingsCanvasDetail extends React.Component<WithStyles<typeof styles>, any> {
+class HCHelpPage extends React.Component<WithStyles<typeof styles>, any> {
   constructor(props: any) {
     super(props);
     this.state = {
@@ -40,4 +39,4 @@ class SettingsCanvasDetail extends React.Component<WithStyles<typeof styles>, an
   }
 }
 
-export default withStyles(styles)(SettingsCanvasDetail);
+export default withStyles(styles)(HCHelpPage);

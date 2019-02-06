@@ -2,9 +2,11 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import Dashboard from '../page-components/Dashboard'
 import HCDnaTable from '../page-components/HCDnaTable';
 import HCInstanceTable from '../page-components/HCInstanceTable';
-import Dashboard from '../page-components/Dashboard'
+import HCUiTable from '../page-components/HCUiTable';
+import HCHelpPage from '../pages/HCHelpPage';
 import * as ContainerApiActions from '../../actions/containerApi';
 import { withStyles } from '@material-ui/core/styles';
 import styles from '../styles/page-styles/DefaultPageMuiStyles'
@@ -31,18 +33,22 @@ class HCMonitorTablePage extends Component<Props> {
         <main className={classes.content}>
           <div className={classes.appBarSpacer} />
           <Typography className={classes.mainHeader} style={{color:"rgb(149, 185, 237)", fontFamily:"Raleway"}} variant="display1" gutterBottom={gutterBottom} component="h2" >
-            {location.pathname === "/" ? `DNA`: location.pathname.toString().substring(1).toUpperCase() } Overview Table
+            {location.pathname === "/" ? `Instances`: location.pathname.toString().substring(1).toUpperCase() } Overview Table
           </Typography>
           <div className={classes.tableContainer}>
-          {location.pathname === "/instance" ?
+          {location.pathname === "/" ?
             <HCInstanceTable className={classes.appTable} {...this.props} />
           :
-            location.pathname === "/" ?
+            location.pathname === "/dna" ?
             // this should be the dna table
             <HCDnaTable className={classes.appTable} {...this.props} />
           :
+            location.pathname === "/ui" ?
             // this should be the ui table
-            <HCDnaTable className={classes.appTable} {...this.props} />
+            <HCUiTable className={classes.appTable} {...this.props} />
+          :
+            // this should default the help page
+            <HCHelpPage className={classes.appTable} {...this.props} />
           }
           </div>
         </main>

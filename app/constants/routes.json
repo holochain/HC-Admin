@@ -1,8 +1,7 @@
 {
-  "UI": "/ui",
   "INSTALL" : "/install",
   "HELP": "/help",
-  "COREAPPS": "/coreappselection",
-  "INSTANCE": "/instance",
-  "DNA": "/"
+  "UI": "/ui",
+  "DNA": "/dna",
+  "INSTANCE": "/"
 }

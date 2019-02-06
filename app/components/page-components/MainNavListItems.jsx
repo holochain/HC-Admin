@@ -17,8 +17,8 @@ import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 // Local Imports
 import routes from '../../constants/routes';
 import { handleRefreshApp } from "../../utils/helper-functions";
-import Avatar from './references/FC-AvatarImage';
-import AgentName from './references/FC-AgentName';
+// import Avatar from './AvatarImage';
+// import AgentName from './AgentName';
 import styles from '../styles/component-styles/DashboardMuiStyles';
 
 const button : boolean = true;
@@ -78,52 +78,52 @@ class MainListItems extends React.Component {
     return (
       <div>
         <br />
-        <ListItem style={{paddingTop: "10px"}} button={button}>
+        <ListItem style={{display: 'inline', paddingTop: "10px"}} button={button}>
           <Link to={routes.UI}>
             <ListItemIcon style={{color:"#0e88efde"}}>
               <DashboardIcon />
             </ListItemIcon>
-            <Typography variant="subheading" style={{color:"#95b9ed", textDecoration: "none", display: "inline-block", marginLeft: "5px" }} gutterBottom={gutterBottom}>
+            <Typography variant="subheading" style={{color:"#95b9ed", textDecoration: "none", display: "inline", marginLeft: "5px" }} gutterBottom={gutterBottom}>
               UI Overview
             </Typography>
           </Link>
         </ListItem>
-        <ListItem style={{paddingTop: "45px"}} button={button}>
+        <ListItem style={{display: 'inline', paddingTop: "45px"}} button={button}>
           <Link to={routes.DNA}>
             <ListItemIcon style={{color:"#0e88efde"}}>
               <LayersIcon />
             </ListItemIcon>
-            <Typography variant="subheading" style={{color:"#95b9ed", textDecoration: "none", display: "inline-block", marginLeft: "5px" }} gutterBottom={gutterBottom}>
+            <Typography variant="subheading" style={{color:"#95b9ed", textDecoration: "none", display: "inline", marginLeft: "5px" }} gutterBottom={gutterBottom}>
               DNA Overview
             </Typography>
           </Link>
         </ListItem>
-        <ListItem style={{paddingTop: "45px"}} button={button}>
+        <ListItem style={{display: 'inline', paddingTop: "45px"}} button={button}>
           <Link to={routes.INSTANCE}>
           <ListItemIcon style={{color:"#0e88efde"}}>
             <PeopleIcon />
           </ListItemIcon>
-          <Typography variant="subheading" style={{color:"#95b9ed", textDecoration: "none", display: "inline-block", marginLeft: "5px" }} gutterBottom={gutterBottom}>
+          <Typography variant="subheading" style={{color:"#95b9ed", textDecoration: "none", display: "inline", marginLeft: "5px" }} gutterBottom={gutterBottom}>
             Instances Overview
           </Typography>
         </Link>
         </ListItem>
-        <ListItem style={{paddingTop: "45px"}} button={button}>
+        <ListItem style={{display: 'inline', paddingTop: "45px"}} button={button}>
           <Link to={routes.HELP}>
           <ListItemIcon style={{color:"#0e88efde"}}>
             <InfoIcon />
           </ListItemIcon>
-          <Typography variant="subheading" style={{color:"#95b9ed", textDecoration: "none", display: "inline-block", marginLeft: "5px" }} gutterBottom={gutterBottom}>
+          <Typography variant="subheading" style={{color:"#95b9ed", textDecoration: "none", display: "inline", marginLeft: "5px" }} gutterBottom={gutterBottom}>
             Help
           </Typography>
         </Link>
         </ListItem>
-        <ListItem style={{paddingTop: "45px"}} button={button} onClick={() => this.handleClick()}>
+        <ListItem style={{display: 'inline', paddingTop: "45px"}} button={button} onClick={() => this.handleClick()}>
           <input id="linkUpload" type="file" accept=".hcpkg" name="fileInput" onChange={this.handleUpload} ref="fileInput" style={{display:"none"}}/>
-            <Button variant="contained" color="default" style={{ marginRight: "5px", background:"#95b9ed" }} autoFocus>
-              <CloudUploadIcon style={{ background:"#95b9ed" }}  />
+            <Button variant="contained" color="default" style={{ marginRight: "5px", background:"#0762c3de", marginBottom:"3px" }} autoFocus>
+              <CloudUploadIcon style={{ background:"#0762c3de", color:"#072dc3de" }}  />
               <Typography style={{ marginRight: "5px"}}  variant="subheading">
-                Install
+                <span style={{ marginLeft: "3px", color:"#072dc3de" }}>Install</span>
               </Typography>
             </Button>
         </ListItem>
