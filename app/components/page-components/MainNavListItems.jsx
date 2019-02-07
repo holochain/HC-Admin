@@ -78,46 +78,46 @@ class MainListItems extends React.Component {
     return (
       <div>
         <br />
-        <ListItem style={{display: 'inline', paddingTop: "10px"}} button={button}>
-          <Link to={routes.UI}>
+        <Link to={routes.UI}>
+          <ListItem style={{display: 'inline', paddingTop: "10px"}} button={button}>
             <ListItemIcon style={{color:"#0e88efde"}}>
               <DashboardIcon />
             </ListItemIcon>
             <Typography variant="subheading" style={{color:"#95b9ed", textDecoration: "none", display: "inline", marginLeft: "5px" }} gutterBottom={gutterBottom}>
               UI Overview
             </Typography>
-          </Link>
-        </ListItem>
-        <ListItem style={{display: 'inline', paddingTop: "45px"}} button={button}>
-          <Link to={routes.DNA}>
+          </ListItem>
+        </Link>
+        <Link to={routes.DNA}>
+          <ListItem style={{display: 'inline', paddingTop: "45px"}} button={button}>
             <ListItemIcon style={{color:"#0e88efde"}}>
               <LayersIcon />
             </ListItemIcon>
             <Typography variant="subheading" style={{color:"#95b9ed", textDecoration: "none", display: "inline", marginLeft: "5px" }} gutterBottom={gutterBottom}>
               DNA Overview
             </Typography>
-          </Link>
-        </ListItem>
-        <ListItem style={{display: 'inline', paddingTop: "45px"}} button={button}>
-          <Link to={routes.INSTANCE}>
-          <ListItemIcon style={{color:"#0e88efde"}}>
-            <PeopleIcon />
-          </ListItemIcon>
-          <Typography variant="subheading" style={{color:"#95b9ed", textDecoration: "none", display: "inline", marginLeft: "5px" }} gutterBottom={gutterBottom}>
-            Instances Overview
-          </Typography>
+          </ListItem>
         </Link>
-        </ListItem>
-        <ListItem style={{display: 'inline', paddingTop: "45px"}} button={button}>
-          <Link to={routes.HELP}>
-          <ListItemIcon style={{color:"#0e88efde"}}>
-            <InfoIcon />
-          </ListItemIcon>
-          <Typography variant="subheading" style={{color:"#95b9ed", textDecoration: "none", display: "inline", marginLeft: "5px" }} gutterBottom={gutterBottom}>
-            Help
-          </Typography>
+        <Link to={routes.INSTANCE}>
+          <ListItem style={{display: 'inline', paddingTop: "45px"}} button={button}>
+            <ListItemIcon style={{color:"#0e88efde"}}>
+              <PeopleIcon />
+            </ListItemIcon>
+            <Typography variant="subheading" style={{color:"#95b9ed", textDecoration: "none", display: "inline", marginLeft: "5px" }} gutterBottom={gutterBottom}>
+              Instances Overview
+            </Typography>
+          </ListItem>
         </Link>
-        </ListItem>
+        <Link to={routes.HELP}>
+          <ListItem style={{display: 'inline', paddingTop: "45px"}} button={button}>
+            <ListItemIcon style={{color:"#0e88efde"}}>
+              <InfoIcon />
+            </ListItemIcon>
+            <Typography variant="subheading" style={{color:"#95b9ed", textDecoration: "none", display: "inline", marginLeft: "5px" }} gutterBottom={gutterBottom}>
+              Help
+            </Typography>
+          </ListItem>
+        </Link>
         <ListItem style={{display: 'inline', paddingTop: "45px"}} button={button} onClick={() => this.handleClick()}>
           <input id="linkUpload" type="file" accept=".hcpkg" name="fileInput" onChange={this.handleUpload} ref="fileInput" style={{display:"none"}}/>
             <Button variant="contained" color="default" style={{ marginRight: "5px", background:"#072dc3de", marginBottom:"3px" }} autoFocus>
@@ -126,9 +126,9 @@ class MainListItems extends React.Component {
                 <span style={{ marginLeft: "3px", color:"#95b9ed" }}>Install</span>
               </Typography>
             </Button>
-        </ListItem>
-      <Divider />
-    </div>
+          </ListItem>
+        <Divider/>
+      </div>
     )
   }
 }

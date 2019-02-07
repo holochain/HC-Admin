@@ -116,7 +116,7 @@ const dataRefactor = (app_details, app_type) => {
 ////////////////////////////////////////////////////////
 export const refactorListOfDnas = (downloaded_apps, list_of_dna, info_instances) => {
     let status = {};
-    const uninstalled_apps=[];
+    let uninstalled_apps=[];
     console.log("CONDITION::",downloaded_apps);
     if(downloaded_apps && Object.keys(downloaded_apps).length > 0)
     uninstalled_apps = monitorUninstalledApps(downloaded_apps, list_of_dna);

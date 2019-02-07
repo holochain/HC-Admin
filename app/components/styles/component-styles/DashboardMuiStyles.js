@@ -1,9 +1,11 @@
+// MUI Custom Styling :
+import { StyleRulesCallback } from '@material-ui/core/';
+import { Theme } from '@material-ui/core/styles';
 import { fade } from '@material-ui/core/styles/colorManipulator';
-
 // MUI Custom Styling :
 const drawerWidth = 180;
 
-const styles = theme => ({
+const styles: StyleRulesCallback  = (theme: Theme) => ({
     root: {
       display: 'flex',
       background: "#00017fb3"
@@ -148,6 +150,7 @@ const styles = theme => ({
       justifyContent: 'center',
     },
     navMenuItems : {
+      marginBottom: 2,
       display: 'inline',
     },
     formControl : {

@@ -3,6 +3,8 @@ import * as React from 'react';
 import * as redux from 'redux';
 import ToggleButton from "./ToggleButton";
 import InstanceToggleButton from "./InstanceToggleButton";
+import matchSorter from 'match-sorter'
+import Jdenticon from "./Jdenticon";
 
 /* Instance Overview : Main Table Headers */
 const instance_table_columns = (props, state) => {
@@ -14,6 +16,9 @@ const instance_table_columns = (props, state) => {
     columns: [{
         Header: 'Type',
         accessor: 'type',
+        filterMethod: (filter, rows) =>
+          matchSorter(rows, filter.value, { keys: ["type"] }),
+        filterAll: true,
         Cell: row => (
           <div style={{ padding: '5px' }}>
           { row.value }
@@ -21,7 +26,11 @@ const instance_table_columns = (props, state) => {
         )
       }, {
       Header: 'Instance Name',
-      accessor: 'instanceId',
+      id: "instanceId",
+      accessor: d => d.instanceId,
+      filterMethod: (filter, rows) =>
+        matchSorter(rows, filter.value, { keys: ["instanceId"] }),
+      filterAll: true,
       Cell: row => (
         <div style={{ padding: '5px' }}>
         { row.value }
@@ -29,15 +38,24 @@ const instance_table_columns = (props, state) => {
       )
     }, {
         Header: 'DNA Name',
-        accessor: 'dna_id',
+        id: 'dna_id',
+        accessor: d => d.dna_id,
+        filterMethod: (filter, rows) =>
+          matchSorter(rows, filter.value, { keys: ["dna_id"] }),
+          filterAll: true,
+
         Cell: row => (
           <div style={{ padding: '5px' }}>
-          { row.value }
+              { row.value }
           </div>
         )
       }, {
       Header: 'Username',
-      accessor: 'agent_id',
+      id: 'agent_id',
+      accessor: d => d.agent_id,
+      filterMethod: (filter, rows) =>
+        matchSorter(rows, filter.value, { keys: ["agent_id"] }),
+        filterAll: true,
       Cell: row => (
         <div style={{ padding: '5px' }}>
         { row.value }
@@ -48,7 +66,11 @@ const instance_table_columns = (props, state) => {
   Header: '',
   columns: [{
       Header: 'Status',
-      accessor: 'status',
+      id: 'status',
+      accessor:"status",
+      filterMethod: (filter, rows) =>
+        matchSorter(rows, filter.value, { keys: ["status.status"] }),
+        filterAll: true,
       Cell: row => (
         <div>
           <span style={{
@@ -70,7 +92,11 @@ const instance_table_columns = (props, state) => {
       )
     }, {
       Header: 'Running',
-      accessor: 'running',
+      id: 'running',
+      accessor:  "running",
+      filterMethod: (filter, rows) =>
+        matchSorter(rows, filter.value, { keys: ["running.running"] }),
+        filterAll: true,
       Cell: row => (
         <div>
           <span style={{
@@ -95,46 +121,18 @@ const instance_table_columns = (props, state) => {
       )
     }, {
       Header: 'Interface',
-      accessor: 'interface',
+      id: 'interface',
+      accessor: d => d.interface,
+      filterMethod: (filter, rows) =>
+        matchSorter(rows, filter.value, { keys: ["interface"] }),
+        filterAll: true,
       Cell: row => (
         <div>
         { row.value }
         </div>
       )
      }]
-    }, {
-      Header: '',
-      columns: [
-      {
-        expander: true,
-        Header: () => (<strong>Base DNA</strong>),
-        width: 65,
-        Expander: ({ isExpanded, ...rest }) =>
-          <div>
-            {isExpanded
-              ? <span style={{
-                color: '#00838c',
-                marginTop: '20px',
-                fontSize: '35px',
-              }}>&#x2303;</span>
-              :
-              <span style={{
-                color: '#00838c',
-                marginTop: '15px',
-                fontSize: '35px',
-              }}>&#x2304;</span>
-            }
-          </div>,
-        style: {
-          cursor: "pointer",
-          fontSize: 25,
-          padding: "0",
-          textAlign: "center",
-          userSelect: "none"
-        },
-      }
-    ]
-  }]
+    }]
   return table_columns;
 };
 export default instance_table_columns;
@@ -166,7 +164,7 @@ export const instance_base_dna_table_columns = (props, state) => {
       accessor: 'hash',
       Cell: row => (
         <div style={{ padding: '5px' }}>
-        { row.value }
+          {row.value}
         </div>
       )
     },{

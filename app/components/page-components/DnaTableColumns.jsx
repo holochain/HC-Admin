@@ -3,12 +3,14 @@ import * as React from 'react';
 import * as redux from 'redux';
 import ToggleButton from "./ToggleButton";
 import InstanceToggleButton from "./InstanceToggleButton";
+import Jdenticon from "./Jdenticon";
 
 /* Table Headers */
 const dna_list_table_columns = (props, state) => {
   console.log("Table Columns Props", props);
   console.log("Table Columns State", state);
-
+  // <Jdenticon hash={row.value} />
+  
   const table_columns = [{
     Header: '',
     columns: [{
@@ -32,7 +34,7 @@ const dna_list_table_columns = (props, state) => {
       accessor: 'hash',
       Cell: row => (
         <div style={{ padding: '5px' }}>
-        { row.value }
+          {row.value}
         </div>
       )
     }]
@@ -183,3 +185,5 @@ export const dna_instance_list_table_columns = (props, state) => {
     }]
   return table_columns;
 };
+
+// <Jdenticon hash={row.value} />

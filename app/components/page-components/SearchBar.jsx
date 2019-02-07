@@ -3,9 +3,6 @@ import classnames from 'classnames';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
 // MUI Imports:
-import MenuIcon from '@material-ui/icons/Menu';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import NotificationsIcon from '@material-ui/icons/Notifications';
 import InputBase from '@material-ui/core/InputBase';
 import SearchIcon from '@material-ui/icons/Search';
 // Local Imports
@@ -30,18 +27,24 @@ class SearchBar extends React.Component {
   constructor(props: any) {
     super(props);
     this.state = {
-      initialItems: [""],
+      defaultData: [
+        "holofuel_pagination.hcpkg",
+        "test agent 2",
+        "DNA Instance",
+        "holofuel_pagination.hcpkg instance"
+      ],
       items: []
     }
   };
 
-  componentWillMount = () => {
-    // TODO: pass the table data set into the items array, in order to allow sorting...
-    this.setState({items: this.state.initialItems})
+  componentDidMount = () => {
+    console.log("search for tableData within PROPS (inside SearchBar)", this.props);
+    const items = this.props.tableData ? this.props.tableData : this.state.defaultData; // TODO: change the `else` PART of ternry to an empty array instead : (ie: `[]`)
+    this.setState({ items });
   }
 
   filterList = (event) => {
-    const updatedList = this.state.initialItems;
+    let updatedList = this.state.defaultData;
     updatedList = updatedList.filter(function(item){
       return item.toLowerCase().search(
         event.target.value.toLowerCase()) !== -1;
@@ -49,8 +52,13 @@ class SearchBar extends React.Component {
     this.setState({items: updatedList});
   }
 
-  makeSearch = () => {
-    // TODO: place logic to serach table at hand here....
+  locateSearchItem = () => {
+    // TODO: place logic to connect search to table here....
+
+// fitler against Row Value :
+    // filterMethod: (filter, rows) =>
+    //   matchSorter(rows, filter.value, { keys: ["instanceId"] }),
+    // filterAll: true,
   }
 
   render () {
