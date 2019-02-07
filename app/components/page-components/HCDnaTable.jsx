@@ -158,17 +158,19 @@ class HCDnaTable extends React.Component {
   }
 
   displayData = () => {
-    // console.log("this.state inside displayData", this.state);
+    console.log("this.state inside displayData", this.state);
 
     const { downloaded_apps } = this.state;
-    console.log('downloaded_apps && Object.keys(downloaded_apps).length > 0', downloaded_apps && Object.keys(downloaded_apps).length > 0);
-    if (downloaded_apps && Object.keys(downloaded_apps).length > 0){
-      const { list_of_dna, list_of_running_instances, list_of_instance_info } = this.props.containerApiCalls;
+    // console.log('downloaded_apps && Object.keys(downloaded_apps).length > 0', downloaded_apps && Object.keys(downloaded_apps).length > 0);
+      const { list_of_dna,
+        // list_of_running_instances,
+        list_of_instance_info } = this.props.containerApiCalls;
 
-      console.log("downloaded_apps", Object.keys(downloaded_apps));
+      // console.log("downloaded_apps", Object.keys(downloaded_apps));
       const table_files = refactorListOfDnas(downloaded_apps, list_of_dna, list_of_instance_info);
+
       return table_files;
-    }
+
   }
 
     displaySubComponentData = (row) => {
@@ -187,7 +189,7 @@ class HCDnaTable extends React.Component {
 
 
   render() {
-    console.log("PROPS:: ", this.props);
+    console.log("Rending DNA TABLE : ", this.props);
     // console.log("! THIS.STATE.DATA.list_of_instance_info: ", !this.state.data.list_of_instance_info);
     if (!this.state.data.list_of_dna || this.state.data.list_of_dna.length === 0 ){
       return <div/>
@@ -195,7 +197,8 @@ class HCDnaTable extends React.Component {
 
     const table_data = this.displayData();
     const columns = dna_list_table_columns(this.props, this.state);
-    // console.log("table_columns: ", columns);
+    console.log("table_columns: ", table_data);
+    console.log("table_columns: ", columns);
 
     return (
       <div className={classnames("App")}>
