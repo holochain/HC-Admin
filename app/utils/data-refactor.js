@@ -1,6 +1,62 @@
 /*///////////////////////////////////////////////////
     Table Data Generation Helper Function MAIN
  ////////////////////////////////////////////////////*/
+export const uiTableDataRefactored = (list_of_ui_bundle, list_of_ui_instances,downloaded_ui_bundles) => {
+    let status = {};
+    let uninstalled_apps=[];
+    if(downloaded_ui_bundles && Object.keys(downloaded_ui_bundles).length > 0)
+    uninstalled_apps = monitorUninstalledUI(downloaded_ui_bundles, list_of_ui_bundle);
+
+    let ui_bundle_installed=[]
+    if(Object.keys(list_of_ui_bundle).length > 0 ){
+      ui_bundle_installed =  list_of_ui_bundle.map((ui)=>{
+        return {
+          ui_bundle_id:ui.id,
+          hash:ui.hash,
+          ui_instance_exist:findUIInterface(ui.id,list_of_ui_instances),
+          status:"Installed",
+          ui_instance:[uiInterfaceDetails(ui.id,list_of_ui_instances)]
+        }
+      })
+    }
+
+  const ui_bundle_uninstalled = uninstalled_apps.map((ui) => {
+      return {
+        ui_bundle_id:ui.ui_bundle_id,
+        hash:"-",
+        ui_instance_exist:false,
+        status:"Uninstalled"
+      };
+  })
+  return ui_bundle_installed.concat(ui_bundle_uninstalled);
+}
+
+//TODO : Will we have multiple UI from the same bundle?
+const uiInterfaceDetails = (id,list_of_ui_instances)=>{
+  return list_of_ui_instances.find(ui=>{
+      return id === ui.bundle
+  });
+}
+
+const findUIInterface = (id,list_of_ui_instances)=>{
+  const exist = list_of_ui_instances.find(ui=>{
+      return id === ui.bundle
+  });
+  if (exist) {
+    return true;
+  }
+  else return false;
+}
+const monitorUninstalledUI = (downloaded_ui_bundles, list_of_ui_instances) => {
+  let uninstalled_apps = [];
+  uninstalled_apps = downloaded_ui_bundles.filter(down_app=>{
+    return !list_of_ui_instances.find(app=>{
+        return down_app.ui_bundle_id === app.id
+    });
+  });
+  return uninstalled_apps;
+}
+
 const dataRefactor = (app_details, app_type) => {
   console.log("APPDETAILS:-------------->",app_details);
   const APP_LIST_LENGTH = app_details.length;
@@ -60,7 +116,10 @@ const dataRefactor = (app_details, app_type) => {
 ////////////////////////////////////////////////////////
 export const refactorListOfDnas = (downloaded_apps, list_of_dna, info_instances) => {
     let status = {};
-    const uninstalled_apps = monitorUninstalledApps(downloaded_apps, list_of_dna);
+    const uninstalled_apps=[];
+    console.log("CONDITION::",downloaded_apps);
+    if(downloaded_apps && Object.keys(downloaded_apps).length > 0)
+    uninstalled_apps = monitorUninstalledApps(downloaded_apps, list_of_dna);
 
     console.log("uninstalled_apps >> check to see list of uninstalled : ", uninstalled_apps);
     console.log("list_of_dna >> check to see list of uninstalled : ", list_of_dna);

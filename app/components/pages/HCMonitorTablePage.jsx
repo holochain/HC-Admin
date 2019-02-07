@@ -33,8 +33,7 @@ class HCMonitorTablePage extends Component<Props> {
     console.log(">>>> location: >>>", location);
 
     const setTableData = (tableData) => {
-      console.log(" >>>>>>>>>,  searchBarDataSet (INSIDE HCMonitorTablePage ROUTER) ,<<<<<<<", searchBarDataSet);
-
+      // console.log(" >>>>>>>>>,  searchBarDataSet (INSIDE HCMonitorTablePage ROUTER) ,<<<<<<<", searchBarDataSet);
       this.setState({
         tableData
       });

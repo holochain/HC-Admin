@@ -7,8 +7,8 @@ import Jdenticon from "./Jdenticon";
 
 /* Table Headers */
 const dna_list_table_columns = (props, state) => {
-  // console.log("Table Columns Props", props);
-  // console.log("Table Columns State", state);
+  console.log("Table Columns Props", props);
+  console.log("Table Columns State", state);
 
   const table_columns = [{
     Header: '',

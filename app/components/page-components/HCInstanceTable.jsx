@@ -154,6 +154,8 @@ class HCInstanceTable extends React.Component {
     }
   }
 
+
+// for the HEADER custom search bar...
   setSearchBarDataReference = async (table_data, instance_base_dna_table_data) => {
     const reduced_table_data_obj = table_data.reduce(((result, current) => Object.assign(result, current)), {});
     const table_data_values_as_array =
@@ -192,14 +194,13 @@ class HCInstanceTable extends React.Component {
         //   return value;
         // });
     }
-
     const searchBarDataSet = await table_data_values_as_array.concat(instance_base_dna_table_data_values_as_array);
-    this.props.setSearchData(searchBarDataSet);
+    // this.props.setSearchData(searchBarDataSet);
   }
 
 
   render() {
-    if (!this.state.data.list_of_installed_instances || this.state.data.list_of_installed_instances.length === 0){
+    if (!this.props.containerApiCalls.length === 0){
       return <div/>
     }
 

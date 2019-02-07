@@ -1,0 +1,91 @@
+bridges = []
+
+[[agents]]
+id = "test agent 1"
+key_file = "holo_tester.key"
+name = "Holo Tester 1"
+public_address = "HoloTester1-----------------------------------------------------------------------AAACZp4xHB"
+
+[[agents]]
+id = "test agent 2"
+key_file = "holo_tester.key"
+name = "Holo Tester 2"
+public_address = "HoloTester2-----------------------------------------------------------------------AAAGy4WW9e"
+
+[[dnas]]
+file = "/home/zo-el/Documents/GitRepo/Holochain/container-work/holochain-rust/app_spec/dist/app_spec.hcpkg"
+hash = "Qm328wyq38924y"
+id = "app spec rust"
+
+[[ui_bundles]]
+id = "bundle1"
+root_dir = "./example-config/example-static-site"
+hash = "Qm000"
+
+[[ui_interfaces]]
+id = "ui-interface-1"
+bundle = "bundle1"
+port = 9800
+dna_interface = "websocket interface"
+
+[[instances]]
+agent = "test agent 1"
+dna = "app spec rust"
+id = "app spec instance 1"
+
+[instances.storage]
+path = "example-config/tmp-storage"
+type = "file"
+
+[[instances]]
+agent = "test agent 2"
+dna = "app spec rust"
+id = "app spec instance 2"
+
+[instances.storage]
+path = "example-config/tmp-storage"
+type = "file"
+
+[[interfaces]]
+admin = true
+id = "websocket interface"
+
+[[interfaces.instances]]
+id = "app spec instance 1"
+
+[[interfaces.instances]]
+id = "app spec instance 2"
+
+[interfaces.driver]
+port = 3000
+type = "websocket"
+
+[[interfaces]]
+admin = true
+id = "http interface"
+
+[[interfaces.instances]]
+id = "app spec instance 1"
+
+[[interfaces.instances]]
+id = "app spec instance 2"
+
+[interfaces.driver]
+port = 4000
+type = "http"
+
+[logger]
+type = "debug"
+[[logger.rules.rules]]
+color = "red"
+exclude = false
+pattern = "^err/"
+
+[[logger.rules.rules]]
+color = "white"
+exclude = false
+pattern = "^debug/dna"
+
+[[logger.rules.rules]]
+exclude = false
+pattern = ".*"

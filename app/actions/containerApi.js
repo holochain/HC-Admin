@@ -266,19 +266,65 @@ export function get_agent_list() {
             /* Reporting Container UIs */
 ////////////////////////////////////////////////////////
 // admin/ui/list
+export function get_ui_list() {
+  console.log(">> API CALL GET_UI_LIST");
+  return {
+    type: 'GET_UI_LIST',
+    payload:[],
+    meta: {
+    	holochainAction: true,
+    	callString: `admin/ui/list`
+    }
+  }
+}
 
 ////////////////////////////////////////////////////////
           /* Updating Container UIs */
 ////////////////////////////////////////////////////////
 // admin/ui/install
+// @params : {id,root_dir}
+export function install_ui(payload) {
+  console.log(">> API CALL INSTALL_UI");
+  return {
+    type: 'INSTALL_UI',
+    payload,
+    meta: {
+    	holochainAction: true,
+    	callString: `admin/ui/install`
+    }
+  }
+}
 
 // admin/ui/uninstall
+// @params : {id}
+export function uninstall_ui(payload) {
+  console.log(">> API CALL UNINSTALL_UI");
+  return {
+    type: 'UNINSTALL_UI',
+    payload,
+    meta: {
+    	holochainAction: true,
+    	callString: `admin/ui/uninstall`
+    }
+  }
+}
+////////////////////////////////////////////////////////
+            /* UI Interfaces */
+////////////////////////////////////////////////////////
 
-//admin/ui/start
-
-//admin/ui/stop
-
-
+// admin/ui_interface/list
+// @params : {id}
+export function get_ui_instance_list(payload) {
+  console.log(">> API CALL GET_UI_INSTANCE_LIST");
+  return {
+    type: 'GET_UI_INSTANCE_LIST',
+    payload,
+    meta: {
+    	holochainAction: true,
+    	callString: `admin/ui_interface/list`
+    }
+  }
+}
 /*************************************************************************************************************************/
                                                   /* BRIDING FUNCTIONALITY */
 /*************************************************************************************************************************/

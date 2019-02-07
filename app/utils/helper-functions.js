@@ -39,3 +39,21 @@ const manageAllDownloadedApps = (allApps) => {
   return app_details;
 }
 export default manageAllDownloadedApps;
+
+export const manageAllDownloadedUI = (allBundles) => {
+  console.log("helper function manageAllDownloadedApps...");
+
+  let listOfApps = allBundles.split("\n");
+  listOfApps = listOfApps.filter((app)=>{
+    return app !== "";
+  });
+  const app_details = listOfApps.map((app)=>{
+    // ATTN > changed app_name tp dna_id
+    return { "ui_bundle_id": app,
+     "root_dir": `~/.hcadmin/download-ui/${app}` }
+  });
+  return app_details;
+}
+//////////////////////////////////////////
+    // Custom Serach Bar Functions
+/////////////////////////////////////////
