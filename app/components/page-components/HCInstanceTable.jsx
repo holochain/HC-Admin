@@ -3,7 +3,7 @@ import * as React from 'react';
 import * as redux from 'redux';
 import { connect } from 'react-redux';
 import { BrowserRouter, Route, Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
+import QueueAnim from 'rc-queue-anim';
 import classnames from 'classnames';
 import cmd from 'node-cmd';
 // electron:
@@ -125,7 +125,7 @@ class HCInstanceTable extends React.Component {
 
   displayData = () => {
     console.log("this.state inside displayData", this.state);
-    if (this.props.containerApiCalls.list_of_installed_instances){
+    if (this.props.containerApiCalls.list_of_running_instances && this.props.containerApiCalls.list_of_installed_instances && this.props.containerApiCalls.list_of_instance_info){
       const { list_of_running_instances, list_of_installed_instances ,list_of_instance_info} = this.props.containerApiCalls;
 
       const table_dna_instance_info =  refactorInstanceData(list_of_instance_info, list_of_installed_instances, list_of_running_instances);
@@ -216,10 +216,10 @@ class HCInstanceTable extends React.Component {
           defaultFilterMethod={(filter, row) =>
             String(row[filter.id]) === filter.value
           }
-          data={table_data}
+          data={table_data ? table_data : []}
           columns={columns}
           className="-striped -highlight"
-          defaultPageSize={table_data.length}
+          defaultPageSize={table_data ? table_data.length : 5}
           showPagination={false}
           SubComponent={row => {
             console.log("row", row);
@@ -245,27 +245,12 @@ class HCInstanceTable extends React.Component {
 
 export default HCInstanceTable;
 
-// STATUS & RUNNING BUTTON ALTERNATIVES :
-    // renderStatusButton = (dna_id, status, running) => {
-    //   const STOPBUTTON=(<button className="StopButton" type="button">Stop</button>);
-    //   const STARTBUTTON=(<button className="StartButton" type="button">Start</button>);
-    //   if(running){
-    //     return (STOPBUTTON)
-    //   }else if (!running){
-    //     if(status==="installed"){
-    //       return (STARTBUTTON)
-    //     }
-    //   }
-    // }
-    //
-    // renderRunningButton = (dna_id, status, running) => {
-    //   const INSTALLBUTTON=(<button className="InstallButton" type="button">Install</button>);
-    //   const UNINSTALLBUTTON=(<button className="InstallButton" type="button">Uninstall</button>);
-    //   if (!running){
-    //     if (status === "installed") {
-    //       return UNINSTALLBUTTON
-    //     } else if (status === 'uninstalled') {
-    //       return INSTALLBUTTON
-    //     }
-    //   }
-    // }
+// const HCInstanceTable = () => (
+  //   <div className="page-error">
+  //     <QueueAnim type="bottom">
+  //       <div key="1">
+  //         <HCInstanceTableMain style={{textAlign:'center', margin:'0 auto'}} />
+  //       </div>
+  //     </QueueAnim>
+  //   </div>
+  // );

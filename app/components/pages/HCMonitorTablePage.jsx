@@ -1,24 +1,21 @@
 // @flow
-import React, { Component } from 'react';
+import * as React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+// mui custom styling imports
+import { withStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
+// local imports
+import * as ContainerApiActions from '../../actions/containerApi';
 import Dashboard from '../page-components/Dashboard'
 import HCDnaTable from '../page-components/HCDnaTable';
 import HCInstanceTable from '../page-components/HCInstanceTable';
 import HCUiTable from '../page-components/HCUiTable';
 import HCHelpPage from '../pages/HCHelpPage';
-import * as ContainerApiActions from '../../actions/containerApi';
-import { withStyles } from '@material-ui/core/styles';
 import styles from '../styles/page-styles/DefaultPageMuiStyles'
-import Typography from '@material-ui/core/Typography';
 
-type Props = {
-  fetch_state: () => void,
-  get_info_instances: () => Promise,
-  install_dna_from_file: ()=> Promise
-};
 
-class HCMonitorTablePage extends Component<Props> {
+class HCMonitorTablePage extends React.Component<Props> {
   constructor(props:Props){
     super(props);
     this.state = {
@@ -27,7 +24,7 @@ class HCMonitorTablePage extends Component<Props> {
   };
 
   render() {
-    const { classes } = this.props;
+    const { classes, ...newProps } = this.props;
     const gutterBottom : boolean = true;
     const {location} = this.props.history;
     console.log(">>>> location: >>>", location);
@@ -40,7 +37,7 @@ class HCMonitorTablePage extends Component<Props> {
     }
 
     return (
-      <Dashboard {...this.props} tableData={this.state.tableData}>
+      <Dashboard {...newProps} tableData={this.state.tableData}>
         <main className={classes.content}>
           <div className={classes.appBarSpacer} />
           <Typography className={classes.mainHeader} style={{color:"rgb(149, 185, 237)", fontFamily:"Raleway"}} variant="display1" gutterBottom={gutterBottom} component="h2" >

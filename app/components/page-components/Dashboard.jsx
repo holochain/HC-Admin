@@ -36,6 +36,7 @@ class Dashboard extends React.Component {
 
 
   render() {
+    console.log("PROPS INSIDE Dashboard", this.props);
     const { classes, tableData } = this.props;
     const noWrap : boolean = true;
     // <img src={logo} className={classnames(classes.navAppLogo, "App-logo")} alt="logo" />

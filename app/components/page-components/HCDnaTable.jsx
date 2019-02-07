@@ -3,7 +3,7 @@ import * as React from 'react';
 import * as redux from 'redux';
 import { connect } from 'react-redux';
 import { BrowserRouter, Route, Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
+import QueueAnim from 'rc-queue-anim';
 import classnames from 'classnames';
 import cmd from 'node-cmd';
 // electron:
@@ -168,110 +168,91 @@ class HCDnaTable extends React.Component {
 
       // console.log("downloaded_apps", Object.keys(downloaded_apps));
       const table_files = refactorListOfDnas(downloaded_apps, list_of_dna, list_of_instance_info);
-
-      this.setSearchBarDataReference(table_files, {});
-
       return table_files;
 
   }
 
-    displaySubComponentData = (row, parent_table_data) => {
+  displaySubComponentData = (row, parent_table_data) => {
+    const current_dna_instances = row.original.status.instance_list;
+    if (this.props.containerApiCalls.list_of_installed_instances && this.props.containerApiCalls.list_of_running_instances && current_dna_instances){
+      // const dna_id = row.original.dna_id;
       const { list_of_running_instances, list_of_installed_instances } = this.props.containerApiCalls;
-      if (list_of_installed_instances){
-        // const dna_id = row.original.dna_id;
-        const current_dna_instances = row.original.status.instance_list;
-        // console.log("!!!!!!!!!!!! c urrent_dna_instance s!!!!!!!!!!!!!!!! ", current_dna_instances);
+      const dna_instance_data_table_info =  refactorDnaInstanceData( current_dna_instances, list_of_installed_instances, list_of_running_instances );
 
-        const dna_instance_data_table_info =  refactorDnaInstanceData( current_dna_instances, list_of_installed_instances, list_of_running_instances );
-
-        this.setSearchBarDataReference(parent_table_data, dna_instance_data_table_info);
-        // console.log("DATA GOING TO INSTANCE BASE DNA TABLE >>>> !! dna_instance_data_table_info !! <<<<<<<< : ", dna_instance_data_table_info);
-        return dna_instance_data_table_info;
-      }
-      else {
-        this.setSearchBarDataReference(parent_table_data, {});
-      }
+      // console.log("DATA GOING TO INSTANCE BASE DNA TABLE >>>> !! dna_instance_data_table_info !! <<<<<<<< : ", dna_instance_data_table_info);
+      return dna_instance_data_table_info;
     }
-
-    setSearchBarDataReference = async (table_data, dna_instance_data) => {
-      const table_data_values_as_array = Object.keys(table_data).map((key) => table_data[key]);
-      const dna_instance_data_values_as_array = Object.keys(dna_instance_data).map((key) => dna_instance_data[key]);
-
-      const searchBarDataSet = await table_data_values_as_array.concat(dna_instance_data_as_array);
-
-      console.log(" >>>>>>>>>,  searchBarDataSet (inside HCDnaTable) ,<<<<<<<", searchBarDataSet);
-      this.props.setSearchData(searchBarDataSet);
-    }
+  }
 
 
-  render() {
-    console.log("Rending DNA TABLE : ", this.props);
-    // console.log("! THIS.STATE.DATA.list_of_instance_info: ", !this.state.data.list_of_instance_info);
-    if (!this.props.containerApiCalls.length === 0 ){
-      return <div/>
-    }
+ render() {
+  console.log("Rending DNA TABLE : ", this.props);
+  // console.log("! THIS.STATE.DATA.list_of_instance_info: ", !this.state.data.list_of_instance_info);
+  if (!this.props.containerApiCalls.length === 0 ){
+    return <div/>
+  }
 
-    const table_data = this.displayData();
-    const columns = dna_list_table_columns(this.props, this.state);
-    console.log("table_columns: ", table_data);
-    console.log("table_columns: ", columns);
+  const table_data = this.displayData();
+  const columns = dna_list_table_columns(this.props, this.state);
+  console.log("table_columns: ", table_data);
+  console.log("table_columns: ", columns);
 
-    return (
-      <div className={classnames("App")}>
-        <AdvancedExpandReactTable
-          data={table_data}
-          columns={columns}
-          className="-striped -highlight"
-          defaultPageSize={table_data.length}
-          showPagination={false}
-          SubComponent={row => {
-            const addInstance = (custom_agent_id, custom_instance_id, interfaceforInstance) => {
-              // console.log("<><><><><> customAgentId <><><<><>", custom_agent_id);
-              // console.log("<><><><><> customInstanceId <><><<><>", custom_instance_id);
-              // console.log("<><><><><> interfaceforInstance <><><<><>", interfaceforInstance);
-              const { dna_id } = row.original;
-              const agent_id = custom_agent_id ? custom_agent_id : this.props.containerApiCalls.agent_list[0].id; // HC AGENT ID
-              const instance_id = custom_instance_id ?  custom_instance_id : (dna_id + agent_id);
-              const interface_id = interfaceforInstance;
+  return (
+    <div className={classnames("App")}>
+      <AdvancedExpandReactTable
+        data={table_data ? table_data : []}
+        columns={columns}
+        className="-striped -highlight"
+        defaultPageSize={table_data ? table_data.length : 5}
+        showPagination={false}
+        SubComponent={row => {
+          const addInstance = (custom_agent_id, custom_instance_id, interfaceforInstance) => {
+            // console.log("<><><><><> customAgentId <><><<><>", custom_agent_id);
+            // console.log("<><><><><> customInstanceId <><><<><>", custom_instance_id);
+            // console.log("<><><><><> interfaceforInstance <><><<><>", interfaceforInstance);
+            const { dna_id } = row.original;
+            const agent_id = custom_agent_id ? custom_agent_id : this.props.containerApiCalls.agent_list[0].id; // HC AGENT ID
+            const instance_id = custom_instance_id ?  custom_instance_id : (dna_id + agent_id);
+            const interface_id = interfaceforInstance;
 
-              this.props.add_agent_dna_instance({id, dna_id, agent_id}).then(res => {
-                this.props.add_instance_to_interface({instance_id, interface_id});
-              })
+            this.props.add_agent_dna_instance({id, dna_id, agent_id}).then(res => {
+              this.props.add_instance_to_interface({instance_id, interface_id});
+            })
+          }
+
+          if(row.original.status.instance_list === "N/A" || row.original.status.instance_list.length <= 0 ){
+              return (
+                <div style={{ paddingTop: "2px" }}>
+                  <h3 style={{ color: "#567dbb", textAlign: "center" }}>No Instances Yet Exist</h3>
+
+                  <div style={{ justifyItems: "center", display:"inline", margin:"2px 5px 8px 5px" }}>
+                    <AddInstanceForm availableAgentList={this.props.containerApiCalls.agent_list}
+                    assignInstanceNewInterface={this.props.containerApiCalls.list_of_interfaces} handleAddInstance={addInstance} />
+                  </div>
+                </div>
+              )
             }
+            else {
+              const dna_instance_data = this.displaySubComponentData(row, table_data);
+              const dna_instance_columns = dna_instance_list_table_columns(this.props, this.state);
 
-            if(row.original.status.instance_list === "N/A" || row.original.status.instance_list.length <= 0 ){
-                return (
-                  <div style={{ paddingTop: "2px" }}>
-                    <h3 style={{ color: "#567dbb", textAlign: "center" }}>No Instances Yet Exist</h3>
-
-                    <div style={{ justifyItems: "center", display:"inline", margin:"2px 5px 8px 5px" }}>
-                      <AddInstanceForm availableAgentList={this.props.containerApiCalls.agent_list}
-                      assignInstanceNewInterface={this.props.containerApiCalls.list_of_interfaces} handleAddInstance={addInstance} />
-                    </div>
+              return (
+                <div style={{ paddingTop: "2px", marginBottom:"8px" }}>
+                  <div style={{ justifyItems: "center", display:"inline", margin:"2px" }}>
+                    <AddInstanceForm availableAgentList={this.props.containerApiCalls.agent_list} assignInstanceNewInterface={this.props.containerApiCalls.list_of_interfaces}
+                    handleAddInstance={addInstance} />
                   </div>
-                )
-              }
-              else {
-                const dna_instance_data = this.displaySubComponentData(row, table_data);
-                const dna_instance_columns = dna_instance_list_table_columns(this.props, this.state);
 
-                return (
-                  <div style={{ paddingTop: "2px", marginBottom:"8px" }}>
-                    <div style={{ justifyItems: "center", display:"inline", margin:"2px" }}>
-                      <AddInstanceForm availableAgentList={this.props.containerApiCalls.agent_list} assignInstanceNewInterface={this.props.containerApiCalls.list_of_interfaces}
-                      handleAddInstance={addInstance} />
-                    </div>
-
-                    <ReactTable
-                      data={dna_instance_data}
-                      columns={dna_instance_columns}
-                      defaultPageSize={dna_instance_data.length}
-                      showPagination={false}
-                      style = {{ margin: "0 auto", marginBottom: "50px", width:"90%", justifyItems:"center" }}
-                    />
-                  </div>
-                );
-              }
+                  <ReactTable
+                    data={dna_instance_data}
+                    columns={dna_instance_columns}
+                    defaultPageSize={dna_instance_data.length}
+                    showPagination={false}
+                    style = {{ margin: "0 auto", marginBottom: "50px", width:"90%", justifyItems:"center" }}
+                  />
+                </div>
+              );
+            }
          }}
       />
     </div>
@@ -279,3 +260,12 @@ class HCDnaTable extends React.Component {
 }
 
 export default HCDnaTable;
+// const HCDnaTable = () => (
+//   <div className="page-error">
+//   <QueueAnim type="bottom">
+//   <div key="1">
+//   <HCDnaTableMain style={{textAlign:'center', margin:'0 auto'}} />
+//   </div>
+//   </QueueAnim>
+//   </div>
+// );

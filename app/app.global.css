@@ -10,31 +10,18 @@
 @import "~@fortawesome/fontawesome-free/css/all.css";
 
 /* Animations */
-/* @keyframes holo-lamp {
-  0%   { background-image: linear-gradient(45deg,rgba(0, 1, 127, 0.7), rgba(0, 216, 255, 0.5) 65%, rgba(0, 1, 127, 0.7)); }
-  15%  { background-image: linear-gradient(45deg,rgba(0, 1, 127, 0.7), rgba(0, 216, 255, 0.5) 75%, rgba(0, 1, 127, 0.7)); }
-  30%  { background-image: linear-gradient(45deg,rgba(0, 1, 127, 0.7), rgba(0, 216, 255, 0.5) 85%, rgba(0, 1, 127, 0.7)); }
-  45%  { background-image: linear-gradient(45deg,rgba(0, 1, 127, 0.7), rgba(0, 216, 255, 0.5) 15%, rgba(0, 1, 127, 0.7)); }
-  60%  { background-image: linear-gradient(45deg,rgba(0, 1, 127, 0.7), rgba(0, 216, 255, 0.5) 25%, rgba(0, 1, 127, 0.7)); }
-  75%  { background-image: linear-gradient(45deg,rgba(0, 1, 127, 0.7), rgba(0, 216, 255, 0.5) 35%, rgba(0, 1, 127, 0.7)); }
-  90%  { background-image: linear-gradient(45deg,rgba(0, 1, 127, 0.7), rgba(0, 216, 255, 0.5) 45%, rgba(0, 1, 127, 0.7)); }
-  100% { background-image: linear-gradient(45deg,rgba(0, 1, 127, 0.7), rgba(0, 216, 255, 0.5) 55%, rgba(0, 1, 127, 0.7)); }
-}
-
-22272ceb
-
 @keyframes holo-motion {
   0%   { background-position: 0% 95%; }
   50%  { background-position: 35% 19%; }
   100% { background-position: 0% 95%; }
 }
 
-@keyframes App-logo-spin {
+@keyframes App-logo-spin {React
   from { transform: rotate(0deg);}
   to {transform: rotate(360deg);}
-} */
+}
 
-/* Global default styles */
+/*************************** Global Custom  Styles ***************************************/
 body {
   position: relative;
   height: 100vh;
@@ -126,10 +113,7 @@ h1, h2, h3, h4, h5, h6 {
   -webkit-user-select: none;
 }
 
-
-/* /////////////////////////////////////////////////////// */
-            /* Home.css  << refactor into MUI */
- /* /////////////////////////////////////////////////////// */
+/*************************** Default Header/View Custom  Styles ***************************************/
  .App {
    text-align: center !important;
  }
@@ -159,6 +143,7 @@ h1, h2, h3, h4, h5, h6 {
    }
  }
 
+ /*************************** Custom Scrollbar Styles ***************************************/
  ::-webkit-scrollbar {
     width: 12px;
 }
@@ -173,16 +158,18 @@ h1, h2, h3, h4, h5, h6 {
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
 }
 
-
-.ReactTable .rt-thead.-filters input, .ReactTable .rt-thead.-filters select {
-  background: "#4e5aa6" !important; /*alternative: #4a4c84 */
-  color: "#95b9ed" !important;
-}
-
+/*************************** ReactTable Custom  Styles ***************************************/
 .ReactTable {
-  background: transparent; /* a ver... */
+  background: transparent;
   margin-top: 50px;
   box-shadow:-2px 3px 11px 2px #111a58eb, 2px -2px 9px 5px #111a58eb,-1px -5px 27px 2px #111a58eb;
+}
+
+.ReactTable .rt-noData {
+  position: absolute;
+  left: 50%;
+  top: 180%;
+  background: #95b9ed;
 }
 
 .ReactTable .-pagination .-btn {
@@ -190,9 +177,17 @@ h1, h2, h3, h4, h5, h6 {
   color: #eee;
 }
 
-.ReactTable .-pagination input, .ReactTable .-pagination select {
+.ReactTable .-pagination input,
+.ReactTable .-pagination select {
   background: #e4e4e4;
   color: #282a2f;
+}
+
+.ReactTable .rt-thead.-filters input,
+.ReactTable .rt-thead.-filters select {
+  background: #4e5aa6 !important; /*alternative: #567dbb , #4a4c84 */
+  color: #e0e9f6 !important;
+  border: 1px solid #84adec;
 }
 
 .rt-thead {
@@ -235,7 +230,7 @@ h1, h2, h3, h4, h5, h6 {
     font-size: 20px;
   }
 
-
+  /*************************** Table Content Custom Styles ***************************************/
   .MuiListItem-root-105 {
    display: inline !important;
   }

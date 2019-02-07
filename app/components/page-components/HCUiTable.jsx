@@ -101,7 +101,7 @@ class HCUiTable extends React.Component {
     return (
       <div className={classnames("App")}>
         <AdvancedExpandReactTable
-          defaultPageSize={table_data.length}
+          defaultPageSize={table_data ? table_data.length : 5}
           showPagination={false}
           className="-striped -highlight"
           data={table_data}

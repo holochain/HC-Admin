@@ -1,7 +1,7 @@
-import React from 'react';
+import * as React from 'react';
 
-const el = null
 export default class Jdenticon extends React.Component {
+  el = null;
   componentDidUpdate() {
     window.jdenticon.update(this.el)
   }
@@ -11,18 +11,18 @@ export default class Jdenticon extends React.Component {
   }
 
   render () {
-    const { hash } = this.props
+    const {hash} = this.props
     return <svg
-      { ...this.props }
-      style={{verticalAlign: 'middle', maxWidth:'100%'}} // style={...styles} style ===> (..if wish to concat styles with parent styles)
-      ref={(el) => this.handleRef(el)} // tslint:disable-line
-      width="60px"
-      height="60px"
-      data-jdenticon-value={hash}
+        {...this.props}
+        style={{verticalAlign: 'middle'}}
+        ref={el => this.handleRef(el)}
+        width="25px"
+        height="25px"
+        data-jdenticon-value={hash}
       />
   }
 
-  handleRef (el: any) { // tslint:disable-line
+  handleRef (el: any) {
     this.el = el
   }
 }

@@ -1,5 +1,8 @@
 // MUI Custom Styling :
-const styles = theme => ({
+import { StyleRulesCallback } from '@material-ui/core/';
+import { Theme } from '@material-ui/core/styles';
+
+const styles: StyleRulesCallback  = (theme: Theme) => ({
     root: {
       display: 'flex',
       background: "linear-gradient(45deg, #341d40b3 10%, #6e6e96b)"  // #00017fb3

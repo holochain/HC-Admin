@@ -92,7 +92,7 @@ const instance_table_columns = (props, state) => {
       )
     }, {
       Header: 'Running',
-      // id: 'running',
+      id: 'running',
       accessor:  "running",
       filterMethod: (filter, rows) =>
         matchSorter(rows, filter.value, { keys: ["running.running"] }),
@@ -164,7 +164,7 @@ export const instance_base_dna_table_columns = (props, state) => {
       accessor: 'hash',
       Cell: row => (
         <div style={{ padding: '5px' }}>
-          <Jdenticon hash={row.value} />
+          {row.value}
         </div>
       )
     },{
