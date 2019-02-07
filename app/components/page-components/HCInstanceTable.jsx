@@ -219,7 +219,7 @@ class HCInstanceTable extends React.Component {
           data={table_data ? table_data : []}
           columns={columns}
           className="-striped -highlight"
-          defaultPageSize={table_data ? table_data.length : 5}
+          defaultPageSize={5}
           showPagination={false}
           SubComponent={row => {
             console.log("row", row);

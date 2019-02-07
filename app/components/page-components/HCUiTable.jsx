@@ -96,16 +96,14 @@ class HCUiTable extends React.Component {
     }
     const columns = ui_bundle_table_columns(this.props, this.state);
     const table_data= this.displayData();
-    console.log("UI Table Data: ", table_data);
-
     return (
       <div className={classnames("App")}>
         <AdvancedExpandReactTable
-          defaultPageSize={table_data ? table_data.length : 5}
-          showPagination={false}
-          className="-striped -highlight"
-          data={table_data}
+          data={table_data ? table_data : []}
           columns={columns}
+          className="-striped -highlight"
+          defaultPageSize={5}
+          showPagination={false}
           SubComponent={row => {
             {/*const addInstance = (custom_agent_id, custom_instance_id, interfaceforInstance) => {
               console.log("<><><><><> customAgentId <><><<><>", custom_agent_id);
@@ -115,7 +113,6 @@ class HCUiTable extends React.Component {
               const agent_id = custom_agent_id ? custom_agent_id : this.props.containerApiCalls.agent_list[0].id; // HC AGENT ID
               const instance_id = custom_instance_id ?  custom_instance_id : (dna_id + agent_id);
               const interface_id = interfaceforInstance;
-
               this.props.add_agent_dna_instance({id, dna_id, agent_id}).then(res => {
                 this.props.add_instance_to_interface({instance_id, interface_id});
               })
