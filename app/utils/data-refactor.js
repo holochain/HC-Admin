@@ -14,7 +14,10 @@ export const uiTableDataRefactored = (list_of_ui_bundle, list_of_ui_instances,do
           ui_bundle_id:ui.id,
           hash:ui.hash,
           ui_instance_exist:findUIInterface(ui.id,list_of_ui_instances),
-          status:"Installed",
+          status:{value:"Installed",
+          ui_id:ui.id,
+          root_dir:ui.root_dir
+        },
           ui_instance:[uiInterfaceDetails(ui.id,list_of_ui_instances)]
         }
       })
@@ -25,7 +28,10 @@ export const uiTableDataRefactored = (list_of_ui_bundle, list_of_ui_instances,do
         ui_bundle_id:ui.ui_bundle_id,
         hash:"-",
         ui_instance_exist:false,
-        status:"Uninstalled"
+        status:{value:"Uninstalled",
+        ui_id:ui.ui_bundle_id,
+        root_dir:ui.root_dir
+      }
       };
   })
   return ui_bundle_installed.concat(ui_bundle_uninstalled);

@@ -1,7 +1,7 @@
 // Principal Imports
 import * as React from 'react';
 import * as redux from 'redux';
-import ToggleButton from "./ToggleButton";
+import ToggleButtonUIBundle from "./ToggleButtonUIBundle";
 import InstanceToggleButton from "./InstanceToggleButton";
 
 /* Table Headers */
@@ -50,40 +50,31 @@ const ui_bundle_table_columns = (props, state) => {
     }, {
       Header: 'Status',
       accessor: 'status',
-      // Cell: row => (
-      //   <div>
-      //     <span style={{
-      //       color: row.value.status === 'installed' ? '#57d500'
-      //       : '#ff2e00',
-      //       transition: 'all .3s ease'
-      //     }}>
-      //     &#x25cf;
-      //     </span>
-      //   { " " + row.value.status }
-      //     // <br/>
-      //     // <ToggleButton
-      //     //   installed={row.value}
-      //     //   dnaList={props.list_of_dna}
-      //     //   uninstallDna={props.uninstall_dna_by_id}
-      //     //   installDna={props.install_dna_from_file}
-      //     // />
-      //   </div>
-      // )
       Cell: row => (
-      <span>
-        <span style={{
-          color: row.value === 'Installed' ? '#57d500'
-            : row.value === 'Uninstalled' ? '#ff2e00'
-            : '#ffbf00',
-          transition: 'all .3s ease'
-        }}>
-          &#x25cf;
-        </span> {
-          row.value === 'Installed' ? `Installed`
-          : row.value === 'Uninstalled' ? `Uninstalled`
-          : 'Bridging'
-        }
-      </span>
+        <div>
+        <span>
+          <span style={{
+            color: row.value.value === 'Installed' ? '#57d500'
+              : row.value.value === 'Uninstalled' ? '#ff2e00'
+              : '#ffbf00',
+            transition: 'all .3s ease'
+          }}>
+            &#x25cf;
+          </span> {
+            row.value.value === 'Installed' ? `Installed`
+            : row.value.value === 'Uninstalled' ? `Uninstalled`
+            : 'Bridging'
+          }
+        </span>
+        <br/>
+        <ToggleButtonUIBundle
+            installed={row.value.value}
+            values={row.value}
+            dnaList={props.list_of_dna}
+            uninstallUIBundle={props.uninstall_ui}
+            installUIBundle={props.install_ui}
+          />
+        </div>
     )
     }]
   }];
