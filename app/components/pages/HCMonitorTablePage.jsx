@@ -27,7 +27,7 @@ class HCMonitorTablePage extends Component<Props> {
     const { classes } = this.props;
     const gutterBottom : boolean = true;
     const {location} = this.props.history;
-    console.log(">>>> location: >>>", location);
+    // console.log(">>>> location: >>>", location);
     return (
       <Dashboard {...this.props}>
         <main className={classes.content}>

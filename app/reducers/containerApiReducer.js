@@ -6,7 +6,9 @@ const INITIAL_STATE : State = {
  list_of_running_instances :[],
  list_of_installed_instances : [],
  list_of_interfaces : [],
- agent_list:[]
+ agent_list:[],
+ list_of_ui_bundle:[],
+ list_of_ui_instances:[]
 }
 
 export default function(state = INITIAL_STATE, action: Action) : State {
@@ -184,10 +186,53 @@ export default function(state = INITIAL_STATE, action: Action) : State {
 
 
     ////////////////////////////////////////////////////////////////////////
-                      //  UI API calls //
+                      //  UI BUNDLEs API calls //
     ////////////////////////////////////////////////////////////////////////
 
+    // GET_UI_LIST
+    case 'GET_UI_LIST_SUCCESS': {
+      // console.log("GET_UI_LIST_SUCCESS", payload);
+      return { ...state, list_of_ui_bundle:payload };
+    }
 
+    case 'GET_UI_LIST_FAILURE': {
+      // console.log("GET_UI_LIST_FAILURE", payload);
+      return { ...state };
+    }
+    // INSTALL_UI
+    case 'INSTALL_UI_SUCCESS': {
+      // console.log("INSTALL_UI_SUCCESS", payload);
+      return { ...state };
+    }
+
+    case 'INSTALL_UI_FAILURE': {
+      // console.log("INSTALL_UI_FAILURE", payload);
+      return { ...state };
+    }
+    // UNINSTALL_UI
+    case 'UNINSTALL_UI_SUCCESS': {
+      // console.log("UNINSTALL_UI_SUCCESS", payload);
+      return { ...state};
+    }
+
+    case 'UNINSTALL_UI_FAILURE': {
+      // console.log("UNINSTALL_UI_FAILURE", payload);
+      return { ...state };
+    }
+    ////////////////////////////////////////////////////////////////////////
+                      //  UI INTERFACES API calls //
+    ////////////////////////////////////////////////////////////////////////
+
+    // GET_UI_INSTANCE_LIST
+    case 'GET_UI_INSTANCE_LIST_SUCCESS': {
+      // console.log("GET_UI_INSTANCE_LIST_SUCCESS", payload);
+      return { ...state, list_of_ui_instances:payload };
+    }
+
+    case 'GET_UI_INSTANCE_LIST_FAILURE': {
+      // console.log("GET_UI_INSTANCE_LIST_FAILURE", payload);
+      return { ...state };
+    }
     ////////////////////////////////////////////////////////////////////////
                       // BRIDING API calls
                        //

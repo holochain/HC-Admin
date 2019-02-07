@@ -8,7 +8,11 @@ The refactored implementation of HC-Admin, which now connects with HC-Rust Conta
 This is an desktop application to to manage your Holochain application on your local machine. This is also the app that would track stats of each app that is running locally.
 
 ## Preview:
-![HC-Admin](#)
+![HCAdmin-DNA-Instance-Table](/resources/DNA_Instance_Table.png)
+
+![HCAdmin-DNA-Table](/resources/DNA_Table.png)
+
+![HCAdmin-UI-Table](/resources/UI_Table.png)
 
 ## Design Decisions:
 ### With Rust Container (Habitat):
