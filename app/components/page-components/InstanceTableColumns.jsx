@@ -3,6 +3,8 @@ import * as React from 'react';
 import * as redux from 'redux';
 import ToggleButton from "./ToggleButton";
 import InstanceToggleButton from "./InstanceToggleButton";
+import matchSorter from 'match-sorter'
+import Jdenticon from "./Jdenticon";
 
 /* Instance Overview : Main Table Headers */
 const instance_table_columns = (props, state) => {
@@ -14,6 +16,9 @@ const instance_table_columns = (props, state) => {
     columns: [{
         Header: 'Type',
         accessor: 'type',
+        filterMethod: (filter, rows) =>
+          matchSorter(rows, filter.value, { keys: ["instanceId"] }),
+        filterAll: true,
         Cell: row => (
           <div style={{ padding: '5px' }}>
           { row.value }
@@ -21,7 +26,11 @@ const instance_table_columns = (props, state) => {
         )
       }, {
       Header: 'Instance Name',
-      accessor: 'instanceId',
+      id: "instanceId",
+      accessor: d => d.instanceId,
+      filterMethod: (filter, rows) =>
+        matchSorter(rows, filter.value, { keys: ["instanceId"] }),
+      filterAll: true,
       Cell: row => (
         <div style={{ padding: '5px' }}>
         { row.value }
@@ -32,7 +41,7 @@ const instance_table_columns = (props, state) => {
         accessor: 'dna_id',
         Cell: row => (
           <div style={{ padding: '5px' }}>
-          { row.value }
+              { row.value }
           </div>
         )
       }, {
@@ -102,39 +111,7 @@ const instance_table_columns = (props, state) => {
         </div>
       )
      }]
-    }, {
-      Header: '',
-      columns: [
-      {
-        expander: true,
-        Header: () => (<strong>Base DNA</strong>),
-        width: 65,
-        Expander: ({ isExpanded, ...rest }) =>
-          <div>
-            {isExpanded
-              ? <span style={{
-                color: '#00838c',
-                marginTop: '20px',
-                fontSize: '35px',
-              }}>&#x2303;</span>
-              :
-              <span style={{
-                color: '#00838c',
-                marginTop: '15px',
-                fontSize: '35px',
-              }}>&#x2304;</span>
-            }
-          </div>,
-        style: {
-          cursor: "pointer",
-          fontSize: 25,
-          padding: "0",
-          textAlign: "center",
-          userSelect: "none"
-        },
-      }
-    ]
-  }]
+    }]
   return table_columns;
 };
 export default instance_table_columns;
@@ -166,7 +143,7 @@ export const instance_base_dna_table_columns = (props, state) => {
       accessor: 'hash',
       Cell: row => (
         <div style={{ padding: '5px' }}>
-        { row.value }
+          <Jdenticon hash={row.value} />
         </div>
       )
     },{

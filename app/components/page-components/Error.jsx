@@ -5,13 +5,13 @@ import { Link } from "react-router-dom";
 
 
 const NoMatch = () => (
-  <div className="error-container text-center" style={{margin:"20vh"}} >
+  <div className="error-container text-center" style={{margin:"20vh"}}>
     <div className="error" style={{textAlign:'center', margin:'0 auto'}}>
       <h1 style={{justifyContent:'center', color:"#95b9ed"}}>404</h1>
       <h2 style={{justifyContent:'center', color:"#95b9ed"}}>Sorry, we couldn't locate that info.</h2>
     </div>
 
-    <div className="error-button">
+    <div className="error-button" style={{margin: '0 auto', justifyContent:'center'}}>
       <Link to="/">
         <Button style={{background:"#3d85c6", margin: '0 auto', marginTop:"50px", justifyContent:'center', color:"#95b9ed" }}>Go Back to Main Table Overview</Button>
       </Link>

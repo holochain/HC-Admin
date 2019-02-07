@@ -4,10 +4,6 @@ const styles = theme => ({
       display: 'flex',
       background: "linear-gradient(45deg, #341d40b3 10%, #6e6e96b)"  // #00017fb3
     },
-    appContainer: {
-      maxHeight: '75vh',
-      overflowY: 'scroll',
-    },
     appBarSpacer:{
       minHeight: 95
     },
@@ -17,7 +13,7 @@ const styles = theme => ({
       color: 'rgb(149, 185, 237)',
     },
     mainHeader: {
-      marginTop: 160,
+      marginTop: 90, // was 160 with Nav SearchBar
       textAlign: "center",
       color: 'rgb(149, 185, 237)',
     },

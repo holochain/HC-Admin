@@ -21,6 +21,9 @@ type Props = {
 class HCMonitorTablePage extends Component<Props> {
   constructor(props:Props){
     super(props);
+    this.state = {
+      tableData: []
+    }
   };
 
   render() {
@@ -28,8 +31,17 @@ class HCMonitorTablePage extends Component<Props> {
     const gutterBottom : boolean = true;
     const {location} = this.props.history;
     console.log(">>>> location: >>>", location);
+
+    const setTableData = (tableData) => {
+      console.log(" >>>>>>>>>,  searchBarDataSet (INSIDE HCMonitorTablePage ROUTER) ,<<<<<<<", searchBarDataSet);
+
+      this.setState({
+        tableData
+      });
+    }
+
     return (
-      <Dashboard {...this.props}>
+      <Dashboard {...this.props} tableData={this.state.tableData}>
         <main className={classes.content}>
           <div className={classes.appBarSpacer} />
           <Typography className={classes.mainHeader} style={{color:"rgb(149, 185, 237)", fontFamily:"Raleway"}} variant="display1" gutterBottom={gutterBottom} component="h2" >
@@ -37,15 +49,15 @@ class HCMonitorTablePage extends Component<Props> {
           </Typography>
           <div className={classes.tableContainer}>
           {location.pathname === "/" ?
-            <HCInstanceTable className={classes.appTable} {...this.props} />
+            <HCInstanceTable className={classes.appTable} {...this.props} setSearchData={this.setTableData} />
           :
             location.pathname === "/dna" ?
             // this should be the dna table
-            <HCDnaTable className={classes.appTable} {...this.props} />
+            <HCDnaTable className={classes.appTable} {...this.props} setSearchData={this.setTableData} />
           :
             location.pathname === "/ui" ?
             // this should be the ui table
-            <HCUiTable className={classes.appTable} {...this.props} />
+            <HCUiTable className={classes.appTable} {...this.props} setSearchData={this.setTableData} />
           :
             // this should default the help page
             <HCHelpPage className={classes.appTable} {...this.props} />

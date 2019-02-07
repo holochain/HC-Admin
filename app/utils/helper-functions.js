@@ -39,7 +39,3 @@ const manageAllDownloadedApps = (allApps) => {
   return app_details;
 }
 export default manageAllDownloadedApps;
-
-//////////////////////////////////////////
-    // Custom Serach Bar Functions
-/////////////////////////////////////////

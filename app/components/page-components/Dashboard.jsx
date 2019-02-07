@@ -1,7 +1,6 @@
 import * as React from 'react';
 import classnames from 'classnames';
 import QueueAnim from 'rc-queue-anim';
-
 // MUI Imports:
 import withStyles from '@material-ui/core/styles/withStyles';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -10,13 +9,14 @@ import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import Toolbar from '@material-ui/core/Toolbar';
-
 // local imports :
 import logo from '../../assets/icons/HC_Logo.svg';
 import styles from '../styles/component-styles/DashboardMuiStyles';
 import MainNavListItems from './MainNavListItems';
 import SearchBar from './SearchBar';
 
+
+// !! TODO !! : ADD A `X` CANCEL/EXIT Button to top right corner...
 
 class Dashboard extends React.Component {
   constructor(props: any) {
@@ -36,7 +36,7 @@ class Dashboard extends React.Component {
 
 
   render() {
-    const { classes } = this.props;
+    const { classes, tableData } = this.props;
     const noWrap : boolean = true;
     // <img src={logo} className={classnames(classes.navAppLogo, "App-logo")} alt="logo" />
     return (
@@ -55,7 +55,7 @@ class Dashboard extends React.Component {
               <MainNavListItems className={classnames(classes.navMenuItems, "nav-links")} {...this.props}/>
             </List>
 
-            <SearchBar />
+            {/* <SearchBar tableData={tableData}/> */}
 
           </TopNav>
             {this.props.children}

@@ -27,7 +27,7 @@ class HCHelpPage extends React.Component<WithStyles<typeof styles>, any> {
           <div className={classes.appBarSpacer} />
 
           <Typography className={classes.mainHeader} style={{color:"#e4e4e4"}} variant="display1" gutterBottom={gutterBottom} component="h2" >
-            Administrator Settings
+            Q&A Help Page + Administrator Settings
           </Typography>
           <br/>
           <div className={classes.tableContainer}>

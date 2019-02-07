@@ -148,6 +148,7 @@ const styles = theme => ({
       justifyContent: 'center',
     },
     navMenuItems : {
+      marginBottom: 2,
       display: 'inline',
     },
     formControl : {
