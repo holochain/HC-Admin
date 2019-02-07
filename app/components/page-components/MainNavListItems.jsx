@@ -9,14 +9,16 @@ import ListItemText from '@material-ui/core/ListItemText';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
+import InfoIcon from '@material-ui/icons/Info';
 import PeopleIcon from '@material-ui/icons/People';
 import LayersIcon from '@material-ui/icons/Layers';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 // Local Imports
 import routes from '../../constants/routes';
-import Avatar from './references/FC-AvatarImage';
-import AgentName from './references/FC-AgentName';
+import { handleRefreshApp } from "../../utils/helper-functions";
+// import Avatar from './AvatarImage';
+// import AgentName from './AgentName';
 import styles from '../styles/component-styles/DashboardMuiStyles';
 
 const button : boolean = true;
@@ -48,20 +50,20 @@ class MainListItems extends React.Component {
      const fileName = input.name;
      const filePath = input.path;
      console.log("UPLOADED FILE INPUT : ", input);
+
      this.setState({file_path:filePath});
      const uploadFile = confirm(`Would you like to upload this file?\n File Name: ${ fileName }\n File Path: ${filePath} ?`);
      if (uploadFile === true) {
-       // make Container API call to uplaod the file with the given path..
        const dna_file = {
-        id: fileName, // this should be the file name
-        path: filePath
-      };
+          id: fileName,
+          path: filePath
+        };
 
-      console.log(">>>>>>>>>. !! dna_file DELIVERED to install_dna_from_file !! <<<<<<<<<<<");
-      this.props.install_dna_from_file(dna_file).then(res => {
-        this.setState({message: "Your app was successfully installed.." })
-        console.log("YOUR APP SHOULD BE INSTALLED..");
-      });
+        this.props.install_dna_from_file(dna_file).then(res => {
+          this.setState({message: "Your app was successfully installed.." })
+          console.log("YOUR APP SHOULD BE INSTALLED..");
+          handleRefreshApp(); // this should send an IPC call to electron and request a Reload of the MainWindow (...and thus the entire app).
+        });
      }
      else {
        //dismiss the dialog box... ?? and give an confimation message of dismissal ??
@@ -76,42 +78,52 @@ class MainListItems extends React.Component {
     return (
       <div>
         <br />
-        <ListItem style={{paddingTop: "10px"}} button={button}>
+        <ListItem style={{display: 'inline', paddingTop: "10px"}} button={button}>
           <Link to={routes.UI}>
             <ListItemIcon style={{color:"#0e88efde"}}>
               <DashboardIcon />
             </ListItemIcon>
-            <Typography variant="subheading" style={{color:"#95b9ed", textDecoration: "none", display: "inline-block", marginLeft: "15px" }} gutterBottom={gutterBottom}>
+            <Typography variant="subheading" style={{color:"#95b9ed", textDecoration: "none", display: "inline", marginLeft: "5px" }} gutterBottom={gutterBottom}>
               UI Overview
             </Typography>
           </Link>
         </ListItem>
-        <ListItem style={{paddingTop: "45px"}} button={button}>
+        <ListItem style={{display: 'inline', paddingTop: "45px"}} button={button}>
           <Link to={routes.DNA}>
             <ListItemIcon style={{color:"#0e88efde"}}>
               <LayersIcon />
             </ListItemIcon>
-            <Typography variant="subheading" style={{color:"#95b9ed", textDecoration: "none", display: "inline-block", marginLeft: "15px" }} gutterBottom={gutterBottom}>
+            <Typography variant="subheading" style={{color:"#95b9ed", textDecoration: "none", display: "inline", marginLeft: "5px" }} gutterBottom={gutterBottom}>
               DNA Overview
             </Typography>
           </Link>
         </ListItem>
-        <ListItem style={{paddingTop: "45px"}} button={button}>
-          <Link to={routes.HELP}>
+        <ListItem style={{display: 'inline', paddingTop: "45px"}} button={button}>
+          <Link to={routes.INSTANCE}>
           <ListItemIcon style={{color:"#0e88efde"}}>
             <PeopleIcon />
           </ListItemIcon>
-          <Typography variant="subheading" style={{color:"#95b9ed", textDecoration: "none", display: "inline-block", marginLeft: "15px" }} gutterBottom={gutterBottom}>
+          <Typography variant="subheading" style={{color:"#95b9ed", textDecoration: "none", display: "inline", marginLeft: "5px" }} gutterBottom={gutterBottom}>
+            Instances Overview
+          </Typography>
+        </Link>
+        </ListItem>
+        <ListItem style={{display: 'inline', paddingTop: "45px"}} button={button}>
+          <Link to={routes.HELP}>
+          <ListItemIcon style={{color:"#0e88efde"}}>
+            <InfoIcon />
+          </ListItemIcon>
+          <Typography variant="subheading" style={{color:"#95b9ed", textDecoration: "none", display: "inline", marginLeft: "5px" }} gutterBottom={gutterBottom}>
             Help
           </Typography>
         </Link>
         </ListItem>
-        <ListItem style={{paddingTop: "45px"}} button={button} onClick={() => this.handleClick()}>
+        <ListItem style={{display: 'inline', paddingTop: "45px"}} button={button} onClick={() => this.handleClick()}>
           <input id="linkUpload" type="file" accept=".hcpkg" name="fileInput" onChange={this.handleUpload} ref="fileInput" style={{display:"none"}}/>
-            <Button variant="contained" color="default" style={{ marginRight: "5px", background:"#95b9ed" }} autoFocus>
-              <CloudUploadIcon style={{ background:"#95b9ed" }}  />
+            <Button variant="contained" color="default" style={{ marginRight: "5px", background:"#072dc3de", marginBottom:"3px" }} autoFocus>
+              <CloudUploadIcon style={{ background:"#072dc3de", color:"#95b9ed" }}  />
               <Typography style={{ marginRight: "5px"}}  variant="subheading">
-                Install
+                <span style={{ marginLeft: "3px", color:"#95b9ed" }}>Install</span>
               </Typography>
             </Button>
         </ListItem>

@@ -8,159 +8,44 @@ import classnames from 'classnames';
 import cmd from 'node-cmd';
 // electron:
 import * as electron from "electron";
+// MUI Imports:
+import { withStyles } from '@material-ui/core/styles';
 // ReactTable Imports
 import ReactTable from "react-table";
 import { advancedExpandTableHOC } from "./SystemTable";
 import "react-table/react-table.css";
 // Local Imports
+import dna_list_table_columns, { dna_instance_list_table_columns } from './DnaTableColumns';
 import routes from '../../constants/routes';
 import { filterApps } from "../../utils/table-filters";
 import manageAllDownloadedApps from "../../utils/helper-functions";
-import { dataRefactor, listInstalledApps, refactorListOfDnas, monitorUninstalledApps } from "../../utils/data-refactor";
-// import { hcJoin,hcUninstall,hcStart,hcStop } from "../utils/hc-install";
-// import { getRunningApps,decideFreePort } from "../utils/running-app";
-import ToggleButton from "./ToggleButton"
+import { refactorDnaInstanceData, refactorListOfDnas, monitorUninstalledApps } from "../../utils/data-refactor";
+import AddInstanceForm from "./AddInstanceForm";
+import ToggleButton from "./ToggleButton";
 import logo from '../../assets/icons/HC_Logo.svg';
-// MUI Imports:
-import { withStyles } from '@material-ui/core/styles';
-
-/* ReactTable */
-const AdvancedExpandReactTable = advancedExpandTableHOC(ReactTable);
-/* Table Headers */
-const table_columns = (props, state) => {
-  console.log("Table Columns Props", props);
-  // console.log("Table Columns State", state);
-  //
-  // const currentRowInstance = row._original.instanceId
-  // console.log("Table Columns Row info", currentRowInstance);
-
-  const table_columns = [{
-    Header: '',
-    columns: [{
-      Header: 'App Name',
-      accessor: 'dna_id',
-      Cell: row => (
-        <div style={{ padding: '5px' }}>
-        { row.value }
-        </div>
-      )
-    }, {
-      Header: 'Username',
-      accessor: 'agent_id',
-      Cell: row => (
-        <div style={{ padding: '5px' }}>
-        { row.value }
-        </div>
-      )
-    }]
-  }, {
-    Header: '',
-    columns: [{
-      Header: 'Type',
-      accessor: 'type',
-      Cell: row => (
-        <div style={{ padding: '5px' }}>
-        { row.value }
-        </div>
-      )
-    }, {
-      Header: 'Hash ID',
-      accessor: 'hash',
-      Cell: row => (
-        <div style={{ padding: '5px' }}>
-        { row.value }
-        </div>
-      )
-    },{
-      Header: 'Instance ID',
-      accessor: 'instanceId',
-      Cell: row => (
-        <div style={{ padding: '5px' }}>
-        { row.value }
-        </div>
-      )
-    }, {
-      Header: 'Status',
-      accessor: 'status',
-      Cell: row => (
-        <div>
-          <span style={{
-            color: row.value.status === 'installed' ? '#57d500'
-            : '#ff2e00',
-            transition: 'all .3s ease'
-          }}>
-          &#x25cf;
-          </span>
-        { " " + row.value.status }
-          <br/>
-          <ToggleButton
-            installed={row.value}
-            downloaded={state.downloaded_apps}
-            listInstances={props.get_info_instances}
-            uninstallInstance={props.uninstall_dna_by_id}
-            installInstance={props.install_dna_from_file}
-          />
-        </div>
-      )
-    },{
-      Header: 'Running',
-      accessor: 'running',
-      Cell: row => (
-        <div>
-          <span style={{
-            color: row.value.running ? '#57d500'
-            : '#ff2e00',
-            transition: 'all .3s ease'
-          }}>
-          &#x25cf;
-          </span>
-          { " " + row.value.running }
-          <br/>
-          <ToggleButton
-            running={row.value}
-            listRunningInstances={props.list_of_running_instances}
-            stopInstance={props.stop_agent_dna_instance}
-            startInstance={props.start_agent_dna_instance}
-          />
-        </div>
-      )
-    },
-    {
-      Header: 'Interface',
-      accessor: 'interface',
-      Cell: row => (
-        <div>
-        { row.value }
-        </div>
-      )
-    }]
-  }];
-
-  return table_columns;
-}
 
 type HCDnaTableProps = {
   list_of_dna : [{
-    id: String,
-    hash: String
+    id: String, // dna ID
+    hash: String // dna HASH
   }],
   list_of_instances : [{
-    id: String,
-    dna: String,
-    agent: String
+    id: String, // instance ID
+    dna: String, // dna ID
+    agent: String // agent ID
   }],
   list_of_running_instances :[{
-    id: String,
-    dna: String,
-    agent: String
+    id: String, // instance ID
+    dna: String, // dna idea
+    agent: String // agent ID
   }],
   list_of_instance_info : [{
-    id: String,
-    dna: String,
-    agent: String,
-    storage: {
-      path: String,
-      type: String
+    id: String, // instance ID
+    dna: String, // dna ID
+    agent: String, // agent ID
+    storage: { // currently removed from list_of_instance_info object.. >> discuss
+      path: String, // currently N/A
+      type: String // currently N/A
     }
   }],
   fetch_state: () => void,
@@ -170,18 +55,19 @@ type HCDnaTableProps = {
 
 type HCDnaTableState = {
   data: {} | null,
-  installed_apps: {} | null,
   downloaded_apps: {} | null,
   row: String,
   filter: any,
 }
+
+// For the REACT TABLE Exapandable Version: Advanced HOC
+const AdvancedExpandReactTable = advancedExpandTableHOC(ReactTable);
 
 class HCDnaTable extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       data: {},
-      installed_apps: {},
       downloaded_apps: {},
    // React Table data
       row: "",
@@ -206,9 +92,8 @@ class HCDnaTable extends React.Component {
   }
 
   componentDidMount = () => {
-    console.log("inside DNA TABLE... componentDidMount");
-    // this.triggerWebClientCallTest();
     this.beginAppMontoring();
+    // this.triggerWebClientCallTest();
   }
 
   callFetchState = () => {
@@ -222,30 +107,37 @@ class HCDnaTable extends React.Component {
     // call for GET_INFO_INSTANCES()
     this.props.get_info_instances().then(res => {
       console.log("Home props after INFO/INSTANCES call", this.props);
-      if(this.props.containerApiCalls.list_of_instance_info) {
-        const installed_apps = this.props.containerApiCalls.list_of_instance_info;
-        // console.log("................installed_apps : ", installed_apps);
-        this.setState({
-          installed_apps,
-          // downloaded_apps: installed_apps // TODO: delete this part once the DOWNLOAD FOLDER functionality is in place.
-        });
-        console.log("this.state AFTER CONTAINER API CALLS", this.state);
-      }
-    })
+    });
     // call for LIST_OF_DNA()
     this.props.list_of_dna().then(res => {
       // this.callFetchState();
       console.log("Home props after LIST_OF_DNA call", this.props);
-    })
+    });
 
     // call for LIST_OF_RUNNING_INSTANCES ()
     this.props.list_of_running_instances().then(res => {
       // this.callFetchState();
       console.log("Home props after LIST_OF_RUNNING_INSTANCES call", this.props);
+    });
+
+    this.props.list_of_installed_instances().then(res => {
+      // this.callFetchState();
+      console.log("Home props after list_of_installed_instances call", this.props);
+    });
+
+    this.props.get_agent_list().then(res => {
+      // this.callFetchState();
+      console.log("Home props after GET_AGENT_LIST call", this.props);
+    });
+
+    this.props.list_of_interfaces().then(res => {
+      console.log("Home props after LIST_OF_INTERFACES call", this.props);
     })
   }
 
   getDownloadedApps = () => {
+    // TODO: FIRST MAKE SURE the .hcadmin FOLDER and holochain-download FILE EXIST, and if not CREATE THEM !!
+    // console.log("!!!!!!!!! ><><><><><><< INSIDE getDownloadedApps <><><><><><>< !!!!!!!!!!!");
     let self = this;
     console.log("******************::GET DOWNLOADED APPS::");
     cmd.get(
@@ -267,107 +159,103 @@ class HCDnaTable extends React.Component {
 
   displayData = () => {
     console.log("this.state inside displayData", this.state);
-    if (this.state.installed_apps){
-      const { installed_apps, downloaded_apps } = this.state;
-      const { list_of_dna, list_of_instances, list_of_running_instances, list_of_instance_info } = this.props.containerApiCalls;
 
-      // const filtered_apps = filterApps(installed_apps, downloaded_apps);
-      // const app_data = dataRefactor(list_of_instance_info, list_of_dna, list_of_running_instances, downloaded_apps);
-      // console.log("App Data: ",app_data);
+    const { downloaded_apps } = this.state;
+    // console.log('downloaded_apps && Object.keys(downloaded_apps).length > 0', downloaded_apps && Object.keys(downloaded_apps).length > 0);
+      const { list_of_dna,
+        // list_of_running_instances,
+        list_of_instance_info } = this.props.containerApiCalls;
 
-      // const table_dna_instance_info =  listInstalledApps(list_of_instance_info, list_of_dna, list_of_running_instances);
-      const table_files = refactorListOfDnas(downloaded_apps, list_of_dna); ;
+      // console.log("downloaded_apps", Object.keys(downloaded_apps));
+      const table_files = refactorListOfDnas(downloaded_apps, list_of_dna, list_of_instance_info);
 
-      // const combined_file_data = filterApps(table_dna_instance_info, table_downloaded_files )
-
-      // console.log("DATA GOING TO TABLE >>>> !! combined_file_data !! <<<<<<<< : ", combined_file_data);
       return table_files;
-    }
+
   }
 
-    renderStatusButton = (dna_id, status, running) => {
-      const STOPBUTTON=(<button className="StopButton" type="button">Stop</button>);
-      const STARTBUTTON=(<button className="StartButton" type="button">Start</button>);
-      if(running){
-        return (STOPBUTTON)
-      }else if (!running){
-        if(status==="installed"){
-          return (STARTBUTTON)
-        }
-      }
-    }
+    displaySubComponentData = (row) => {
+      const { list_of_running_instances, list_of_installed_instances } = this.props.containerApiCalls;
+      if (list_of_installed_instances){
+        // const dna_id = row.original.dna_id;
+        const current_dna_instances = row.original.status.instance_list;
+        // console.log("!!!!!!!!!!!! c urrent_dna_instance s!!!!!!!!!!!!!!!! ", current_dna_instances);
 
-    renderRunningButton = (dna_id, status, running) => {
-      const INSTALLBUTTON=(<button className="InstallButton" type="button">Install</button>);
-      const UNINSTALLBUTTON=(<button className="InstallButton" type="button">Uninstall</button>);
-      if (!running){
-        if (status === "installed") {
-          return UNINSTALLBUTTON
-        } else if (status === 'uninstalled') {
-          return INSTALLBUTTON
-        }
+        const dna_instance_data_table_info =  refactorDnaInstanceData( current_dna_instances, list_of_installed_instances, list_of_running_instances );
+
+        // console.log("DATA GOING TO INSTANCE BASE DNA TABLE >>>> !! dna_instance_data_table_info !! <<<<<<<< : ", dna_instance_data_table_info);
+        return dna_instance_data_table_info;
       }
     }
 
 
   render() {
-    console.log("PROPS:: ", this.props);
+    console.log("Rending DNA TABLE : ", this.props);
     // console.log("! THIS.STATE.DATA.list_of_instance_info: ", !this.state.data.list_of_instance_info);
     if (!this.state.data.list_of_dna || this.state.data.list_of_dna.length === 0 ){
       return <div/>
     }
 
     const table_data = this.displayData();
-
-    const columns = table_columns(this.props, this.state);
+    const columns = dna_list_table_columns(this.props, this.state);
+    console.log("table_columns: ", table_data);
     console.log("table_columns: ", columns);
 
     return (
       <div className={classnames("App")}>
         <AdvancedExpandReactTable
-          defaultPageSize={500}
+          defaultPageSize={10}
           className="-striped -highlight"
           data={table_data}
           columns={columns}
-          SubComponent={({ row, nestingPath, toggleRowSubComponent }) => {
-            <div>
-// ******** TODO: USE / reconfigure THE SubComponent Below for displaying the UI DNA dependencies, or the DNA links to/pairings with UI. ***********
-              SubComponent={({ row, nestingPath, toggleRowSubComponent }) => {
-                console.log("row._original.ui_pairing", row._original.ui_pairing);
-                if (row._original.ui_pairing!==undefined){
-                  return (
-                    <div style={{ padding: "20px" }}>
-                        UI Link: {row._original.dna_id}
-                        <br/>
-                        {this.renderStatusButton(row._original.dna_id,row._original.status,row._original.running)}
-                        {this.renderRunningButton(row._original.dna_id,row._original.status,row._original.running)}
+          SubComponent={row => {
+            const addInstance = (custom_agent_id, custom_instance_id, interfaceforInstance) => {
+              console.log("<><><><><> customAgentId <><><<><>", custom_agent_id);
+              console.log("<><><><><> customInstanceId <><><<><>", custom_instance_id);
+              console.log("<><><><><> interfaceforInstance <><><<><>", interfaceforInstance);
+              const { dna_id } = row.original;
+              const agent_id = custom_agent_id ? custom_agent_id : this.props.containerApiCalls.agent_list[0].id; // HC AGENT ID
+              const instance_id = custom_instance_id ?  custom_instance_id : (dna_id + agent_id);
+              const interface_id = interfaceforInstance;
+
+              this.props.add_agent_dna_instance({id, dna_id, agent_id}).then(res => {
+                this.props.add_instance_to_interface({instance_id, interface_id});
+              })
+            }
+
+            if(row.original.status.instance_list === "N/A" || row.original.status.instance_list.length <= 0 ){
+                return (
+                  <div style={{ paddingTop: "2px" }}>
+                    <h3 style={{ color: "#567dbb", textAlign: "center" }}>No Instances Yet Exist</h3>
+
+                    <div style={{ justifyItems: "center", display:"inline", margin:"2px 5px 8px 5px" }}>
+                      <AddInstanceForm availableAgentList={this.props.containerApiCalls.agent_list}
+                      assignInstanceNewInterface={this.props.containerApiCalls.list_of_interfaces} handleAddInstance={addInstance} />
                     </div>
-                  );
-                } else if (row._original.dna_dependencies!==undefined) {
-                  return (
-                    <div style={{ padding: "20px" }}>
-                        DNA Dependencies:
-                           <ul>
-                             <li>{row._original.dna_id} : {row._original.dna}</li>
-                           </ul>
-                        <br/>
-                        {this.renderStatusButton(row._original.dna_id,row._original.status,row._original.running)}
-                        {this.renderRunningButton(row._original.dna_id,row._original.status,row._original.running)}
+                  </div>
+                )
+              }
+              else {
+                const dna_instance_data = this.displaySubComponentData(row);
+                const dna_instance_columns = dna_instance_list_table_columns(this.props, this.state);
+
+                return (
+                  <div style={{ paddingTop: "2px", marginBottom:"8px" }}>
+                    <div style={{ justifyItems: "center", display:"inline", margin:"2px" }}>
+                      <AddInstanceForm availableAgentList={this.props.containerApiCalls.agent_list} assignInstanceNewInterface={this.props.containerApiCalls.list_of_interfaces}
+                      handleAddInstance={addInstance} />
                     </div>
-                  );
-                }
-                else {
-                  return (
-                    <div style={{ padding: "20px" }}>
-                        No DNA Dependencies or UI Pairings
-                        <br/>
-                        {this.renderStatusButton(row._original.dna_id,row._original.status,row._original.running)}
-                        {this.renderRunningButton(row._original.dna_id,row._original.status,row._original.running)}
-                    </div>);
-                }
-              }}
-          </div>
-        }}
+
+                    <ReactTable
+                      data={dna_instance_data}
+                      columns={dna_instance_columns}
+                      defaultPageSize={dna_instance_data.length}
+                      showPagination={false}
+                      style = {{ margin: "0 auto", marginBottom: "50px", width:"90%", justifyItems:"center" }}
+                    />
+                  </div>
+                );
+              }
+         }}
       />
     </div>
   )}
@@ -375,6 +263,9 @@ class HCDnaTable extends React.Component {
 
 export default HCDnaTable;
 
+// <button onClick={addInstance}>Add Instance</button>
+
+/////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////
 // triggerWebClientCall = () => {
 // // call for GET_INFO_INSTANCES()
@@ -449,4 +340,43 @@ export default HCDnaTable;
 //     this.callFetchState();
 //     console.log("Home props after REMOVE_AGENT_DNA_INSTANCE call", this.props);
 //   })
+//
+//
+// //////////////////////////////////////////////////////////////////////
+//                   INTERFACE API calls
+// //////////////////////////////////////////////////////////////////////
+//
+// // call for START_INTERFACE ()
+//   this.props.start_interface().then(res => {
+//     this.callFetchState();
+//     console.log("Home props after START_INTERFACE call", this.props);
+//   })
+//
+// // call for ADD_INSTANCE_TO_INTERFACE ({ PUT PAYLOAD REQS HERE })
+//   this.props.add_instance_to_interface().then(res => {
+//     this.callFetchState();
+//     console.log("Home props after ADD_INSTANCE_TO_INTERFACE call", this.props);
+//   })
+//
+// // call for LIST_OF_INTERFACES ()
+//   this.props.list_of_interfaces().then(res => {
+//     this.callFetchState();
+//     console.log("Home props after LIST_OF_INTERFACES call", this.props);
+//   })
+//
+// // call for REMOVE_INSTANCE_FROM_INTERFACE ({ PUT PAYLOAD REQS HERE })
+//   this.props.remove_instance_from_interface().then(res => {
+//     this.callFetchState();
+//     console.log("Home props after REMOVE_INSTANCE_FROM_INTERFACE call", this.props);
+//   })
+//
+// // call for STOP_INTERFACE ()
+//   this.props.stop_interface().then(res => {
+//     this.callFetchState();
+//     console.log("Home props after STOP_INTERFACE call", this.props);
+//   })
+//
+// ///////////////////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////

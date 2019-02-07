@@ -5,7 +5,8 @@ const INITIAL_STATE : State = {
  list_of_instances : [],
  list_of_running_instances :[],
  list_of_installed_instances : [],
- list_of_interfaces : []
+ list_of_interfaces : [],
+ agent_list:[]
 }
 
 export default function(state = INITIAL_STATE, action: Action) : State {
@@ -146,26 +147,56 @@ export default function(state = INITIAL_STATE, action: Action) : State {
     }
 
     // ADD_INTERFACE_INSTANCE
-    case 'ADD_INTERFACE_INSTANCE_SUCCESS': {
-      console.log("ADD_INTERFACE_INSTANCE_SUCCESS payload", payload);
+    case 'ADD_INSTANCE_TO_INTERFACE_SUCCESS': {
+      console.log("ADD_INSTANCE_TO_INTERFACE_SUCCESS payload", payload);
       return { ...state };
     }
 
-    case 'ADD_INTERFACE_INSTANCE_FAILURE': {
-      console.log("ADD_INTERFACE_INSTANCE_FAILURE payload", payload);
+    case 'ADD_INSTANCE_TO_INTERFACE_FAILURE': {
+      console.log("ADD_INSTANCE_TO_INTERFACE_FAILURE payload", payload);
       return { ...state };
     }
 
     // REMOVE_INTERFACE_INSTANCE
-    case 'REMOVE_INTERFACE_INSTANCE_SUCCESS': {
-      console.log("REMOVE_INTERFACE_INSTANCE_SUCCESS payload", payload);
+    case 'REMOVE_INSTANCE_FROM_INTERFACE_SUCCESS': {
+      console.log("REMOVE_INSTANCE_FROM_INTERFACE_SUCCESS payload", payload);
       return { ...state };
     }
 
-    case 'REMOVE_INTERFACE_INSTANCE_FAILURE': {
-      console.log("REMOVE_INTERFACE_INSTANCE_FAILURE payload", payload);
+    case 'REMOVE_INSTANCE_FROM_INTERFACE_FAILURE': {
+      console.log("REMOVE_INSTANCE_FROM_INTERFACE_FAILURE payload", payload);
       return { ...state };
     }
+    // GET_AGENT_LIST
+    case 'GET_AGENT_LIST_SUCCESS': {
+      console.log("GET_AGENT_LIST_SUCCESS payload", payload);
+      return { ...state, agent_list:payload };
+    }
+
+    case 'GET_AGENT_LIST_FAILURE': {
+      console.log("GET_AGENT_LIST_FAILURE payload", payload);
+      return { ...state };
+    }
+
+    ////////////////////////////////////////////////////////////////////////
+                      // AGENT API calls //
+    ////////////////////////////////////////////////////////////////////////
+
+
+    ////////////////////////////////////////////////////////////////////////
+                      //  UI API calls //
+    ////////////////////////////////////////////////////////////////////////
+
+
+    ////////////////////////////////////////////////////////////////////////
+                      // BRIDING API calls
+                       //
+    ////////////////////////////////////////////////////////////////////////
+
+
+
+
+    ////////////////////////// DEFAULT //////////////////////////////
 
     default:
       return state

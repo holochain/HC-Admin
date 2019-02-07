@@ -1,26 +1,22 @@
 import * as React from 'react';
 import classnames from 'classnames';
 import QueueAnim from 'rc-queue-anim';
-import { Theme } from '@material-ui/core/styles/createMuiTheme';
-import withStyles, { WithStyles } from '@material-ui/core/styles/withStyles';
-import createStyles from '@material-ui/core/styles/createStyles';
+
+// MUI Imports:
+import withStyles from '@material-ui/core/styles/withStyles';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import Drawer from '@material-ui/core/Drawer';
 import TopNav from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
 import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
-import IconButton from '@material-ui/core/IconButton';
-import Badge from '@material-ui/core/Badge';
-import MenuIcon from '@material-ui/icons/Menu';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import NotificationsIcon from '@material-ui/icons/Notifications';
-import InputBase from '@material-ui/core/InputBase';
-import SearchIcon from '@material-ui/icons/Search';
+import Toolbar from '@material-ui/core/Toolbar';
+
+// local imports :
 import logo from '../../assets/icons/HC_Logo.svg';
 import styles from '../styles/component-styles/DashboardMuiStyles';
 import MainNavListItems from './MainNavListItems';
+import SearchBar from './SearchBar';
+
 
 class Dashboard extends React.Component {
   constructor(props: any) {
@@ -38,9 +34,11 @@ class Dashboard extends React.Component {
     this.setState({ open: false });
   };
 
+
   render() {
     const { classes } = this.props;
     const noWrap : boolean = true;
+    // <img src={logo} className={classnames(classes.navAppLogo, "App-logo")} alt="logo" />
     return (
       <React.Fragment>
         <CssBaseline />
@@ -49,8 +47,7 @@ class Dashboard extends React.Component {
             position="absolute"
             className={classnames(classes.topNav)}
           >
-            <Typography className={classes.title} style={{color: "#e4e4e4", textAlign: "center", marginTop:"20px"}} noWrap={noWrap} variant="display1" component="h3" >
-              <span><img src={logo} className={classnames(classes.navAppLogo, "App-logo")} alt="logo" /></span>
+            <Typography className={classes.title} style={{color: "#e4e4e4", textAlign: "center", marginTop:"45px"}} noWrap={noWrap} variant="display1" component="h3" >
               HC Admin
             </Typography>
 
@@ -58,18 +55,8 @@ class Dashboard extends React.Component {
               <MainNavListItems className={classnames(classes.navMenuItems, "nav-links")} {...this.props}/>
             </List>
 
-            <div className={classes.search}>
-              <div className={classes.searchIcon}>
-                <SearchIcon />
-              </div>
-              <InputBase
-                placeholder="Search…"
-                classes={{
-                  root: classes.inputRoot,
-                  input: classes.inputInput,
-                }}
-              />
-            </div>
+            <SearchBar />
+
           </TopNav>
             {this.props.children}
         </div>

@@ -1,11 +1,6 @@
 import * as React from 'react';
 import {connect} from 'react-redux';
-import { fetchPOST, uploadFileRequest, fetchFormPOST } from '../../utils';
-import { ReduxAction, CodeParams, AppDetailState, uiLinkParams } from '../../../../types';
-import { Hash } from '../../../../holochain';
-// import './RegisterApp.css';
-
-// core components
+// mui core components
 import Button from '@material-ui/core/Button';
 // import Button from "../../components/CustomButtons/Button.jsx";
 
