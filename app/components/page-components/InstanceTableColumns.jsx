@@ -17,7 +17,7 @@ const instance_table_columns = (props, state) => {
         Header: 'Type',
         accessor: 'type',
         filterMethod: (filter, rows) =>
-          matchSorter(rows, filter.value, { keys: ["instanceId"] }),
+          matchSorter(rows, filter.value, { keys: ["type"] }),
         filterAll: true,
         Cell: row => (
           <div style={{ padding: '5px' }}>
@@ -38,7 +38,12 @@ const instance_table_columns = (props, state) => {
       )
     }, {
         Header: 'DNA Name',
-        accessor: 'dna_id',
+        id: 'dna_id',
+        accessor: d => d.dna_id,
+        filterMethod: (filter, rows) =>
+          matchSorter(rows, filter.value, { keys: ["dna_id"] }),
+          filterAll: true,
+
         Cell: row => (
           <div style={{ padding: '5px' }}>
               { row.value }
@@ -46,7 +51,11 @@ const instance_table_columns = (props, state) => {
         )
       }, {
       Header: 'Username',
-      accessor: 'agent_id',
+      id: 'agent_id',
+      accessor: d => d.agent_id,
+      filterMethod: (filter, rows) =>
+        matchSorter(rows, filter.value, { keys: ["agent_id"] }),
+        filterAll: true,
       Cell: row => (
         <div style={{ padding: '5px' }}>
         { row.value }
@@ -57,7 +66,11 @@ const instance_table_columns = (props, state) => {
   Header: '',
   columns: [{
       Header: 'Status',
-      accessor: 'status',
+      id: 'status',
+      accessor:"status",
+      filterMethod: (filter, rows) =>
+        matchSorter(rows, filter.value, { keys: ["status.status"] }),
+        filterAll: true,
       Cell: row => (
         <div>
           <span style={{
@@ -79,7 +92,11 @@ const instance_table_columns = (props, state) => {
       )
     }, {
       Header: 'Running',
-      accessor: 'running',
+      // id: 'running',
+      accessor:  "running",
+      filterMethod: (filter, rows) =>
+        matchSorter(rows, filter.value, { keys: ["running.running"] }),
+        filterAll: true,
       Cell: row => (
         <div>
           <span style={{
@@ -104,7 +121,11 @@ const instance_table_columns = (props, state) => {
       )
     }, {
       Header: 'Interface',
-      accessor: 'interface',
+      id: 'interface',
+      accessor: d => d.interface,
+      filterMethod: (filter, rows) =>
+        matchSorter(rows, filter.value, { keys: ["interface"] }),
+        filterAll: true,
       Cell: row => (
         <div>
         { row.value }

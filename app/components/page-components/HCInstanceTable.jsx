@@ -211,12 +211,12 @@ class HCInstanceTable extends React.Component {
     return (
       <div className={classnames("App")}>
         <AdvancedExpandReactTable
-          data={table_data}
-          columns={columns}
           filterable
           defaultFilterMethod={(filter, row) =>
             String(row[filter.id]) === filter.value
           }
+          data={table_data}
+          columns={columns}
           className="-striped -highlight"
           defaultPageSize={table_data.length}
           showPagination={false}
