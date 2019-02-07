@@ -176,8 +176,8 @@ class HCDnaTable extends React.Component {
     const current_dna_instances = row.original.status.instance_list;
     if (this.props.containerApiCalls.list_of_installed_instances && this.props.containerApiCalls.list_of_running_instances && current_dna_instances){
       // const dna_id = row.original.dna_id;
-      const { list_of_running_instances, list_of_installed_instances } = this.props.containerApiCalls;
-      const dna_instance_data_table_info =  refactorDnaInstanceData( current_dna_instances, list_of_installed_instances, list_of_running_instances );
+      const { list_of_running_instances, list_of_installed_instances ,list_of_interfaces} = this.props.containerApiCalls;
+      const dna_instance_data_table_info =  refactorDnaInstanceData( current_dna_instances, list_of_installed_instances, list_of_running_instances ,list_of_interfaces);
 
       // console.log("DATA GOING TO INSTANCE BASE DNA TABLE >>>> !! dna_instance_data_table_info !! <<<<<<<< : ", dna_instance_data_table_info);
       return dna_instance_data_table_info;
@@ -215,9 +215,11 @@ class HCDnaTable extends React.Component {
             const instance_id = custom_instance_id ?  custom_instance_id : (dna_id + agent_id);
             const interface_id = interfaceforInstance;
 
-            this.props.add_agent_dna_instance({id, dna_id, agent_id}).then(res => {
-              this.props.add_instance_to_interface({instance_id, interface_id});
-            })
+            this.props.add_agent_dna_instance({id:instance_id, dna_id, agent_id}).then(res => {
+              console.log("CALLED");
+              })
+              this.props.add_instance_to_interface({instance_id, interface_id}).then((res)=>{console.log("CALLED");});
+
           }
 
           if(row.original.status.instance_list === "N/A" || row.original.status.instance_list.length <= 0 ){
@@ -235,7 +237,7 @@ class HCDnaTable extends React.Component {
             else {
               const dna_instance_data = this.displaySubComponentData(row, table_data);
               const dna_instance_columns = dna_instance_list_table_columns(this.props, this.state);
-
+              console.log("DATA::",dna_instance_data);
               return (
                 <div style={{ paddingTop: "2px", marginBottom:"8px" }}>
                   <div style={{ justifyItems: "center", display:"inline", margin:"2px" }}>

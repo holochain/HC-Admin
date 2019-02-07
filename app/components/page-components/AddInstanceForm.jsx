@@ -71,15 +71,15 @@ class AddInstance extends React.Component<AddInstanceProps, AddInstanceState>{
     const { classes, fullScreen, availableAgentList, assignInstanceNewInterface } = this.props;
     const availableAgentListAsArray = Object.values(availableAgentList).map(option => option.id);
 
-    console.log("assignInstanceNewInterface", assignInstanceNewInterface);
-    console.log("typeof assignInstanceNewInterface", typeof assignInstanceNewInterface);
-
-    console.log("availableAgentList", availableAgentList);
-    console.log("availableAgentList.length > 0", availableAgentList.length > 0);
-    console.log("typeof availableAgentList", typeof availableAgentList);
-    console.log("object VALUES availableAgentList", Object.values(availableAgentList));
-    console.log("availableAgentList.map", availableAgentList.map(option => (option.id)));
-    console.log("----------------->",this.state.customAgentId);
+    // console.log("assignInstanceNewInterface", assignInstanceNewInterface);
+    // console.log("typeof assignInstanceNewInterface", typeof assignInstanceNewInterface);
+    //
+    // console.log("availableAgentList", availableAgentList);
+    // console.log("availableAgentList.length > 0", availableAgentList.length > 0);
+    // console.log("typeof availableAgentList", typeof availableAgentList);
+    // console.log("object VALUES availableAgentList", Object.values(availableAgentList));
+    // console.log("availableAgentList.map", availableAgentList.map(option => (option.id)));
+    // console.log("----------------->",this.state.customAgentId);
 
     return (
       <Grid item xs={12} elevation={1}>

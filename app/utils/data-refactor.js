@@ -82,7 +82,9 @@ const dataRefactor = (app_details, app_type) => {
         hash: app.hash,
         instanceId: app.instanceId,
         status: app.status,
-        running: app.running
+        running: app.running,
+        websocket_interface:app.websocket_interface,
+        http_interface:app.http_interface
       };
       console.log("newInstanceObj", newInstanceObj);
       return newInstanceObj;
@@ -181,7 +183,7 @@ const findDnaInstances = (dna_id, info_instances) => {
   return dna_instances;
 }
 
-export const refactorDnaInstanceData = (current_dna_instances, list_of_installed_instances, list_of_running_instances) => {
+export const refactorDnaInstanceData = (current_dna_instances, list_of_installed_instances, list_of_running_instances, list_of_interfaces) => {
   console.log("><><><><>< current_dna_instances ><><><><><><", current_dna_instances);
 
   const info_instance_log = current_dna_instances.map((fileInstance) => {
@@ -236,7 +238,9 @@ export const refactorDnaInstanceData = (current_dna_instances, list_of_installed
           type: "DNA Instance", // fileInstance.storage.type >>> will this eventually say whether it is a DNA or UI?? or only state "file" ??
           instanceId: fileInstance.id,
           status,
-          running
+          running,
+          websocket_interface:checkIfInterfaceExist(fileInstance.id,list_of_interfaces,"websocket interface"),
+          http_interface:checkIfInterfaceExist(fileInstance.id,list_of_interfaces,"http interface")
         };
 
         console.log("newInstanceObj", newInstanceObj);
@@ -245,11 +249,24 @@ export const refactorDnaInstanceData = (current_dna_instances, list_of_installed
   });
   return dataRefactor(info_instance_log, "Instance");
 }
-
+const checkIfInterfaceExist = (id,list,type) =>{
+  if(list){
+    const found = list.filter((in_type)=>{
+      return in_type.id==type && in_type.instances.find((instance_id)=>{return instance_id.id == id})
+    })
+    return found.filter((i)=>{
+      return {id:i.id,
+        admin:i.admin,
+        driver:i.driver
+      };
+    })
+  }else
+  return []
+}
 ////////////////////////////////////////////////////////
       /* Data for Instance Table Overview */
 ////////////////////////////////////////////////////////
-export const refactorInstanceData = (list_of_instance_info, list_of_installed_instances, list_of_running_instances) => {
+export const refactorInstanceData = (list_of_instance_info, list_of_installed_instances, list_of_running_instances, list_of_interfaces) => {
   // HACK:
   // const installed_but_not_info = list_of_installed_instances.filter((ii)=>{
   //   return !list_of_instance_info.find((i_info)=>i_info.id===ii.id)
@@ -323,7 +340,9 @@ export const refactorInstanceData = (list_of_instance_info, list_of_installed_in
           type: "DNA Instance", // fileInstance.storage.type >>> will this eventually say whether it is a DNA or UI?? or only state "file" ??
           instanceId: fileInstance.id,
           status,
-          running
+          running,
+          websocket_interface:checkIfInterfaceExist(fileInstance.id,list_of_interfaces,"websocket interface"),
+          https:checkIfInterfaceExist(fileInstance.id,list_of_interfaces,"http interface")
         };
 
         console.log("newInstanceObj", newInstanceObj);
@@ -332,6 +351,7 @@ export const refactorInstanceData = (list_of_instance_info, list_of_installed_in
   });
   return dataRefactor(info_instance_log, "Instance");
 }
+
 
 
 export const refactorBaseDna = (instance_dna_id, list_of_dna) => {

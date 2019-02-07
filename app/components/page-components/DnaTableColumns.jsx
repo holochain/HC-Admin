@@ -10,18 +10,20 @@ const dna_list_table_columns = (props, state) => {
   console.log("Table Columns Props", props);
   console.log("Table Columns State", state);
   // <Jdenticon hash={row.value} />
-  
+
   const table_columns = [{
     Header: '',
-    columns: [{
-      Header: 'Type',
-      accessor: 'type',
-      Cell: row => (
-        <div style={{ padding: '5px' }}>
-        { row.value }
-        </div>
-      )
-    },{
+    columns: [
+    //   {
+    //   Header: 'Type',
+    //   accessor: 'type',
+    //   Cell: row => (
+    //     <div style={{ padding: '5px' }}>
+    //     { row.value }
+    //     </div>
+    //   )
+    // },
+    {
       Header: 'DNA Name',
       accessor: 'dna_id',
       Cell: row => (
@@ -70,15 +72,17 @@ const dna_list_table_columns = (props, state) => {
           />
         </div>
       )
-    }, {
-      Header: 'Interface',
-      accessor: 'interface',
-      Cell: row => (
-        <div>
-        { row.value }
-        </div>
-      )
-    }]
+    }
+    // , {
+    //   Header: 'Interface',
+    //   accessor: 'interface',
+    //   Cell: row => (
+    //     <div>
+    //     { row.value }
+    //     </div>
+    //   )
+    // }
+  ]
   }];
 
   return table_columns;
@@ -94,7 +98,7 @@ export const dna_instance_list_table_columns = (props, state) => {
   const table_columns = [{
     Header: '',
     columns: [{
-      Header: 'Instance Name',
+      Header: 'Instance ID',
       accessor: 'instanceId',
       Cell: row => (
         <div style={{ padding: '5px' }}>
@@ -112,15 +116,17 @@ export const dna_instance_list_table_columns = (props, state) => {
     }]
   }, {
     Header: '',
-    columns: [{
-      Header: 'Type',
-      accessor: 'type',
-      Cell: row => (
-        <div style={{ padding: '5px' }}>
-        { row.value }
-        </div>
-      )
-    },{
+    columns: [
+    //   {
+    //   Header: 'Type',
+    //   accessor: 'type',
+    //   Cell: row => (
+    //     <div style={{ padding: '5px' }}>
+    //     { row.value }
+    //     </div>
+    //   )
+    // },
+    {
       Header: 'DNA Name',
       accessor: 'dna_id',
       Cell: row => (
@@ -174,14 +180,42 @@ export const dna_instance_list_table_columns = (props, state) => {
         </div>
       )
     },
-    { Header: 'Interface',
-      accessor: 'interface',
+    // TODO : Provide popup to show Details
+    { Header: 'Web-Socket',
+      accessor: 'websocket_interface',
       Cell: row => (
-        <div>
-        { row.value }
-        </div>
-      )
-     }]
+      <span>
+        <span style={{
+          color: row.value.length > 0 ? '#57d500'
+            : row.value.admin === 0 ? '#ff2e00'
+            : '#ffbf00',
+          transition: 'all .3s ease'
+        }}>
+          &#x25cf;
+        </span> {
+          row.value.driver
+        }
+      </span>
+    )
+     },
+     // TODO : Provide popup to show Details
+    { Header: 'http',
+       accessor: 'http_interface',
+       Cell: row => (
+       <span>
+         <span style={{
+           color: row.value.length > 0? '#57d500'
+             : row.value.admin === 0 ? '#ff2e00'
+             : '#ffbf00',
+           transition: 'all .3s ease'
+         }}>
+           &#x25cf;
+         </span> {
+           row.value.admin
+         }
+       </span>
+     )
+      }]
     }]
   return table_columns;
 };
