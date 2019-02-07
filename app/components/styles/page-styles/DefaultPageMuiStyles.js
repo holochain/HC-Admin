@@ -4,6 +4,10 @@ const styles = theme => ({
       display: 'flex',
       background: "linear-gradient(45deg, #341d40b3 10%, #6e6e96b)"  // #00017fb3
     },
+    appContainer: {
+      maxHeight: '75vh',
+      overflowY: 'scroll',
+    },
     appBarSpacer:{
       minHeight: 95
     },

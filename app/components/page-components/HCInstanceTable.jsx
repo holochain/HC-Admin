@@ -8,6 +8,8 @@ import classnames from 'classnames';
 import cmd from 'node-cmd';
 // electron:
 import * as electron from "electron";
+// MUI Imports:
+import { withStyles } from '@material-ui/core/styles';
 // ReactTable Imports
 import ReactTable from "react-table";
 import { advancedExpandTableHOC } from "./SystemTable";
@@ -17,17 +19,13 @@ import routes from '../../constants/routes';
 import { filterApps } from "../../utils/table-filters";
 import manageAllDownloadedApps from "../../utils/helper-functions";
 import { dataRefactor, refactorBaseDna, refactorInstanceData } from "../../utils/data-refactor";
-// import { hcJoin,hcUninstall,hcStart,hcStop } from "../utils/hc-install";
-// import { getRunningApps,decideFreePort } from "../utils/running-app";
-
-// import InstanceToggleButton from "./InstanceToggleButton"
 import logo from '../../assets/icons/HC_Logo.svg';
-// MUI Imports:
-import { withStyles } from '@material-ui/core/styles';
+import '../styles/page-styles/DefaultPageMuiStyles';
+
 
 /* ReactTable */
-import instance_table_columns, { instance_base_dna_table_columns } from './InstanceTableColumns'
 // const AdvancedExpandReactTable = advancedExpandTableHOC(ReactTable);
+import instance_table_columns, { instance_base_dna_table_columns } from './InstanceTableColumns';
 
 type HCDnaTableProps = {
   list_of_dna : [{
@@ -155,7 +153,7 @@ class HCInstanceTable extends React.Component {
     console.log("table_data: ", table_data);
 
     return (
-      <div className={classnames("App")}>
+      <div className={classnames(classes.appContainer, "App")}>
         <ReactTable
           data={table_data}
           columns={columns}

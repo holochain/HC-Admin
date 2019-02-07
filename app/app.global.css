@@ -48,7 +48,7 @@ body {
   /* animation: holo-lamp infinite 90s linear; */
   overflow-y: hidden;
   overflow-x: hidden;
-  -ms-overflow-style: scrollbar;
+  -ms-overflow-style: hidden;
   -webkit-app-region:drag;
 }
 
