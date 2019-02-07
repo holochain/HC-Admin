@@ -1,6 +1,6 @@
 
 # HC-Admin
-The refactored implementation of HC-Admin, which now connects with HC-Rust Container.
+The refactored implementation of HC-Admin, which now connects with the command line [`holochain` Conductor](https://github.com/holochain/holochain-rust/tree/develop/conductor)..
 
 **Status:** Closed-Alpha. Early development and testing.
 
