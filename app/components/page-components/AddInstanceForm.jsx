@@ -62,10 +62,13 @@ class AddInstance extends React.Component<AddInstanceProps, AddInstanceState>{
   sendFormData() {
     // calls parent props to create obj bundle and complete API call...
     this.props.handleAddInstance(this.state.customAgentId, this.state.customInstanceId, this.state.newInstanceInterfaceId);
-    setTimeout(() => {
-      this.setState({ handleAddInstanceModal: false });
-    }, 1000);
+    // setTimeout(() => {
+    //   this.setState({ handleAddInstanceModal: false });
+    // }, 1000);
   }
+
+// NB: Use the following method if choose to keep setTimeout fn within the sendFormData().
+  componentWillUnmount(){};
 
   render() {
     const { classes, fullScreen, availableAgentList, assignInstanceNewInterface } = this.props;

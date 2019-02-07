@@ -216,10 +216,8 @@ class HCDnaTable extends React.Component {
             const interface_id = interfaceforInstance;
 
             this.props.add_agent_dna_instance({id:instance_id, dna_id, agent_id}).then(res => {
-              console.log("CALLED");
+              this.props.add_instance_to_interface({ interface_id, instance_id }).then((res)=>{});
               })
-              this.props.add_instance_to_interface({instance_id, interface_id}).then((res)=>{console.log("CALLED");});
-
           }
 
           if(row.original.status.instance_list === "N/A" || row.original.status.instance_list.length <= 0 ){
