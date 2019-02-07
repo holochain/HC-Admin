@@ -14,6 +14,8 @@ type Props = {
   list_of_installed_instances : [],
   list_of_interfaces : [],
   agent_list:[],
+  list_of_ui_bundle:[],
+  list_of_ui_instances:[],
   // DISPATCH PROPS
   fetch_state: () => void,
   get_info_instances: () => Promise,
