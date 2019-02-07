@@ -73,6 +73,7 @@ class HCUiTable extends React.Component {
 
 
   render() {
+    // TODO: update the following to the UI api calls...
     if (!this.props.list_of_installed_instances || this.props.list_of_installed_instances.length === 0){
       return <div/>
     }

@@ -95,6 +95,7 @@ const styles = theme => ({
       overflowY: 'scroll',
     },
      navAppLogo : {
+      margin: '0 auto',
       width: 105,
       height: 70,
       flex:"0 1 auto",
@@ -147,7 +148,20 @@ const styles = theme => ({
       justifyContent: 'center',
     },
     navMenuItems : {
-      display: 'inline', // change to flex / inline-flex ??
+      display: 'inline',
+    },
+    formControl : {
+      fontSize: '2rem',
+      padding: '25px 15px',
+    },
+    formGroupFieldset: {
+      borderColor: '#95b9ed',
+    },
+    searchBtnInput : {
+      width: '100%',
+      background: 'transparent',
+      border: 'none',
+      color: '#95b9ed'
     }
   });
 

@@ -1,8 +1,11 @@
 export const FETCH_STATE = 'FETCH_STATE';
 export const GET_INFO_INSTANCES = 'GET_INFO_INSTANCES';
 
+/*************************************************************************************************************************/
+                                                    /* DNA FUNCTIONALITY */
+/*************************************************************************************************************************/
 ////////////////////////////////////////////////////////
-    /* Reporting Container DNAs/DNA-instances */
+             /* Reporting Container DNAs */
 ////////////////////////////////////////////////////////
 // call for LIST_OF_DNA ()
 export function list_of_dna() {
@@ -17,6 +20,44 @@ export function list_of_dna() {
   }
 }
 
+////////////////////////////////////////////////////////
+            /* Updating Container DNAs */
+////////////////////////////////////////////////////////
+// call for INSTALL_DNA_FROM_FILE ({id, path })
+export function install_dna_from_file(payload) {
+  console.log(">> INSTALL_DNA_FROM_FILE : payload <<", payload)
+  return {
+    type: 'INSTALL_DNA_FROM_FILE',
+    payload,
+    meta: {
+    	holochainAction: true,
+    	callString: `admin/dna/install_from_file`
+    }
+  }
+}
+
+// call for UNINSTALL_DNA_BY_ID ({ id })
+export function uninstall_dna_by_id(payload) {
+  console.log(">> UNINSTALL_DNA_BY_ID : payload <<", payload)
+  return {
+    type: 'UNINSTALL_DNA_BY_ID',
+    payload,
+    meta: {
+    	holochainAction: true,
+    	callString: `admin/dna/uninstall`
+    }
+  }
+}
+
+// !!!!!!!!!!!!!!!! NEW DNA CALL THAT STILL NEED TO IMPLEMENT !!!!!!!!!!!!!!!!
+// dna/create/from_template
+
+/*************************************************************************************************************************/
+                                             /* INSTANCES FUNCTIONALITY */
+/*************************************************************************************************************************/
+////////////////////////////////////////////////////////
+    /* Reporting Container DNA-instances */
+////////////////////////////////////////////////////////
 // call LIST_OF_INSTANCES ()
 export function list_of_installed_instances() {
   console.log(">> LIST_OF_INSTANCES : payload <<");
@@ -55,48 +96,10 @@ export function get_info_instances() {
   }
 }
 
-// call LIST_OF_INTERFACES ()
-export function list_of_interfaces() {
-  console.log(">> LIST_OF_INTERFACES : payload <<");
-  return {
-    type: 'LIST_OF_INTERFACES',
-    payload: [],
-    meta: {
-    	holochainAction: true,
-    	callString: `admin/interface/list`
-    }
-  }
-}
 
 ////////////////////////////////////////////////////////
-    /* Updating Container DNAs/DNA-instances */
+    /* Updating Container DNA-instances */
 ////////////////////////////////////////////////////////
-// call for INSTALL_DNA_FROM_FILE ({id, path })
-export function install_dna_from_file(payload) {
-  console.log(">> INSTALL_DNA_FROM_FILE : payload <<", payload)
-  return {
-    type: 'INSTALL_DNA_FROM_FILE',
-    payload,
-    meta: {
-    	holochainAction: true,
-    	callString: `admin/dna/install_from_file`
-    }
-  }
-}
-
-// call for UNINSTALL_DNA_BY_ID ({ id })
-export function uninstall_dna_by_id(payload) {
-  console.log(">> UNINSTALL_DNA_BY_ID : payload <<", payload)
-  return {
-    type: 'UNINSTALL_DNA_BY_ID',
-    payload,
-    meta: {
-    	holochainAction: true,
-    	callString: `admin/dna/uninstall`
-    }
-  }
-}
-
 // call for ADD_AGENT_DNA_INSTANCE ({id, dna_id, agent_id})
 export function add_agent_dna_instance(payload) {
   console.log(">> ADD_AGENT_DNA_INSTANCE : payload <<");
@@ -149,9 +152,29 @@ export function stop_agent_dna_instance(payload) {
   }
 }
 
+
+/*************************************************************************************************************************/
+                                                    /* INTERFACE FUNCTIONALITY */
+/*************************************************************************************************************************/
 ////////////////////////////////////////////////////////////////////////
-                // INTERFACE API calls
+              /* Reporting Container INTERFACES */
 ////////////////////////////////////////////////////////////////////////
+// call LIST_OF_INTERFACES ()
+export function list_of_interfaces() {
+  console.log(">> LIST_OF_INTERFACES : payload <<");
+  return {
+    type: 'LIST_OF_INTERFACES',
+    payload: [],
+    meta: {
+    	holochainAction: true,
+    	callString: `admin/interface/list`
+    }
+  }
+}
+
+////////////////////////////////////////////////////////
+          /* Updating Container INTERFACES */
+////////////////////////////////////////////////////////
 // call START_INTERFACE ()
 // NB: This call starts the INTERFACE by adding a new interface
 export function start_interface() {
@@ -207,8 +230,13 @@ export function remove_instance_from_interface(payload) {
     }
   }
 }
+
+
+/*************************************************************************************************************************/
+                                                    /* AGENT FUNCTIONALITY */
+/*************************************************************************************************************************/
 ////////////////////////////////////////////////////////////////////////
-                // AGENT API calls
+              /* Reporting Container Agents */
 ////////////////////////////////////////////////////////////////////////
 // admin/agent/list
 export function get_agent_list() {
@@ -223,36 +251,55 @@ export function get_agent_list() {
   }
 }
 
-/////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////
+          /* Updating Container Agents */
+////////////////////////////////////////////////////////
+// admin/agent/add
 
-// state check
+// admin/agent/remove
+
+
+/*************************************************************************************************************************/
+                                                    /* UI FUNCTIONALITY */
+/*************************************************************************************************************************/
+////////////////////////////////////////////////////////
+            /* Reporting Container UIs */
+////////////////////////////////////////////////////////
+// admin/ui/list
+
+////////////////////////////////////////////////////////
+          /* Updating Container UIs */
+////////////////////////////////////////////////////////
+// admin/ui/install
+
+// admin/ui/uninstall
+
+//admin/ui/start
+
+//admin/ui/stop
+
+
+/*************************************************************************************************************************/
+                                                  /* BRIDING FUNCTIONALITY */
+/*************************************************************************************************************************/
+////////////////////////////////////////////////////////
+            /* Reporting Container Bridging */
+////////////////////////////////////////////////////////
+
+
+////////////////////////////////////////////////////////
+          /* Updating Container Bridging */
+////////////////////////////////////////////////////////
+
+
+/*************************************************************************************************************************/
+                                            /* GLOBAL REDUX STATE CHECK FUNCTIONALITY*/
+/*************************************************************************************************************************/
+////////////////////////////////////////////////////////
+          /* Redux State Check */
+////////////////////////////////////////////////////////
 export function fetch_state() {
   return {
     type: FETCH_STATE
   };
 }
-
-/////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////
-      /* Working Container APIs*/
-///////////////////////////////////////////
-// [x]  admin/dna/list()
-// [x]  ~ !! admin/instance/list()
-// [x]  ~ !! admin/instance/running()
-// [x]  info/instances()
-
-// [x]  admin/instance/add({id, dna_id, agent_id})
-// [x]  admin/instance/remove({id})
-// [x]  admin/dna/install_from_file({id, path})
-// [x]  admin/dna/uninstall({id})
-// [x]  ~ !! admin/instance/start({id})
-// [x]  ~ !! admin/instance/stop({id})
-
-// [ ] admin/interface/add (starts the interface)
-// [ ] admin/interface/remove (stops the interface)
-// [ ] admin/interface/add_instance (restarts the interface to get change in effect)
-// [ ] admin/interface/remove_instance (restarts the interface to get change in effect)
-// [ ] admin/interface/list
-
-// NB: Be sure to set `admin = true` in container basic.toml config
-/////////////////////////////////////////////////////////////////////////

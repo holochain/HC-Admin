@@ -120,10 +120,10 @@ class MainListItems extends React.Component {
         </ListItem>
         <ListItem style={{display: 'inline', paddingTop: "45px"}} button={button} onClick={() => this.handleClick()}>
           <input id="linkUpload" type="file" accept=".hcpkg" name="fileInput" onChange={this.handleUpload} ref="fileInput" style={{display:"none"}}/>
-            <Button variant="contained" color="default" style={{ marginRight: "5px", background:"#0762c3de", marginBottom:"3px" }} autoFocus>
-              <CloudUploadIcon style={{ background:"#0762c3de", color:"#072dc3de" }}  />
+            <Button variant="contained" color="default" style={{ marginRight: "5px", background:"#072dc3de", marginBottom:"3px" }} autoFocus>
+              <CloudUploadIcon style={{ background:"#072dc3de", color:"#95b9ed" }}  />
               <Typography style={{ marginRight: "5px"}}  variant="subheading">
-                <span style={{ marginLeft: "3px", color:"#072dc3de" }}>Install</span>
+                <span style={{ marginLeft: "3px", color:"#95b9ed" }}>Install</span>
               </Typography>
             </Button>
         </ListItem>

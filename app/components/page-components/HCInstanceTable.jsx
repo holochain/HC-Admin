@@ -157,10 +157,10 @@ class HCInstanceTable extends React.Component {
     return (
       <div className={classnames("App")}>
         <ReactTable
-          defaultPageSize={10}
-          className="-striped -highlight"
           data={table_data}
           columns={columns}
+          className="-striped -highlight"
+          defaultPageSize={table_data.length}
           SubComponent={row => {
             console.log("row", row);
             const base_dna_data = this.displaySubComponentData(row);
