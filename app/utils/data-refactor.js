@@ -272,90 +272,51 @@ const checkIfInterfaceExist = (id,list,type) =>{
 ////////////////////////////////////////////////////////
       /* Data for Instance Table Overview */
 ////////////////////////////////////////////////////////
-export const refactorInstanceData = (list_of_instance_info, list_of_installed_instances, list_of_running_instances, list_of_interfaces) => {
-  // HACK:
-  // const installed_but_not_info = list_of_installed_instances.filter((ii)=>{
-  //   return !list_of_instance_info.find((i_info)=>i_info.id===ii.id)
-  // });
-  // if(installed_but_not_info!== undefined){
-  //   {
-  //     dna_id: fileInstance.dna,
-  //     agent_id: fileInstance.agent,
-  //     type: "DNA Instance", // fileInstance.storage.type >>> will this eventually say whether it is a DNA or UI?? or only state "file" ??
-  //     instanceId: fileInstance.id,
-  //     status:{
-  //       instance: fileInstance.id,
-  //       dna: {
-  //         dna_id:fileInstance.dna
-  //       },
-  //       agent_id:fileInstance.agent,
-  //       status:"installed"
-  //     },
-  //     running
-  //   };
-  // }
-  const info_instance_log = list_of_instance_info.map((fileInstance) => {
-    if (fileInstance !== parseInt(fileInstance, 10)) {
-      let hash = "";
-      let status = {};
-      let running = {};
-
-      let check_installed = list_of_installed_instances.find((i_instances)=>{
-        return i_instances.id ===fileInstance.id
+export const refactorInstanceData = (list_of_installed_instances, list_of_running_instances, list_of_interfaces) => {
+console.log("#####################################################");
+  const instance_log = list_of_installed_instances.map((dna_instance)=>{
+    if (dna_instance !== parseInt(dna_instance, 10)){
+      let running={};
+      let check_running;
+      if(Object.keys(list_of_installed_instances).length===0)
+      check_running = list_of_running_instances.find((ri)=>{
+        return ri.id ===dna_instance.id
       })
-        if (check_installed === undefined){
-          status = {
-            instance: fileInstance.id,
-            dna: {
-              dna_id:fileInstance.dna
-            },
-            agent_id:fileInstance.agent,
-            status:"uninstalled"
-          };
-        }
-        else {
-          status = {
-            instance: fileInstance.id,
-            dna: {
-              dna_id:fileInstance.dna
-            },
-            agent_id:fileInstance.agent,
-            status:"installed"
-          };
-        }
-
-        let check_running = list_of_running_instances.find((ri)=>{
-          return ri.id ===fileInstance.id
-        })
-          if (check_running===undefined){
-              running = {
-                instance: fileInstance.id,
-                running : false
-              };
-        }
-        else {
-          running = {
-             instance: fileInstance.id,
-             running : true
-          };
-        }
-
-        const newInstanceObj = {
-          dna_id: fileInstance.dna,
-          agent_id: fileInstance.agent,
-          type: "DNA Instance", // fileInstance.storage.type >>> will this eventually say whether it is a DNA or UI?? or only state "file" ??
-          instanceId: fileInstance.id,
-          status,
-          running,
-          websocket_interface:checkIfInterfaceExist(fileInstance.id,list_of_interfaces,"websocket interface"),
-          https:checkIfInterfaceExist(fileInstance.id,list_of_interfaces,"http interface")
+      if (check_running===undefined){
+        running = {
+          instance: dna_instance.id,
+          running : false
         };
-
-        console.log("newInstanceObj", newInstanceObj);
-        return newInstanceObj;
       }
+      else {
+        running = {
+          instance: dna_instance.id,
+          running : true
+        };
+      }
+      const newInstanceObj = {
+        dna_id: dna_instance.dna,
+        agent_id: dna_instance.agent,
+        type: "DNA Instance", // dna_instance.storage.type >>> will this eventually say whether it is a DNA or UI?? or only state "file" ??
+        instanceId: dna_instance.id,
+        status:{
+          instance: dna_instance.id,
+          dna: {
+            dna_id:dna_instance.dna
+          },
+          agent_id:dna_instance.agent,
+          status:"installed"
+        },
+        running,
+        websocket_interface:checkIfInterfaceExist(dna_instance.id,list_of_interfaces,"websocket interface"),
+        https:checkIfInterfaceExist(dna_instance.id,list_of_interfaces,"http interface")
+      };
+
+    console.log("newInstanceObj", newInstanceObj);
+    return newInstanceObj;
+  }
   });
-  return dataRefactor(info_instance_log, "Instance");
+  return dataRefactor(instance_log, "Instance");
 }
 
 

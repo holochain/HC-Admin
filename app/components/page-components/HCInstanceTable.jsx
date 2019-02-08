@@ -102,9 +102,9 @@ class HCInstanceTable extends React.Component {
 
   beginAppMontoring = () => {
     // call for list_of_instances()
-    this.props.get_info_instances().then(res=>{
-      console.log("GET INFO INSTANCES: ",this.props);
-    })
+    // this.props.get_info_instances().then(res=>{
+    //   console.log("GET INFO INSTANCES: ",this.props);
+    // })
 
     // call for LIST_OF_DNA()
     this.props.list_of_dna().then(res => {
@@ -125,10 +125,10 @@ class HCInstanceTable extends React.Component {
 
   displayData = () => {
     console.log("this.state inside displayData", this.state);
-    if (this.props.containerApiCalls.list_of_running_instances && this.props.containerApiCalls.list_of_installed_instances && this.props.containerApiCalls.list_of_instance_info){
-      const { list_of_running_instances, list_of_installed_instances ,list_of_instance_info} = this.props.containerApiCalls;
+    if (this.props.containerApiCalls.list_of_running_instances){
+      const { list_of_running_instances, list_of_installed_instances } = this.props.containerApiCalls;
 
-      const table_dna_instance_info =  refactorInstanceData(list_of_instance_info, list_of_installed_instances, list_of_running_instances);
+      const table_dna_instance_info =  refactorInstanceData(list_of_installed_instances, list_of_running_instances);
 
       this.setSearchBarDataReference(table_dna_instance_info, {});
 
@@ -200,6 +200,7 @@ class HCInstanceTable extends React.Component {
 
 
   render() {
+    console.log("PROPS: ",this.props);
     if (!this.props.containerApiCalls.length === 0){
       return <div/>
     }
