@@ -14,7 +14,6 @@ export const checkPort = (portNumber) => {
 
 
 const callPort = (portNumber) => {
-  console.log("Checking port :",portNumber);
   return new Promise((resolve,reject)=>{
     cmd.get(
       `lsof -i :` + portNumber,

@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
-// MUI Imports:
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import ListItem from '@material-ui/core/ListItem';
@@ -14,11 +13,8 @@ import PeopleIcon from '@material-ui/icons/People';
 import LayersIcon from '@material-ui/icons/Layers';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
-// Local Imports
 import routes from '../../constants/routes';
 import { handleRefreshApp } from "../../utils/helper-functions";
-// import Avatar from './AvatarImage';
-// import AgentName from './AgentName';
 import styles from '../styles/component-styles/DashboardMuiStyles';
 
 const button : boolean = true;

@@ -1,12 +1,9 @@
 import React from 'react';
-// MUI Imports
 import { makeStyles } from '@material-ui/styles';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import { withStyles } from '@material-ui/core/styles';
-// import purple from '@material-ui/core/colors/purple';
-// Local Imports
 import { handleRefreshApp, getHomePath } from "../../utils/helper-functions";
 import styles from '../styles/component-styles/ToggleButtonMuiStyles';
 
@@ -36,11 +33,6 @@ class ToggleButton extends React.Component {
 
   render() {
     const { classes, running, installed, downloaded } = this.props;
-    // console.log("togglebutton props", this.props);
-    // console.log("ToggleButton state", this.state);
-    //
-    // console.log("CHECKED? : ", this.props.installed.status === "installed" ? true : false );
-
     return (
       <FormControlLabel
       control={
@@ -62,28 +54,4 @@ class ToggleButton extends React.Component {
   )}
 }
 
-
 export default withStyles(styles)(ToggleButton);
-// label={this.state.row === "installed" ?
-//     this.state.installed === true ? `Installed`: `Uninstalled`
-//   : this.state.running === true ? `Running`: `Stopped`
-// }
-
-
-// menu >> toggle button
-// <h5>
-// {
-//   row.value === true ? `Installed`
-//   : row.value === false ? `Uninstalled`
-//   : 'Unknown'
-// }
-// </h5>
-
-// <h5>
-// {
-//    row.value === true ? `Running`
-//   : row.value === false ? `Stopped`
-//   : 'Unknown'
-// }
-// }
-// </h5>

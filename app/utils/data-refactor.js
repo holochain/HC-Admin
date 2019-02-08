@@ -64,7 +64,6 @@ const monitorUninstalledUI = (downloaded_ui_bundles, list_of_ui_instances) => {
 }
 
 const dataRefactor = (app_details, app_type) => {
-  console.log("APPDETAILS:-------------->",app_details);
   const APP_LIST_LENGTH = app_details.length;
 
   const insertAppDetails = (app) => {
@@ -77,7 +76,7 @@ const dataRefactor = (app_details, app_type) => {
         hash: app.hash,
         status: app.status
       };
-      console.log("newDnaObj", newDnaObj);
+      // console.log("newDnaObj", newDnaObj);
       return newDnaObj;
     }
     else if (app !== parseInt(app, 10) && app_type === "Instance") {
@@ -92,7 +91,6 @@ const dataRefactor = (app_details, app_type) => {
         websocket_interface:app.websocket_interface,
         http_interface:app.http_interface
       };
-      console.log("newInstanceObj", newInstanceObj);
       return newInstanceObj;
     }
     else {
@@ -125,19 +123,12 @@ const dataRefactor = (app_details, app_type) => {
 export const refactorListOfDnas = (downloaded_apps, list_of_dna, info_instances) => {
     let status = {};
     let uninstalled_apps=[];
-    console.log("CONDITION::",downloaded_apps);
     if(downloaded_apps && Object.keys(downloaded_apps).length > 0)
     uninstalled_apps = monitorUninstalledApps(downloaded_apps, list_of_dna);
-
-    console.log("uninstalled_apps >> check to see list of uninstalled : ", uninstalled_apps);
-    console.log("list_of_dna >> check to see list of uninstalled : ", list_of_dna);
 
     const list_of_installed = list_of_dna.map((app) => {
       let instance_list = findDnaInstances(app.id, info_instances);
       let instances_exist = instance_list.length > 0 ? "Yes" : "None Yet Exist";
-
-      console.log(" ! instance_list ! ", instance_list);
-      console.log(" ! instances_exist ! ", instances_exist);
 
       return {
         dna_id: app.id,
@@ -156,7 +147,7 @@ export const refactorListOfDnas = (downloaded_apps, list_of_dna, info_instances)
       return {
         dna_id: app.dna_id,
         dna_instance: "N/A",
-        type: "DNA", // fileIntance.storage.type >>> will this eventually say whether it is a DNA or UI?? or only state "file" ??
+        type: "DNA",
         hash: "N/A",
         status: {
           col_dna_id: app.dna_id,
@@ -176,7 +167,7 @@ export const refactorListOfDnas = (downloaded_apps, list_of_dna, info_instances)
           return down_app.dna_id === app.id
       });
     });
-    console.log("MONITORUNINSTALLEDAPPS >> uninstalled_apps : ", uninstalled_apps);
+    // console.log("MONITORUNINSTALLEDAPPS >> uninstalled_apps : ", uninstalled_apps);
     return uninstalled_apps;
   }
 
@@ -190,8 +181,6 @@ const findDnaInstances = (dna_id, info_instances) => {
 }
 
 export const refactorDnaInstanceData = (current_dna_instances, list_of_installed_instances, list_of_running_instances, list_of_interfaces) => {
-  console.log("><><><><>< current_dna_instances ><><><><><><", current_dna_instances);
-
   const info_instance_log = current_dna_instances.map((fileInstance) => {
     if (fileInstance !== parseInt(fileInstance, 10)) {
       let hash = "";
@@ -241,7 +230,7 @@ export const refactorDnaInstanceData = (current_dna_instances, list_of_installed
         const newInstanceObj = {
           dna_id: fileInstance.dna,
           agent_id: fileInstance.agent,
-          type: "DNA Instance", // fileInstance.storage.type >>> will this eventually say whether it is a DNA or UI?? or only state "file" ??
+          type: "DNA Instance",
           instanceId: fileInstance.id,
           status,
           running,
@@ -249,7 +238,6 @@ export const refactorDnaInstanceData = (current_dna_instances, list_of_installed
           http_interface:checkIfInterfaceExist(fileInstance.id,list_of_interfaces,"http interface")
         };
 
-        console.log("newInstanceObj", newInstanceObj);
         return newInstanceObj;
       }
   });
@@ -273,7 +261,6 @@ const checkIfInterfaceExist = (id,list,type) =>{
       /* Data for Instance Table Overview */
 ////////////////////////////////////////////////////////
 export const refactorInstanceData = (list_of_installed_instances, list_of_running_instances, list_of_interfaces) => {
-console.log("#####################################################");
   const instance_log = list_of_installed_instances.map((dna_instance)=>{
     if (dna_instance !== parseInt(dna_instance, 10)){
       let running={};
@@ -297,7 +284,7 @@ console.log("#####################################################");
       const newInstanceObj = {
         dna_id: dna_instance.dna,
         agent_id: dna_instance.agent,
-        type: "DNA Instance", // dna_instance.storage.type >>> will this eventually say whether it is a DNA or UI?? or only state "file" ??
+        type: "DNA Instance",
         instanceId: dna_instance.id,
         status:{
           instance: dna_instance.id,
@@ -312,7 +299,6 @@ console.log("#####################################################");
         https:checkIfInterfaceExist(dna_instance.id,list_of_interfaces,"http interface")
       };
 
-    console.log("newInstanceObj", newInstanceObj);
     return newInstanceObj;
   }
   });
@@ -324,9 +310,6 @@ console.log("#####################################################");
 export const refactorBaseDna = (instance_dna_id, list_of_dna) => {
   let status = {};
   let instance_list = [];
-
-  console.log("instance_dna_id >> check to see the parent row's (the isntance's) base dna.id : ", instance_dna_id);
-  console.log("list_of_dna >> check to see list of installed dna : ", list_of_dna);
 
   const matching_base_dna = list_of_dna.filter((matched_app) => {
     return matched_app.id === instance_dna_id;
@@ -421,7 +404,6 @@ export const listInstalledApps = (list_of_instance_info, list_of_running_instanc
         running
       };
 
-      console.log("newInstanceObj", newInstanceObj);
       return newInstanceObj;
     }});
 

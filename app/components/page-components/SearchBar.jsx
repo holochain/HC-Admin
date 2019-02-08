@@ -79,22 +79,3 @@ class SearchBar extends React.Component {
 }
 
 export default withStyles(styles)(SearchBar);
-
-
-// <div className={classes.search}>
-//   <div className={classes.searchIcon}>
-//     <SearchIcon style={{ color:"#95b9ed"}} />
-//   </div>
-//   <InputBase
-//     placeholder="Search…"
-//     onEnter={this.makeSearch}
-//     classes={{
-//       root: classes.inputRoot,
-//       input: classes.inputInput,
-//     }}
-//   />
-// </div>
-
-// '&:focus': {
-//   outline: 'bindActionCreators',
-// },

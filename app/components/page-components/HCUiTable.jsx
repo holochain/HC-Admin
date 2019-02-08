@@ -1,4 +1,3 @@
-// Main Imports
 import * as React from 'react';
 import * as redux from 'redux';
 import { connect } from 'react-redux';
@@ -6,26 +5,19 @@ import { BrowserRouter, Route, Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import cmd from 'node-cmd';
-// electron:
 import * as electron from "electron";
-// ReactTable Imports
 import ReactTable from "react-table";
 import { advancedExpandTableHOC } from "./SystemTable";
 import "react-table/react-table.css";
-// Local Imports
 import routes from '../../constants/routes';
 import { filterApps } from "../../utils/table-filters";
 import {manageAllDownloadedUI} from "../../utils/helper-functions";
 import {uiTableDataRefactored} from "../../utils/data-refactor";
 import {checkPort} from "../../utils/cmd-calls";
 import AddUIInterfaceForm from "./AddUIInterfaceForm";
-
-// import InstanceToggleButton from "./InstanceToggleButton"
 import logo from '../../assets/icons/HC_Logo.svg';
-// MUI Imports:
 import { withStyles } from '@material-ui/core/styles';
 
-/* ReactTable */
 import ui_bundle_table_columns,{ui_interface_table_columns}  from './ColumnsUITable'
 
 
@@ -45,38 +37,26 @@ class HCUiTable extends React.Component {
   }
 
   componentDidMount = () => {
-    // console.log("UI Table LOADING...");
     this.monitoringUI();
-    // checkPort(9000).then(exist=>{
-    //   console.log("RETURNED PORT CHECKED: ",exist);
-    //
-    // })
   }
   monitoringUI = () => {
     this.getDownloadedBundles();
     this.props.get_ui_list().then(res => {
-      // console.log("Loading list of UI Bundles: ", this.props);
     });
     this.props.get_ui_instance_list().then(res => {
-      // console.log("Loading list of UI instances: ", this.props);
       let port_exist=[]
       this.props.containerApiCalls.list_of_ui_instances.forEach((ui)=>{
         checkPort(ui.port).then(exist=>{
           port_exist.push({ui_interface_id:ui.id,port_number:ui.port,port_running:exist})
         })
-      })//.then((_)=>{
+      })
         this.setState({
           port_exist
         })
-        console.log("SET STATE: ",this.state);
-
     });
     this.props.list_of_interfaces().then(res => {
-      // console.log("Home props after LIST_OF_INTERFACES call", this.props);
     })
   }
-
-
 
   getDownloadedBundles = () => {
     let self = this;
@@ -119,7 +99,6 @@ class HCUiTable extends React.Component {
 
 
   render() {
-    console.log("Rending UI TABLE : ", this.props);
     if (!this.props.containerApiCalls.length === 0 ){
       return <div/>
     }

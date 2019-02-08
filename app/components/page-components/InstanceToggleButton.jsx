@@ -50,9 +50,6 @@ class InstanceToggleButton extends React.Component {
       }
       else{
         console.log(this.props);
-        // this.props.getInstances(instance_id).then(res => {
-        //   this.props.startInstance(instance_id)
-        // })
         this.props.addInterface({ interface_id:"websocket interface", instance_id:instance })
         this.props.startInstance(instance_id).then(res => {
             handleRefreshApp();
@@ -64,10 +61,6 @@ class InstanceToggleButton extends React.Component {
 
   render() {
     const { classes, running, installed, downloaded } = this.props;
-    // console.log("InstanceToggleButton props", this.props);
-    // console.log("InstanceToggleButton state", this.state);
-    // console.log("installed state", this.props.installed );
-    // console.log("running state", this.props.running );
 
     let checkedStatus = this.props.removeInstance ? this.props.installed.status === "installed" ? true : false : this.props.running.running;
 
