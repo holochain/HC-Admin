@@ -50,7 +50,7 @@ const instance_table_columns = (props, state) => {
           </div>
         )
       }, {
-      Header: 'Username',
+      Header: 'Agent ID',
       id: 'agent_id',
       accessor: d => d.agent_id,
       filterMethod: (filter, rows) =>
