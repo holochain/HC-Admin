@@ -233,6 +233,40 @@ export default function(state = INITIAL_STATE, action: Action) : State {
       // console.log("GET_UI_INSTANCE_LIST_FAILURE", payload);
       return { ...state };
     }
+    // ADD_UI_INTERFACE
+    case 'ADD_UI_INTERFACE_SUCCESS': {
+      // console.log("ADD_UI_INTERFACE_SUCCESS", payload);
+      return { ...state};
+    }
+
+    case 'ADD_UI_INTERFACE_FAILURE': {
+      // console.log("GET_UI_INSTANCE_LIST_FAILURE", payload);
+      return { ...state };
+    }
+    // REMOVE_UI_INTERFACe
+    case 'REMOVE_UI_INTERFACe_SUCCESS': {
+      return { ...state};
+    }
+
+    case 'REMOVE_UI_INTERFACe_FAILURE': {
+      return { ...state };
+    }
+    // START_UI_INTERFACe
+    case 'START_UI_INTERFACe_SUCCESS': {
+      return { ...state};
+    }
+
+    case 'START_UI_INTERFACe_FAILURE': {
+      return { ...state };
+    }
+    // STOP_UI_INTERFACe
+    case 'STOP_UI_INTERFACe_SUCCESS': {
+      return { ...state};
+    }
+
+    case 'STOP_UI_INTERFACe_FAILURE': {
+      return { ...state };
+    }
     ////////////////////////////////////////////////////////////////////////
                       // BRIDING API calls
                        //

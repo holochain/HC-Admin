@@ -325,6 +325,61 @@ export function get_ui_instance_list(payload) {
     }
   }
 }
+// admin/ui_interface/add
+// @params : id ID used to refer to this ui interface
+// port Port to host the HTTP server on
+// bundle UI bundle to serve on this port
+// dna_interface DNA interface this UI can connect to (Optional)
+export function add_ui_interface(payload) {
+  console.log(">> API CALL ADD_UI_INTERFACE");
+  return {
+    type: 'ADD_UI_INTERFACE',
+    payload,
+    meta: {
+    	holochainAction: true,
+    	callString: `admin/ui_interface/add`
+    }
+  }
+}
+// admin/ui_interface/remove
+// @params : {id}
+export function remove_ui_interface(payload) {
+  console.log(">> API CALL REMOVE_UI_INTERFACe");
+  return {
+    type: 'REMOVE_UI_INTERFACe',
+    payload,
+    meta: {
+    	holochainAction: true,
+    	callString: `admin/ui_interface/remove`
+    }
+  }
+}
+// admin/ui_interface/start
+// @params : {id}
+export function start_ui_interface(payload) {
+  console.log(">> API CALL START_UI_INTERFACe");
+  return {
+    type: 'START_UI_INTERFACe',
+    payload,
+    meta: {
+    	holochainAction: true,
+    	callString: `admin/ui_interface/start`
+    }
+  }
+}
+// admin/ui_interface/stop
+// @params : {id}
+export function stop_ui_interface(payload) {
+  console.log(">> API CALL STOP_UI_INTERFACe");
+  return {
+    type: 'STOP_UI_INTERFACe',
+    payload,
+    meta: {
+    	holochainAction: true,
+    	callString: `admin/ui_interface/stop`
+    }
+  }
+}
 /*************************************************************************************************************************/
                                                   /* BRIDING FUNCTIONALITY */
 /*************************************************************************************************************************/

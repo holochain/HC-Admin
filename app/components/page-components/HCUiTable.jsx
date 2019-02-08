@@ -17,6 +17,7 @@ import routes from '../../constants/routes';
 import { filterApps } from "../../utils/table-filters";
 import {manageAllDownloadedUI} from "../../utils/helper-functions";
 import {uiTableDataRefactored} from "../../utils/data-refactor";
+import AddUIInterfaceForm from "./AddUIInterfaceForm";
 
 // import InstanceToggleButton from "./InstanceToggleButton"
 import logo from '../../assets/icons/HC_Logo.svg';
@@ -53,6 +54,9 @@ class HCUiTable extends React.Component {
     this.props.get_ui_instance_list().then(res => {
       // console.log("Loading list of UI instances: ", this.props);
     });
+    this.props.list_of_interfaces().then(res => {
+      // console.log("Home props after LIST_OF_INTERFACES call", this.props);
+    })
   }
 
   getDownloadedBundles = () => {
@@ -105,28 +109,21 @@ class HCUiTable extends React.Component {
           defaultPageSize={5}
           showPagination={false}
           SubComponent={row => {
-            {/*const addInstance = (custom_agent_id, custom_instance_id, interfaceforInstance) => {
-              console.log("<><><><><> customAgentId <><><<><>", custom_agent_id);
-              console.log("<><><><><> customInstanceId <><><<><>", custom_instance_id);
-              console.log("<><><><><> interfaceforInstance <><><<><>", interfaceforInstance);
-              const { dna_id } = row.original;
-              const agent_id = custom_agent_id ? custom_agent_id : this.props.containerApiCalls.agent_list[0].id; // HC AGENT ID
-              const instance_id = custom_instance_id ?  custom_instance_id : (dna_id + agent_id);
-              const interface_id = interfaceforInstance;
-              this.props.add_agent_dna_instance({id, dna_id, agent_id}).then(res => {
-                this.props.add_instance_to_interface({instance_id, interface_id});
+            const addInferface = (custom_instance_id, custom_port_number, interfaceforInstance) => {
+              const { ui_bundle_id } = row.original;
+              this.props.add_ui_interface({id:custom_instance_id,port:parseInt(custom_port_number),bundle:ui_bundle_id,dna_interface:interfaceforInstance}).then((res)=>{
+                console.log("Created");
               })
-            }*/}
+            }
 
             if(!row.original.ui_instance_exist){
                 return (
                   <div style={{ paddingTop: "2px" }}>
                     <h3 style={{ color: "#567dbb", textAlign: "center" }}>No Instances Yet Exist</h3>
-
-                    {/*<div style={{ justifyItems: "center", display:"inline", margin:"2px 5px 8px 5px" }}>
-                      <AddInstanceForm availableAgentList={this.props.containerApiCalls.agent_list}
-                      assignInstanceNewInterface={this.props.containerApiCalls.list_of_interfaces} handleAddInstance={addInstance} />
-                    </div>*/}
+                    <div style={{ justifyItems: "center", display:"inline", margin:"2px" }}>
+                      <AddUIInterfaceForm availableAgentList={this.props.containerApiCalls.agent_list} assignInstanceNewInterface={this.props.containerApiCalls.list_of_interfaces}
+                      handleAddUIInterface={addInferface} />
+                    </div>
                   </div>
                 )
               }
@@ -135,10 +132,6 @@ class HCUiTable extends React.Component {
 
                 return (
                   <div style={{ paddingTop: "2px", marginBottom:"8px" }}>
-                    {/*<div style={{ justifyItems: "center", display:"inline", margin:"2px" }}>
-                      <AddInstanceForm availableAgentList={this.props.containerApiCalls.agent_list} assignInstanceNewInterface={this.props.containerApiCalls.list_of_interfaces}
-                      handleAddInstance={addInstance} />
-                    </div>*/}
 
                     <ReactTable
                       data={dna_instance_data}
@@ -147,6 +140,11 @@ class HCUiTable extends React.Component {
                       showPagination={false}
                       style = {{ margin: "0 auto", marginBottom: "50px", width:"90%", justifyItems:"center" }}
                     />
+                     <div style={{ justifyItems: "center", display:"inline", margin:"2px" }}>
+                          <AddUIInterfaceForm availableAgentList={this.props.containerApiCalls.agent_list} assignInstanceNewInterface={this.props.containerApiCalls.list_of_interfaces}
+                          handleAddUIInterface={addInferface} />
+                        </div>
+
                   </div>
                 );
               }
