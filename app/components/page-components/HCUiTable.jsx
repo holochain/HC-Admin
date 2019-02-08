@@ -17,6 +17,7 @@ import routes from '../../constants/routes';
 import { filterApps } from "../../utils/table-filters";
 import {manageAllDownloadedUI} from "../../utils/helper-functions";
 import {uiTableDataRefactored} from "../../utils/data-refactor";
+import {checkPort} from "../../utils/cmd-calls";
 import AddUIInterfaceForm from "./AddUIInterfaceForm";
 
 // import InstanceToggleButton from "./InstanceToggleButton"
@@ -39,12 +40,17 @@ class HCUiTable extends React.Component {
     super(props);
     this.state = {
     downloaded_ui_bundles: null,
+    port_exist:[]
     };
   }
 
   componentDidMount = () => {
     // console.log("UI Table LOADING...");
     this.monitoringUI();
+    // checkPort(9000).then(exist=>{
+    //   console.log("RETURNED PORT CHECKED: ",exist);
+    //
+    // })
   }
   monitoringUI = () => {
     this.getDownloadedBundles();
@@ -53,11 +59,24 @@ class HCUiTable extends React.Component {
     });
     this.props.get_ui_instance_list().then(res => {
       // console.log("Loading list of UI instances: ", this.props);
+      let port_exist=[]
+      this.props.containerApiCalls.list_of_ui_instances.forEach((ui)=>{
+        checkPort(ui.port).then(exist=>{
+          port_exist.push({ui_interface_id:ui.id,port_number:ui.port,port_running:exist})
+        })
+      })//.then((_)=>{
+        this.setState({
+          port_exist
+        })
+        console.log("SET STATE: ",this.state);
+
     });
     this.props.list_of_interfaces().then(res => {
       // console.log("Home props after LIST_OF_INTERFACES call", this.props);
     })
   }
+
+
 
   getDownloadedBundles = () => {
     let self = this;
@@ -80,17 +99,23 @@ class HCUiTable extends React.Component {
     const { list_of_ui_bundle, list_of_ui_instances } = this.props.containerApiCalls;
     return uiTableDataRefactored(list_of_ui_bundle, list_of_ui_instances,this.state.downloaded_ui_bundles );
   }
-
+  check = (port_number)=>{
+      return this.state.port_exist.filter((p)=>{
+        return p.port_number == port_number
+      })
+  }
   displayInterfaceData = (row) => {
       const interface_details =  row.original.ui_instance.map(instance =>{
         return {
           ui_interface_id:instance.id,
           interface_type:instance.dna_interface,
-          port:instance.port
+          port:instance.port,
+          port_check:this.check(instance.port)
         }
       })
   return interface_details;
   }
+
 
 
   render() {
@@ -100,6 +125,7 @@ class HCUiTable extends React.Component {
     }
     const columns = ui_bundle_table_columns(this.props, this.state);
     const table_data= this.displayData();
+
     return (
       <div className={classnames("App")}>
         <AdvancedExpandReactTable
@@ -129,13 +155,13 @@ class HCUiTable extends React.Component {
               }
               else {
                 const dna_instance_data = this.displayInterfaceData(row);
-
+                console.log("DNA INSTANCe: ",dna_instance_data);
                 return (
                   <div style={{ paddingTop: "2px", marginBottom:"8px" }}>
 
                     <ReactTable
                       data={dna_instance_data}
-                      columns={ui_interface_table_columns()}
+                      columns={ui_interface_table_columns(this.props)}
                       defaultPageSize={dna_instance_data.length}
                       showPagination={false}
                       style = {{ margin: "0 auto", marginBottom: "50px", width:"90%", justifyItems:"center" }}

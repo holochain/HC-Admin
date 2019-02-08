@@ -2,6 +2,7 @@
 import * as React from 'react';
 import * as redux from 'redux';
 import ToggleButtonUIBundle from "./ToggleButtonUIBundle";
+import ToggleButtonUIInstance from "./ToggleButtonUIInstance";
 import InstanceToggleButton from "./InstanceToggleButton";
 
 /* Table Headers */
@@ -83,7 +84,7 @@ const ui_bundle_table_columns = (props, state) => {
 }
 export default ui_bundle_table_columns;
 
-export const ui_interface_table_columns = () => {
+export const ui_interface_table_columns = (props) => {
 
   const table_columns = [{
     Header: '',
@@ -112,6 +113,35 @@ export const ui_interface_table_columns = () => {
         <a href={"http://localhost:"+row.value}>{ row.value }</a>
       </div>
       )
+    }, {
+      Header: 'Status',
+      accessor: 'port_check',
+      Cell: row => (
+        <div>
+        <span>
+          <span style={{
+            color: row.value[0].port_running === true ? '#57d500'
+              : row.value[0].port_running === false ? '#ff2e00'
+              : '#ffbf00',
+            transition: 'all .3s ease'
+          }}>
+            &#x25cf;
+          </span> {
+            row.value[0].port_running === true ? `Running`
+            : row.value[0].port_running === false ? `Stopped`
+            : 'NA'
+          }
+        </span>
+        <br/>
+        <ToggleButtonUIInstance
+            running={row.value[0].port_running}
+            values={row.value[0]}
+            stop_ui_interface={props.stop_ui_interface}
+            start_ui_interface={props.start_ui_interface}
+          />
+        </div>
+    )
+
     }]
   }];
   return table_columns;
