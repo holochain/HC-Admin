@@ -106,7 +106,7 @@ export const dna_instance_list_table_columns = (props, state) => {
         </div>
       )
     }, {
-      Header: 'Username',
+      Header: 'Agent ID',
       accessor: 'agent_id',
       Cell: row => (
         <div style={{ padding: '5px' }}>
@@ -181,7 +181,7 @@ export const dna_instance_list_table_columns = (props, state) => {
       )
     },
     // TODO : Provide popup to show Details
-    { Header: 'Web-Socket',
+    { Header: 'WebSocket',
       accessor: 'websocket_interface',
       Cell: row => (
       <span>

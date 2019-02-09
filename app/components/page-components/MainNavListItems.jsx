@@ -115,7 +115,7 @@ class MainListItems extends React.Component {
           </ListItem>
         </Link>
         <ListItem style={{display: 'inline', paddingTop: "45px"}} button={button} onClick={() => this.handleClick()}>
-          <input id="linkUpload" type="file" accept=".hcpkg" name="fileInput" onChange={this.handleUpload} ref="fileInput" style={{display:"none"}}/>
+          <input id="linkUpload" type="file" accept=".hcpkg, .json" name="fileInput" onChange={this.handleUpload} ref="fileInput" style={{display:"none"}}/>
             <Button variant="contained" color="default" style={{ marginRight: "5px", background:"#072dc3de", marginBottom:"3px" }} autoFocus>
               <CloudUploadIcon style={{ background:"#072dc3de", color:"#95b9ed" }}  />
               <Typography style={{ marginRight: "5px"}}  variant="subheading">
