@@ -18,7 +18,7 @@ export const uiTableDataRefactored = (list_of_ui_bundle, list_of_ui_instances,do
           ui_id:ui.id,
           root_dir:ui.root_dir
         },
-          ui_instance:[uiInterfaceDetails(ui.id,list_of_ui_instances)]
+          ui_instance:uiInterfaceDetails(ui.id,list_of_ui_instances)
         }
       })
     }
@@ -39,7 +39,7 @@ export const uiTableDataRefactored = (list_of_ui_bundle, list_of_ui_instances,do
 
 //TODO : Will we have multiple UI from the same bundle?
 const uiInterfaceDetails = (id,list_of_ui_instances)=>{
-  return list_of_ui_instances.find(ui=>{
+  return list_of_ui_instances.filter(ui=>{
       return id === ui.bundle
   });
 }

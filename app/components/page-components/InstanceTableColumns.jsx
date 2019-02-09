@@ -115,7 +115,6 @@ const instance_table_columns = (props, state) => {
             stopInstance={props.stop_agent_dna_instance}
             startInstance={props.start_agent_dna_instance}
             addInterface={props.add_instance_to_interface}
-
           />
         </div>
       )

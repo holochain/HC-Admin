@@ -1,11 +1,9 @@
  import React from 'react';
-// MUI Imports
 import { makeStyles } from '@material-ui/styles';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import { withStyles } from '@material-ui/core/styles';
-// Local Imports
 import { handleRefreshApp } from "../../utils/helper-functions";
 import styles from '../styles/component-styles/ToggleButtonMuiStyles';
 
@@ -25,13 +23,10 @@ class InstanceToggleButton extends React.Component {
 
       if (this.props.installed.status === 'installed'){
         this.props.removeInstance({ id : instance}).then(res=>{
-          // console.log("List INSTANCES:: *****",this.props)
           handleRefreshApp();
         });
       }
       else {
-        console.log("Props Add INSTANCES:: *****",this.props);
-
           this.props.addInstance({ id : instance , dna_id: dna.dna_id, agent_id}).then(res => {
             handleRefreshApp();
           })
@@ -42,7 +37,6 @@ class InstanceToggleButton extends React.Component {
     else if (this.props.stopInstance && name === "running"){
       const { instance } = this.props.running;
       const instance_id = { id : instance};
-      console.log("STATUS::",this.props.running.running);
       if (this.props.running.running){
         this.props.stopInstance(instance_id).then(res => {
             handleRefreshApp();
@@ -50,7 +44,6 @@ class InstanceToggleButton extends React.Component {
       }
       else{
         console.log(this.props);
-        this.props.addInterface({ interface_id:"websocket interface", instance_id:instance })
         this.props.startInstance(instance_id).then(res => {
             handleRefreshApp();
           })

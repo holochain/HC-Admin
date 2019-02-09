@@ -134,7 +134,7 @@ class HCUiTable extends React.Component {
               }
               else {
                 const dna_instance_data = this.displayInterfaceData(row);
-                console.log("DNA INSTANCe: ",dna_instance_data);
+                console.log("UI INSTANCe: ",dna_instance_data);
                 return (
                   <div style={{ paddingTop: "2px", marginBottom:"8px" }}>
 

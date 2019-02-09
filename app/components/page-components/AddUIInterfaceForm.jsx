@@ -13,6 +13,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
 import { withStyles } from '@material-ui/core/styles';
 import routes from '../../constants/routes';
+import { handleRefreshApp} from "../../utils/helper-functions";
 import { styles } from "../styles/component-styles//DefaultComponentMuiStyles";
 
 
@@ -49,7 +50,9 @@ class AddUIInterface extends React.Component<AddUIInterfaceProps, AddUIInterface
   };
 
   sendFormData() {
-    this.props.handleAddUIInterface(this.state.customInstanceId, this.state.portNumber, this.state.newInstanceInterfaceId);
+    this.props.handleAddUIInterface(this.state.customInstanceId, this.state.portNumber, this.state.newInstanceInterfaceId).then((_)=>{
+      handleRefreshApp();
+    });
   }
 
   componentWillUnmount(){};

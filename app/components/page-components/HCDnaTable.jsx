@@ -92,9 +92,6 @@ class HCDnaTable extends React.Component {
 
   beginAppMontoring = () => {
     this.getDownloadedApps();
-    this.props.get_info_instances().then(res => {
-      console.log("Home props after INFO/INSTANCES call", this.props);
-    });
     this.props.list_of_dna().then(res => {
       // console.log("Home props after LIST_OF_DNA call", this.props);
     });
@@ -123,7 +120,7 @@ class HCDnaTable extends React.Component {
       `cd ~/.hcadmin/holochain-download && ls`,
       function(err, data, stderr) {
         if (!err) {
-          console.log('~/.hcadmin/holochain-download contains these files =>> :\n', data)
+          // console.log('~/.hcadmin/holochain-download contains these files =>> :\n', data)
           self.setState({
             downloaded_apps: manageAllDownloadedApps(data)
           });
@@ -155,15 +152,14 @@ class HCDnaTable extends React.Component {
 
 
  render() {
-  console.log("Rending DNA TABLE : ", this.props);
+  // console.log("Rending DNA TABLE : ", this.props);
   if (!this.props.containerApiCalls.length === 0 ){
     return <div/>
   }
 
   const table_data = this.displayData();
   const columns = dna_list_table_columns(this.props, this.state);
-  console.log("table_columns: ", table_data);
-  console.log("table_columns: ", columns);
+  // console.log("table_columns: ", table_data);
 
   return (
     <div className={classnames("App")}>

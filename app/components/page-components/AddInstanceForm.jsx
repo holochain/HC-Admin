@@ -16,9 +16,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
 import { withStyles } from '@material-ui/core/styles';
 import Send from '@material-ui/icons/Send';
-// local imports:
 import routes from '../../constants/routes';
-import { styles } from "../styles/component-styles//DefaultComponentMuiStyles"; // MUI Custom Styling :
+import { styles } from "../styles/component-styles//DefaultComponentMuiStyles"; 
 
 
 function ModalTransition(props) {
@@ -48,14 +47,10 @@ class AddInstance extends React.Component<AddInstanceProps, AddInstanceState>{
   };
   handleAddInstanceModalCloseAndSubmit = () => {
     event.preventDefault();
-    console.log("this.state upon submit : ", this.state);
     this.sendFormData();;
   }
 
   handleSubmitNewInstance = name => event => {
-    console.log("handleSubmitNewInstance NAME: !!!!!!1!!!!!!!!", name);
-    console.log("!!!!!!!!!! handleSubmitNewInstance Value: ", event.target.value);
-
     this.setState({ [name]: event.target.value });
   };
 
@@ -73,17 +68,6 @@ class AddInstance extends React.Component<AddInstanceProps, AddInstanceState>{
   render() {
     const { classes, fullScreen, availableAgentList, assignInstanceNewInterface } = this.props;
     const availableAgentListAsArray = Object.values(availableAgentList).map(option => option.id);
-
-    // console.log("assignInstanceNewInterface", assignInstanceNewInterface);
-    // console.log("typeof assignInstanceNewInterface", typeof assignInstanceNewInterface);
-    //
-    // console.log("availableAgentList", availableAgentList);
-    // console.log("availableAgentList.length > 0", availableAgentList.length > 0);
-    // console.log("typeof availableAgentList", typeof availableAgentList);
-    // console.log("object VALUES availableAgentList", Object.values(availableAgentList));
-    // console.log("availableAgentList.map", availableAgentList.map(option => (option.id)));
-    // console.log("----------------->",this.state.customAgentId);
-
     return (
       <Grid item xs={12} elevation={1}>
         <div className={classes.modal} className={classes.root}  >
@@ -185,16 +169,3 @@ class AddInstance extends React.Component<AddInstanceProps, AddInstanceState>{
 )}}
 
 export default withStyles(styles)(AddInstance);
-
-//
-// <TextField
-//    id="custom_agent_id"
-//    name="custom_agent_id"
-//    className={classnames(classes.margin, classes.textField)}
-//    variant="outlined"
-//    type={`text`}
-//    label="Custom Agent ID"
-//    aria-label="custom_agent_id"
-//    value={this.state.custom_agent_id}
-//    onChange={this.handleSubmitNewInstance("customAgentId")}
-//  />

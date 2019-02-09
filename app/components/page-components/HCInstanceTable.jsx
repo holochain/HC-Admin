@@ -74,7 +74,6 @@ class HCInstanceTable extends React.Component {
       const appData = { list_of_installed_instances, list_of_running_instances };
       const prevProps = state.prevProps || {};
       const data = prevProps.value !== appData ? appData : state.data
-      console.log("data", data);
       return ({ data });
     }
   }
@@ -90,7 +89,7 @@ class HCInstanceTable extends React.Component {
     this.props.list_of_installed_instances().then(res => {
     })
   this.props.list_of_running_instances().then(res => {
-      console.log("Home props after LIST_OF_RUNNING_INSTANCES call", this.props);
+      // console.log("Home props after LIST_OF_RUNNING_INSTANCES call", this.props);
     })
 
     this.props.list_of_interfaces().then(res => {
@@ -98,7 +97,7 @@ class HCInstanceTable extends React.Component {
   }
 
   displayData = () => {
-    console.log("this.state inside displayData", this.state);
+    // console.log("this.state inside displayData", this.state);
     if (this.props.containerApiCalls.list_of_running_instances){
       const { list_of_running_instances, list_of_installed_instances ,list_of_interfaces} = this.props.containerApiCalls;
 

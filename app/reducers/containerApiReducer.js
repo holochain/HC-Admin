@@ -2,7 +2,6 @@ import { FETCH_STATE } from '../actions/containerApi';
 
 const INITIAL_STATE : State = {
  list_of_dna : [],
- list_of_instances : [],
  list_of_running_instances :[],
  list_of_installed_instances : [],
  list_of_interfaces : [],
