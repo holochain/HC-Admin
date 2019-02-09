@@ -67,7 +67,7 @@ const dataRefactor = (app_details, app_type) => {
   const APP_LIST_LENGTH = app_details.length;
 
   const insertAppDetails = (app) => {
-    // console.log("app", app);
+    console.log("app", app);
     if (app !== parseInt(app, 10) && app_type === "DNA") {
       const newDnaObj = {
         dna_id: app.dna_id,
@@ -120,14 +120,14 @@ const dataRefactor = (app_details, app_type) => {
 ////////////////////////////////////////////////////////
           /* Data for DNA Table Overview */
 ////////////////////////////////////////////////////////
-export const refactorListOfDnas = (downloaded_apps, list_of_dna, info_instances) => {
+export const refactorListOfDnas = (downloaded_apps, list_of_dna, list_of_installed_instances) => {
     let status = {};
     let uninstalled_apps=[];
     if(downloaded_apps && Object.keys(downloaded_apps).length > 0)
     uninstalled_apps = monitorUninstalledApps(downloaded_apps, list_of_dna);
 
     const list_of_installed = list_of_dna.map((app) => {
-      let instance_list = findDnaInstances(app.id, info_instances);
+      let instance_list = findDnaInstances(app.id, list_of_installed_instances);
       let instances_exist = instance_list.length > 0 ? "Yes" : "None Yet Exist";
 
       return {
@@ -244,7 +244,7 @@ export const refactorDnaInstanceData = (current_dna_instances, list_of_installed
   return dataRefactor(info_instance_log, "Instance");
 }
 const checkIfInterfaceExist = (id,list,type) =>{
-  if(list){
+  if(list.length>0){
     const found = list.filter((in_type)=>{
       return in_type.id==type && in_type.instances.find((instance_id)=>{return instance_id.id == id})
     })
@@ -296,7 +296,7 @@ export const refactorInstanceData = (list_of_installed_instances, list_of_runnin
         },
         running,
         websocket_interface:checkIfInterfaceExist(dna_instance.id,list_of_interfaces,"websocket interface"),
-        https:checkIfInterfaceExist(dna_instance.id,list_of_interfaces,"http interface")
+        http_interface:checkIfInterfaceExist(dna_instance.id,list_of_interfaces,"http interface")
       };
 
     return newInstanceObj;

@@ -93,7 +93,7 @@ class HCDnaTable extends React.Component {
   beginAppMontoring = () => {
     this.getDownloadedApps();
     this.props.get_info_instances().then(res => {
-      // console.log("Home props after INFO/INSTANCES call", this.props);
+      console.log("Home props after INFO/INSTANCES call", this.props);
     });
     this.props.list_of_dna().then(res => {
       // console.log("Home props after LIST_OF_DNA call", this.props);
@@ -138,9 +138,9 @@ class HCDnaTable extends React.Component {
   displayData = () => {
     const { downloaded_apps } = this.state;
       const { list_of_dna,
-        list_of_instance_info } = this.props.containerApiCalls;
+        list_of_installed_instances } = this.props.containerApiCalls;
 
-      const table_files = refactorListOfDnas(downloaded_apps, list_of_dna, list_of_instance_info);
+      const table_files = refactorListOfDnas(downloaded_apps, list_of_dna, list_of_installed_instances);
       return table_files;
   }
 

@@ -187,7 +187,7 @@ export const dna_instance_list_table_columns = (props, state) => {
       <span>
         <span style={{
           color: row.value.length > 0 ? '#57d500'
-            : row.value.admin === 0 ? '#ff2e00'
+            : row.value.length === 0 ? '#ff2e00'
             : '#ffbf00',
           transition: 'all .3s ease'
         }}>
@@ -199,23 +199,23 @@ export const dna_instance_list_table_columns = (props, state) => {
     )
      },
      // TODO : Provide popup to show Details
-    { Header: 'http',
-       accessor: 'http_interface',
-       Cell: row => (
-       <span>
-         <span style={{
-           color: row.value.length > 0? '#57d500'
-             : row.value.admin === 0 ? '#ff2e00'
-             : '#ffbf00',
-           transition: 'all .3s ease'
-         }}>
-           &#x25cf;
-         </span> {
-           row.value.admin
-         }
-       </span>
-     )
-      }]
+     { Header: 'http',
+        accessor: 'http_interface',
+        Cell: row => (
+        <span>
+          <span style={{
+            color: row.value.length > 0? '#57d500'
+              : row.value.length === 0 ? '#ff2e00'
+              : '#ffbf00',
+            transition: 'all .3s ease'
+          }}>
+            &#x25cf;
+          </span> {
+            row.value.admin
+          }
+        </span>
+      )
+       }]
     }]
   return table_columns;
 };

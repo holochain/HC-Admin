@@ -92,14 +92,17 @@ class HCInstanceTable extends React.Component {
   this.props.list_of_running_instances().then(res => {
       console.log("Home props after LIST_OF_RUNNING_INSTANCES call", this.props);
     })
+
+    this.props.list_of_interfaces().then(res => {
+    })
   }
 
   displayData = () => {
     console.log("this.state inside displayData", this.state);
     if (this.props.containerApiCalls.list_of_running_instances){
-      const { list_of_running_instances, list_of_installed_instances } = this.props.containerApiCalls;
+      const { list_of_running_instances, list_of_installed_instances ,list_of_interfaces} = this.props.containerApiCalls;
 
-      const table_dna_instance_info =  refactorInstanceData(list_of_installed_instances, list_of_running_instances);
+      const table_dna_instance_info =  refactorInstanceData(list_of_installed_instances, list_of_running_instances,list_of_interfaces);
 
       this.setSearchBarDataReference(table_dna_instance_info, {});
       return table_dna_instance_info;
@@ -162,7 +165,7 @@ class HCInstanceTable extends React.Component {
 
     const table_data = this.displayData();
     const columns = instance_table_columns(this.props, this.state);
-
+    console.log("TABLE ::: ",table_data);
     return (
       <div className={classnames("App")}>
         <AdvancedExpandReactTable

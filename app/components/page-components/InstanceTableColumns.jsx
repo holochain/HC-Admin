@@ -119,19 +119,42 @@ const instance_table_columns = (props, state) => {
           />
         </div>
       )
-    }, {
-      Header: 'Interface',
-      id: 'interface',
-      accessor: d => d.interface,
-      filterMethod: (filter, rows) =>
-        matchSorter(rows, filter.value, { keys: ["interface"] }),
-        filterAll: true,
-      Cell: row => (
-        <div>
-        { row.value }
-        </div>
+    },   // TODO : Provide popup to show Details
+      { Header: 'Web-Socket',
+        accessor: 'websocket_interface',
+        Cell: row => (
+        <span>
+          <span style={{
+            color: row.value.length > 0 ? '#57d500'
+              : row.value.length === 0 ? '#ff2e00'
+              : '#ffbf00',
+            transition: 'all .3s ease'
+          }}>
+            &#x25cf;
+          </span> {
+            row.value.driver
+          }
+        </span>
       )
-     }]
+       },
+       // TODO : Provide popup to show Details
+      { Header: 'http',
+         accessor: 'http_interface',
+         Cell: row => (
+         <span>
+           <span style={{
+             color: row.value.length > 0? '#57d500'
+               : row.value.length === 0 ? '#ff2e00'
+               : '#ffbf00',
+             transition: 'all .3s ease'
+           }}>
+             &#x25cf;
+           </span> {
+             row.value.admin
+           }
+         </span>
+       )
+        }]
     }]
   return table_columns;
 };
