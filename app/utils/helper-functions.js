@@ -32,7 +32,8 @@ const manageAllDownloadedApps = (allApps) => {
     return app !== "";
   });
   const app_details = listOfApps.map((app)=>{
-    // ATTN > changed app_name tp dna_id
+    // ATTN > changed from  app_name to dna_id
+    console.log("APP param >> downloaded_app", app);
     return { "dna_id": app,
      "path": `~/.hcadmin/holochain-download/${app}` }
   });

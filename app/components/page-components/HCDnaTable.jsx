@@ -198,11 +198,6 @@ class HCDnaTable extends React.Component {
               const dna_instance_columns = dna_instance_list_table_columns(this.props, this.state);
               return (
                 <div style={{ paddingTop: "2px", marginBottom:"8px" }}>
-                  <div style={{ justifyItems: "center", display:"inline", margin:"2px" }}>
-                    <AddInstanceForm availableAgentList={this.props.containerApiCalls.agent_list} assignInstanceNewInterface={this.props.containerApiCalls.list_of_interfaces}
-                    handleAddInstance={addInstance} />
-                  </div>
-
                   <ReactTable
                     data={dna_instance_data}
                     columns={dna_instance_columns}
@@ -210,6 +205,11 @@ class HCDnaTable extends React.Component {
                     showPagination={false}
                     style = {{ margin: "0 auto", marginBottom: "50px", width:"90%", justifyItems:"center" }}
                   />
+
+                  <div style={{ justifyItems: "center", display:"inline", margin:"2px" }}>
+                    <AddInstanceForm availableAgentList={this.props.containerApiCalls.agent_list} assignInstanceNewInterface={this.props.containerApiCalls.list_of_interfaces}
+                    handleAddInstance={addInstance} />
+                  </div>
                 </div>
               );
             }

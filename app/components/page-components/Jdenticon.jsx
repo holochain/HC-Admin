@@ -1,7 +1,11 @@
 import * as React from 'react';
+// MUI CUSTOM style imports
+import { withStyles } from '@material-ui/core/styles';
+// local imports
+import styles from '../styles/page-styles/DefaultPageMuiStyles'
 
-export default class Jdenticon extends React.Component {
-  el = null;
+class Jdenticon extends React.Component{
+  el = null
   componentDidUpdate() {
     window.jdenticon.update(this.el)
   }
@@ -11,14 +15,14 @@ export default class Jdenticon extends React.Component {
   }
 
   render () {
-    const {hash} = this.props
+    const { hash } = this.props
     return <svg
-        {...this.props}
-        style={{verticalAlign: 'middle'}}
-        ref={el => this.handleRef(el)}
-        width="25px"
-        height="25px"
-        data-jdenticon-value={hash}
+      {...this.props}
+      style={{ verticalAlign: 'middle' }}
+      ref={el => this.handleRef(el)}
+      width="105px"
+      height="105px"
+      data-jdenticon-value={hash}
       />
   }
 
@@ -26,3 +30,5 @@ export default class Jdenticon extends React.Component {
     this.el = el
   }
 }
+
+export default withStyles(styles)(Jdenticon);

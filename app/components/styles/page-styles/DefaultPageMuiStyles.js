@@ -22,6 +22,7 @@ const styles: StyleRulesCallback  = (theme: Theme) => ({
     },
     tableContainer: {
       height: 320,
+      marginTop: 0,
     },
     content: {
       flexGrow: 1,

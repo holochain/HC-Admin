@@ -168,7 +168,6 @@ h1, h2, h3, h4, h5, h6 {
 .ReactTable .rt-noData {
   position: absolute;
   left: 50%;
-  top: 180%;
   background: #95b9ed;
 }
 
@@ -199,7 +198,7 @@ h1, h2, h3, h4, h5, h6 {
 .-header {
   color: rgb(149, 185, 237);
   background: #47499063 !important; /* 00838c */
-  font-size: 19px;
+  font-size: 1rem;
   padding: 10px;
 }
 
@@ -235,7 +234,7 @@ h1, h2, h3, h4, h5, h6 {
    display: inline !important;
   }
 
- .InstallButton {
+ /* .InstallButton {
    background: #073763;
    background: -webkit-linear-gradient(#3d85c6, #073763 50%, #3d85c6);
    background: linear-gradient(#3d85c6, #073763 50%, #3d85c6);
@@ -272,7 +271,7 @@ h1, h2, h3, h4, h5, h6 {
    font: normal 700 15px/1 "Ubuntu", sans-serif;
    text-align: center;
    text-shadow: 0px 0px #ffff00;
- }
+ } */
 
  /* #holoMotion {
    background-image: linear-gradient(240deg, #9900ff, #8500ff, #6600ff, #3d65d6, #21acba, #10d6a9, #0fe19f, #10d6a9, #21acba, #3d65d6, #6600ff, #8500ff, #9900ff);

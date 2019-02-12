@@ -1,7 +1,7 @@
 {
   "INSTALL" : "/install",
   "HELP": "/help",
-  "UI": "/ui",
   "DNA": "/dna",
-  "INSTANCE": "/"
+  "INSTANCE": "/instance",
+  "UI": "/ui"
 }

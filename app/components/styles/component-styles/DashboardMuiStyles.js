@@ -60,6 +60,16 @@ const styles: StyleRulesCallback  = (theme: Theme) => ({
     menuButtonHidden: {
       display: 'none',
     },
+    highlight:{
+      filter: 'brightness(3.5)',
+      color: "#072dc3de", // #072dc3de #e4e4e4 #48497cb3
+      borderBottom: '1px solid #072dc3de',
+    },
+    reset: {
+      filter: 'brightness(1)',
+      padding: 'default',
+      border: 'none',
+    },
     drawerPaper: {
       position: 'relative',
       whiteSpace: 'nowrap',

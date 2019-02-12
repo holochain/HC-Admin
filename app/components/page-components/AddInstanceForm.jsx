@@ -15,9 +15,10 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
 import { withStyles } from '@material-ui/core/styles';
+import AddIcon from '@material-ui/icons/Add';
 import Send from '@material-ui/icons/Send';
 import routes from '../../constants/routes';
-import { styles } from "../styles/component-styles//DefaultComponentMuiStyles"; 
+import { styles } from "../styles/component-styles//DefaultComponentMuiStyles";
 
 
 function ModalTransition(props) {
@@ -71,8 +72,8 @@ class AddInstance extends React.Component<AddInstanceProps, AddInstanceState>{
     return (
       <Grid item xs={12} elevation={1}>
         <div className={classes.modal} className={classes.root}  >
-          <Fab variant="extended" aria-label="next" className={classes.nextBtn} onClick={this.handleAddInstanceModalOpen}>
-            Create DNA Instance
+          <Fab style={{ marginTop:"-50px", width:"30px", background:"#4e5aa6", border:"#eee", color: "#eee"}} variant="extended" aria-label="next" className={classes.nextBtn} onClick={this.handleAddInstanceModalOpen}>
+            <AddIcon/>
           </Fab>
          <Dialog
             fullScreen={fullScreen}

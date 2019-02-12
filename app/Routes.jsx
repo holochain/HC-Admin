@@ -8,10 +8,10 @@ import AppRenderer from './containers/AppRenderer';
 export default () => (
   <AppRenderer>
     <Switch>
-      <Route exact path={routes.UI} component={HCMonitorTablePageContainer} />
       <Route exact path={routes.DNA} component={HCMonitorTablePageContainer} />
       <Route exact path={routes.INSTANCE} component={HCMonitorTablePageContainer} />
-      <Route  path={routes.ERROR} component={ErrorPage} />
+      <Route exact path={routes.UI} component={HCMonitorTablePageContainer} />
+      <Route path={routes.ERROR} component={ErrorPage} />
     </Switch>
   </AppRenderer>
 );
