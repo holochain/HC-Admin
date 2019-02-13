@@ -4,25 +4,14 @@ import * as redux from 'redux';
 import ToggleButton from "./ToggleButton";
 import InstanceToggleButton from "./InstanceToggleButton";
 import Jdenticon from "./Jdenticon";
-
 /* Table Headers */
 const dna_list_table_columns = (props, state) => {
   console.log("Table Columns Props", props);
   console.log("Table Columns State", state);
-  // <Jdenticon hash={row.value} />
 
   const table_columns = [{
     Header: '',
     columns: [
-    //   {
-    //   Header: 'Type',
-    //   accessor: 'type',
-    //   Cell: row => (
-    //     <div style={{ padding: '5px' }}>
-    //     { row.value }
-    //     </div>
-    //   )
-    // },
     {
       Header: 'DNA Name',
       accessor: 'dna_id',
@@ -36,7 +25,11 @@ const dna_list_table_columns = (props, state) => {
       accessor: 'hash',
       Cell: row => (
         <div style={{ padding: '5px' }}>
-          {row.value}
+        {row.value !== "N/A" ?
+          <Jdenticon hash={row.value} />
+        :
+          row.value
+        }
         </div>
       )
     }]
@@ -73,15 +66,6 @@ const dna_list_table_columns = (props, state) => {
         </div>
       )
     }
-    // , {
-    //   Header: 'Interface',
-    //   accessor: 'interface',
-    //   Cell: row => (
-    //     <div>
-    //     { row.value }
-    //     </div>
-    //   )
-    // }
   ]
   }];
 
@@ -92,9 +76,6 @@ export default dna_list_table_columns;
 
 /* DNA Instance List Overview :: SubComponent*/
 export const dna_instance_list_table_columns = (props, state) => {
-  // console.log("Table Columns Props", props);
-  // console.log("Table Columns State", state);
-
   const table_columns = [{
     Header: '',
     columns: [{
@@ -117,15 +98,6 @@ export const dna_instance_list_table_columns = (props, state) => {
   }, {
     Header: '',
     columns: [
-    //   {
-    //   Header: 'Type',
-    //   accessor: 'type',
-    //   Cell: row => (
-    //     <div style={{ padding: '5px' }}>
-    //     { row.value }
-    //     </div>
-    //   )
-    // },
     {
       Header: 'DNA Name',
       accessor: 'dna_id',

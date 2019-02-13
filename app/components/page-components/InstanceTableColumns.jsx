@@ -161,8 +161,6 @@ export default instance_table_columns;
 
 
 export const instance_base_dna_table_columns = (props, state) => {
-  // console.log("Table Columns Props", props);
-  // console.log("Table Columns State", state);
   const table_columns = [{
     Header: 'Instance Base DNA',
     columns: [{
@@ -186,7 +184,11 @@ export const instance_base_dna_table_columns = (props, state) => {
       accessor: 'hash',
       Cell: row => (
         <div style={{ padding: '5px' }}>
-          {row.value}
+        {row.value !== "N/A" ?
+          <Jdenticon hash={row.value} />
+        :
+          row.value
+        }
         </div>
       )
     },{
@@ -203,7 +205,7 @@ export const instance_base_dna_table_columns = (props, state) => {
           </span>
         { " " + row.value.status }
           <br/>
-          <InstanceToggleButton // change this to ToggleButton, once it is complete...
+          <InstanceToggleButton
             installed={row.value}
             addInterface={props.add_instance_to_interface}
             removeInstance={props.remove_agent_dna_instance}

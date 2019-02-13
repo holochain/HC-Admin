@@ -128,7 +128,7 @@ export const refactorListOfDnas = (downloaded_apps, list_of_dna, list_of_install
 
     const list_of_installed = list_of_dna.map((app) => {
       let instance_list = findDnaInstances(app.id, list_of_installed_instances);
-      let instances_exist = instance_list.length > 0 ? "Yes" : "None Yet Exist";
+      let instances_exist = instance_list.length > 0 ? "Yes" : "No";
 
       return {
         dna_id: app.id,
