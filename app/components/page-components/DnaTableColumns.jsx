@@ -4,6 +4,10 @@ import * as redux from 'redux';
 import ToggleButton from "./ToggleButton";
 import InstanceToggleButton from "./InstanceToggleButton";
 import Jdenticon from "./Jdenticon";
+import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
+import SearchIcon from "@material-ui/icons/Search";
+import CancelIcon from "@material-ui/icons/Cancel";
+
 /* Table Headers */
 const dna_list_table_columns = (props, state) => {
   console.log("Table Columns Props", props);
@@ -13,8 +17,43 @@ const dna_list_table_columns = (props, state) => {
     Header: '',
     columns: [
     {
-      Header: 'DNA Name',
+      expander: true,
+      Header: () => (<strong>Instance Detail</strong>),
+      width: 115,
+      Expander: ({ isExpanded, ...rest }) =>
+        <div>
+          {isExpanded ?
+            <span style={{
+              color: '#95b9ed', // #072dc3de
+              marginTop: '23px !important',
+              fontSize: '20px',
+            }}>&#x2303;</span>
+            :
+            <span style={{
+              color: '#95b9ed', // #072dc3de
+              marginTop: '20px !important',
+              fontSize: '20px',
+            }}>&#x2304;</span>
+          }
+        </div>,
+      style: {
+        cursor: "pointer",
+        fontSize: 25,
+        padding: "0",
+        textAlign: "center",
+        userSelect: "none"
+      },
+    }
+  ]},{
+    Header: '',
+    columns: [
+    {
+      Header: 'DNA',
+      width: 192,
       accessor: 'dna_id',
+      filterMethod: (filter, rows) =>
+        matchSorter(rows, filter.value, { keys: ["dna_id"] }),
+      filterAll: true,
       Cell: row => (
         <div style={{ padding: '5px' }}>
         { row.value }
@@ -23,8 +62,12 @@ const dna_list_table_columns = (props, state) => {
     }, {
       Header: 'Hash ID',
       accessor: 'hash',
+      width: 175,
+      filterMethod: (filter, rows) =>
+        matchSorter(rows, filter.value, { keys: ["hash"] }),
+      filterAll: true,
       Cell: row => (
-        <div style={{ padding: '5px' }}>
+        <div style={{ padding: '5px', marginLeft:"22px" }}>
         {row.value !== "N/A" ?
           <Jdenticon hash={row.value} />
         :
@@ -36,27 +79,32 @@ const dna_list_table_columns = (props, state) => {
    }, {
     Header: '',
     columns: [{
-      Header: 'Instances Exist',
+      Header: 'Available Instances',
       accessor: 'dna_instance',
+      filterMethod: (filter, rows) =>
+        matchSorter(rows, filter.value, { keys: ["dna_instance"] }),
+      filterAll: true,
       Cell: row => (
         <div style={{ padding: '5px' }}>
-        { row.value }
+        {row.value === "Yes" ?
+        <div>
+          <CheckCircleOutlineIcon style={{ color: "#05a2b2"}}/>
+        </div>
+        :
+        <div>
+          <CancelIcon style={{ color: "#8b3e96"}}/>
+        </div>
+        }
         </div>
       )
     }, {
-      Header: 'Status',
+      Header: 'Install Status',
       accessor: 'status',
+      filterMethod: (filter, rows) =>
+        matchSorter(rows, filter.value, { keys: ["status"] }),
+      filterAll: true,
       Cell: row => (
         <div>
-          <span style={{
-            color: row.value.status === 'installed' ? '#57d500'
-            : '#ff2e00',
-            transition: 'all .3s ease'
-          }}>
-          &#x25cf;
-          </span>
-        { " " + row.value.status }
-          <br/>
           <ToggleButton
             installed={row.value}
             dnaList={props.list_of_dna}
@@ -79,16 +127,24 @@ export const dna_instance_list_table_columns = (props, state) => {
   const table_columns = [{
     Header: '',
     columns: [{
-      Header: 'Instance ID',
+      Header: 'Instance',
+      width: 105,
       accessor: 'instanceId',
+      filterMethod: (filter, rows) =>
+        matchSorter(rows, filter.value, { keys: ["instanceId"] }),
+      filterAll: true,
       Cell: row => (
         <div style={{ padding: '5px' }}>
         { row.value }
         </div>
       )
     }, {
-      Header: 'Agent ID',
+      Header: 'Agent',
+      width: 100,
       accessor: 'agent_id',
+      filterMethod: (filter, rows) =>
+        matchSorter(rows, filter.value, { keys: ["agent_id"] }),
+      filterAll: true,
       Cell: row => (
         <div style={{ padding: '5px' }}>
         { row.value }
@@ -100,26 +156,25 @@ export const dna_instance_list_table_columns = (props, state) => {
     columns: [
     {
       Header: 'DNA Name',
+      width: 160,
       accessor: 'dna_id',
+      filterMethod: (filter, rows) =>
+        matchSorter(rows, filter.value, { keys: ["dna_id"] }),
+      filterAll: true,
       Cell: row => (
         <div style={{ padding: '5px' }}>
         { row.value }
         </div>
       )
     }, {
-      Header: 'Status',
+      Header: 'Installed Status',
       accessor: 'status',
+      width: 130,
+      filterMethod: (filter, rows) =>
+        matchSorter(rows, filter.value, { keys: ["status"] }),
+      filterAll: true,
       Cell: row => (
         <div>
-          <span style={{
-            color: row.value.status === 'installed' ? '#57d500'
-            : '#ff2e00',
-            transition: 'all .3s ease'
-          }}>
-          &#x25cf;
-          </span>
-        { " " + row.value.status }
-          <br/>
           <InstanceToggleButton
             installed={row.value}
             listInstances={props.list_of_instances}
@@ -129,19 +184,14 @@ export const dna_instance_list_table_columns = (props, state) => {
         </div>
       )
     },{
-      Header: 'Running',
+      Header: 'Running Status',
       accessor: 'running',
+      width: 135,
+      filterMethod: (filter, rows) =>
+        matchSorter(rows, filter.value, { keys: ["running"] }),
+      filterAll: true,
       Cell: row => (
         <div>
-          <span style={{
-            color: row.value.running ? '#57d500'
-            : '#ff2e00',
-            transition: 'all .3s ease'
-          }}>
-          &#x25cf;
-          </span>
-          { " " + row.value.running }
-          <br/>
           <InstanceToggleButton
             running={row.value}
             listRunningInstances={props.list_of_running_instances}
@@ -153,43 +203,47 @@ export const dna_instance_list_table_columns = (props, state) => {
       )
     },
     // TODO : Provide popup to show Details
-    { Header: 'WebSocket',
+    { Header: 'On WebSocket',
       accessor: 'websocket_interface',
+      width: 140,
+      filterMethod: (filter, rows) =>
+        matchSorter(rows, filter.value, { keys: ["websocket_interface"] }),
+      filterAll: true,
       Cell: row => (
-      <span>
-        <span style={{
-          color: row.value.length > 0 ? '#57d500'
-            : row.value.length === 0 ? '#ff2e00'
-            : '#ffbf00',
-          transition: 'all .3s ease'
-        }}>
-          &#x25cf;
-        </span> {
-          row.value.driver
+        <div style={{ padding: '5px' }}>
+        {row.value.length > 0 ?
+        <div>
+          <CheckCircleOutlineIcon style={{ color: "#05a2b2"}}/>
+        </div>
+        :
+        <div>
+          <CancelIcon style={{ color: "#8b3e96"}}/>
+        </div>
         }
-      </span>
-    )
+        </div>
+      )
      },
      // TODO : Provide popup to show Details
-     { Header: 'http',
+     { Header: 'On HTTP',
         accessor: 'http_interface',
+        width: 104,
+        filterMethod: (filter, rows) =>
+          matchSorter(rows, filter.value, { keys: ["http_interface"] }),
+        filterAll: true,
         Cell: row => (
-        <span>
-          <span style={{
-            color: row.value.length > 0? '#57d500'
-              : row.value.length === 0 ? '#ff2e00'
-              : '#ffbf00',
-            transition: 'all .3s ease'
-          }}>
-            &#x25cf;
-          </span> {
-            row.value.admin
+          <div style={{ padding: '5px' }}>
+          {row.value.length > 0 ?
+          <div>
+            <CheckCircleOutlineIcon style={{ color: "#05a2b2"}}/>
+          </div>
+          :
+          <div>
+            <CancelIcon style={{ color: "#8b3e96"}}/>
+          </div>
           }
-        </span>
-      )
+          </div>
+        )
        }]
     }]
   return table_columns;
 };
-
-// <Jdenticon hash={row.value} />

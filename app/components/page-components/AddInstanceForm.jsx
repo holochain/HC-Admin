@@ -16,7 +16,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
 import { withStyles } from '@material-ui/core/styles';
 import AddIcon from '@material-ui/icons/Add';
-import Send from '@material-ui/icons/Send';
+// import Send from '@material-ui/icons/Send';
 import routes from '../../constants/routes';
 import { styles } from "../styles/component-styles//DefaultComponentMuiStyles";
 
@@ -72,7 +72,7 @@ class AddInstance extends React.Component<AddInstanceProps, AddInstanceState>{
     return (
       <Grid item xs={12} elevation={1}>
         <div className={classes.modal} className={classes.root}  >
-          <Fab style={{ marginTop:"-50px", width:"30px", background:"#4e5aa6", border:"#eee", color: "#eee"}} variant="extended" aria-label="next" className={classes.nextBtn} onClick={this.handleAddInstanceModalOpen}>
+          <Fab style={{ marginTop:"-10px", width:"30px", background:"#4e5aa6", border:"#eee", color: "#eee"}} variant="extended" aria-label="next" className={classes.nextBtn} onClick={this.handleAddInstanceModalOpen}>
             <AddIcon/>
           </Fab>
          <Dialog
@@ -80,11 +80,12 @@ class AddInstance extends React.Component<AddInstanceProps, AddInstanceState>{
             open={this.state.handleAddInstanceModal}
             onClose={this.handleAddInstanceModalClose}
             aria-labelledby="responsive-dialog-title"
+            className={classes.modalContainer}
         >
-          <DialogTitle id="responsive-dialog-title">{"Create a DNA Instance"}</DialogTitle>
+          <DialogTitle id="responsive-dialog-title" style={{color:'#072dc3'}}>{"Create a DNA Instance"}</DialogTitle>
             <DialogContent>
-                <div className={classes.sectionPassphrase}>
-                  <form>
+                <div>
+                  <form >
                     <div style={{ marginTop:"5px" }}>
                       <TextField
                          id="custom_instance_id"
@@ -127,7 +128,7 @@ class AddInstance extends React.Component<AddInstanceProps, AddInstanceState>{
                      </TextField>
                     </div>
 
-                    <div style={{ marginTop:"5px", width :"100%", display:"flex", flexWrap:"wrap" }}>
+                    <div style={{ marginTop:"5px", width :"100%" }}>
                       <TextField
                         id="interface_id"
                         name="interface_id"

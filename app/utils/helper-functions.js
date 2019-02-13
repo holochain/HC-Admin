@@ -21,6 +21,12 @@ export const handleRefreshApp = () => {
   ipcRenderer.send("window:refresh", refresh);
 };
 
+export const handleLoadLinkInBrowser = (link) => {
+  console.log("TRYING TO send user to following link IN THEIR default BROWSER: ", link)
+  const { ipcRenderer } = electron;
+  ipcRenderer.send("browswer:open", link)
+}
+
 //////////////////////////////////////////
     // CMD Downloaded Apps Mangement
 /////////////////////////////////////////

@@ -143,12 +143,15 @@ class HCUiTable extends React.Component {
                       columns={ui_interface_table_columns(this.props)}
                       defaultPageSize={dna_instance_data.length}
                       showPagination={false}
-                      style = {{ margin: "0 auto", marginBottom: "50px", width:"90%", justifyItems:"center" }}
+                      style = {{ margin: "0 auto", marginBottom: "5px", width:"90%", justifyItems:"center" }}
                     />
+
+                    <h3 style={{ color: "#567dbb", textAlign: "center", marginBottom:'5px' }}>Add Interface</h3>
+
                      <div style={{ justifyItems: "center", display:"inline", margin:"2px" }}>
-                          <AddUIInterfaceForm availableAgentList={this.props.containerApiCalls.agent_list} assignInstanceNewInterface={this.props.containerApiCalls.list_of_interfaces}
-                          handleAddUIInterface={addInferface} />
-                        </div>
+                        <AddUIInterfaceForm availableAgentList={this.props.containerApiCalls.agent_list} assignInstanceNewInterface={this.props.containerApiCalls.list_of_interfaces}
+                        handleAddUIInterface={addInferface} />
+                      </div>
 
                   </div>
                 );
