@@ -64,7 +64,7 @@ class AddUIInterface extends React.Component<AddUIInterfaceProps, AddUIInterface
   return (
       <Grid item xs={12} elevation={1}>
       <div className={classes.modal} className={classes.root}  >
-        <Fab style={{ marginTop:"-10px", width:"30px", background:"#4e5aa6", border:"#eee", color: "#eee"}} variant="extended" aria-label="next" className={classes.nextBtn} onClick={this.handleAddInstanceModalOpen}>
+        <Fab style={{ marginTop:"-10px", width:"30px", background:"#4e5aa6", border:"#eee", color: "#eee"}} variant="extended" aria-label="next" className={classes.nextBtn} onClick={this.handleAddUIInterfaceModalOpen}>
           <AddIcon/>
         </Fab>
          <Dialog
