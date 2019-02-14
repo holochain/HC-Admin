@@ -3,7 +3,7 @@ import * as React from 'react';
 import * as redux from 'redux';
 import { handleLoadLinkInBrowser } from "../../utils/helper-functions";
 import ToggleButtonUIBundle from "./ToggleButtonUIBundle";
-import ToggleButtonUIInstance from "./ToggleButtonUIInstance";
+import ToggleButtonUIInterface from "./ToggleButtonUIInterface";
 import InstanceToggleButton from "./InstanceToggleButton";
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 import SearchIcon from "@material-ui/icons/Search";
@@ -148,7 +148,7 @@ const table_columns = [{
       accessor: 'port_check',
       Cell: row => (
         <div>
-        <ToggleButtonUIInstance
+        <ToggleButtonUIInterface
             running={row.value[0].port_running}
             values={row.value[0]}
             stop_ui_interface={props.stop_ui_interface}
@@ -183,7 +183,7 @@ const table_columns = [{
 //     }
 //   </span>
 //   <br/>
-//   <ToggleButtonUIInstance
+//   <ToggleButtonUIInterface
 //       running={row.value[0].port_running}
 //       values={row.value[0]}
 //       stop_ui_interface={props.stop_ui_interface}
