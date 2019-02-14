@@ -17,20 +17,18 @@ class ToggleButtonUIInterface extends React.Component {
     const home = getHomePath();
       if (this.props.running){
       this.props.stop_ui_interface({ id : this.props.values.ui_interface_id}).then(res=>{
-        // handleRefreshApp();
+        handleRefreshApp();
       });
     }
     else if(this.props.running === false) {
       this.props.start_ui_interface({ id : this.props.values.ui_interface_id}).then(res => {
-        // handleRefreshApp();
+        handleRefreshApp();
       });
     }
   };
 
   render() {
     const { classes, running } = this.props;
-
-    console.log(" !_!_!_! this.props inside ToggleButtonUIInterface !_!_!_! ", this.props )
     return (
       <FormControlLabel
       control={
