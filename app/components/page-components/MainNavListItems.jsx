@@ -70,7 +70,7 @@ class MainListItems extends React.Component {
             <UploadBtn text="UI" accept="*" fileUploaded={(file) => this.setState({uiUploaded: file})} />
         :
           location === routes.DNA ?
-            <UploadBtn text="DNA" accept=".hcpkg, .json" fileUploaded={(file) => this.setState({dnaUploaded: file})} />
+            <UploadBtn text="DNA" accept=".hcpkg, .json" install_dna_from_file={this.props.install_dna_from_file} fileUploaded={(file) => this.setState({dnaUploaded: file})} />
         :
           <div />
         }

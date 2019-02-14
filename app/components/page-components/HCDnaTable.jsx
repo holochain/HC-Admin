@@ -181,7 +181,6 @@ class HCDnaTable extends React.Component {
                 this.props.add_instance_to_interface({ interface_id, instance_id })
                 // .then((res)=>{})
                 .then(res => {
-                  console.log("TESTING--------------------");
                   handleRefreshApp();
                 });
               })
