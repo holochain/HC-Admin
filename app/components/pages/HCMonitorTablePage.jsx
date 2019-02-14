@@ -54,14 +54,14 @@ class HCMonitorTablePage extends React.Component<Props> {
             location.pathname === "/ui" ?
             // this should route to the ui table
             <div>
-              <UploadBtn text="UI" fileUploaded={(file) => this.setState({uiUploaded: file})} />
+              <UploadBtn text="UI" install_ui={this.props.install_ui} fileUploaded={(file) => this.setState({uiUploaded: file})} />
               <HCUiTable className={classes.appTable} {...this.props} setSearchData={this.setTableData} />
             </div>
           :
             location.pathname === "/dna" ?
             // this should route to the dna table
               <div>
-                <UploadBtn text="DNA" fileUploaded={(file) => this.setState({dnaUploaded: file})} />
+                <UploadBtn text="DNA" accept=".hcpkg, .json" install_dna_from_file={this.props.install_dna_from_file} fileUploaded={(file) => this.setState({dnaUploaded: file})} />
                 <HCDnaTable className={classes.appTable} {...this.props} setSearchData={this.setTableData} />
               </div>
           :
