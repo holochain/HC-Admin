@@ -7,12 +7,19 @@ const styles = theme => ({
     minWidth: 300,
     fontWeight: 'bolder'
   },
+  modalContainer:{
+    border: '3px solid #072dc3', // #95b9ed
+    margin: '0 auto',
+    justifyContent: 'center'
+  },
   paper: {
     ...theme.mixins.gutters(),
     paddingTop: theme.spacing.unit * 2,
     paddingBottom: theme.spacing.unit * 2,
     height: 140,
     width: 100,
+    margin: '0 auto',
+    justifyContent: 'center'
   },
   header1: {
     marginTop: 45,

@@ -50,7 +50,10 @@ export default function(state = INITIAL_STATE, action: Action) : State {
 // LIST_OF_INTERFACES
     case 'LIST_OF_INTERFACES_SUCCESS': {
       console.log("LIST_OF_INTERFACES_SUCCESS payload", payload);
-      return { ...state, list_of_interfaces : payload };
+      const list_of_interfaces = payload.filter((inter)=>{
+        return inter.admin !== true
+      })
+      return { ...state, list_of_interfaces };
     }
 
 ////////////////////////////////////////////////////////

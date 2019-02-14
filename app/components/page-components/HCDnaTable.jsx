@@ -13,7 +13,7 @@ import "react-table/react-table.css";
 import dna_list_table_columns, { dna_instance_list_table_columns } from './DnaTableColumns';
 import routes from '../../constants/routes';
 import { filterApps } from "../../utils/table-filters";
-import manageAllDownloadedApps from "../../utils/helper-functions";
+import manageAllDownloadedApps, { handleRefreshApp } from "../../utils/helper-functions";
 import { refactorDnaInstanceData, refactorListOfDnas, monitorUninstalledApps } from "../../utils/data-refactor";
 import AddInstanceForm from "./AddInstanceForm";
 import ToggleButton from "./ToggleButton";
@@ -176,15 +176,20 @@ class HCDnaTable extends React.Component {
             const instance_id = custom_instance_id ?  custom_instance_id : (dna_id + agent_id);
             const interface_id = interfaceforInstance;
 
-            this.props.add_agent_dna_instance({id:instance_id, dna_id, agent_id}).then(res => {
-              this.props.add_instance_to_interface({ interface_id, instance_id }).then((res)=>{});
+            this.props.add_agent_dna_instance({id:instance_id, dna_id, agent_id})
+              .then(res => {
+                this.props.add_instance_to_interface({ interface_id, instance_id })
+                // .then((res)=>{})
+                .then(res => {
+                  handleRefreshApp();
+                });
               })
           }
 
           if(row.original.status.instance_list === "N/A" || row.original.status.instance_list.length <= 0 ){
               return (
                 <div style={{ paddingTop: "2px" }}>
-                  <h3 style={{ color: "#567dbb", textAlign: "center" }}>No Instances Yet Exist</h3>
+                  <h3 style={{ color: "#567dbb", textAlign: "center", marginBottom:'5px' }}>Add Instance</h3>
 
                   <div style={{ justifyItems: "center", display:"inline", margin:"2px 5px 8px 5px" }}>
                     <AddInstanceForm availableAgentList={this.props.containerApiCalls.agent_list}
@@ -203,8 +208,10 @@ class HCDnaTable extends React.Component {
                     columns={dna_instance_columns}
                     defaultPageSize={dna_instance_data.length}
                     showPagination={false}
-                    style = {{ margin: "0 auto", marginBottom: "50px", width:"90%", justifyItems:"center" }}
+                    style = {{ margin: "0 auto", marginBottom: "5px", width:"90%", justifyItems:"center" }}
                   />
+
+                  <h3 style={{ color: "#567dbb", textAlign: "center", marginBottom:'5px' }}>Add Instance</h3>
 
                   <div style={{ justifyItems: "center", display:"inline", margin:"2px" }}>
                     <AddInstanceForm availableAgentList={this.props.containerApiCalls.agent_list} assignInstanceNewInterface={this.props.containerApiCalls.list_of_interfaces}

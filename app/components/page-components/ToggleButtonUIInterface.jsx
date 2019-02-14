@@ -8,7 +8,7 @@ import { handleRefreshApp, getHomePath } from "../../utils/helper-functions";
 import styles from '../styles/component-styles/ToggleButtonMuiStyles';
 
 
-class ToggleButtonUIInstance extends React.Component {
+class ToggleButtonUIInterface extends React.Component {
   constructor(props: any) {
     super(props);
   };
@@ -17,18 +17,18 @@ class ToggleButtonUIInstance extends React.Component {
     const home = getHomePath();
       if (this.props.running){
       this.props.stop_ui_interface({ id : this.props.values.ui_interface_id}).then(res=>{
-        // handleRefreshApp();
+        handleRefreshApp();
       });
     }
     else if(this.props.running === false) {
       this.props.start_ui_interface({ id : this.props.values.ui_interface_id}).then(res => {
-        // handleRefreshApp();
+        handleRefreshApp();
       });
     }
   };
 
   render() {
-    const { classes, running,installed, downloaded } = this.props;
+    const { classes, running } = this.props;
     return (
       <FormControlLabel
       control={
@@ -38,12 +38,12 @@ class ToggleButtonUIInstance extends React.Component {
           bar: classes.toggleBtnBar,
           icon: classes.toggleIcon,
           iconChecked: classes.toggleIconChecked,
-          checked: classes.runningTrue,
+          checked: classes.installedTrue,
         }}
         disableRipple
         checked={ this.props.running }
         onChange={this.handleChange()}
-        value={this.props.installed}
+        value={this.props.running}
         />
       }
     />
@@ -51,4 +51,4 @@ class ToggleButtonUIInstance extends React.Component {
 }
 
 
-export default withStyles(styles)(ToggleButtonUIInstance);
+export default withStyles(styles)(ToggleButtonUIInterface);

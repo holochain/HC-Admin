@@ -11,7 +11,7 @@ import { advancedExpandTableHOC } from "./SystemTable";
 import "react-table/react-table.css";
 import routes from '../../constants/routes';
 import { filterApps } from "../../utils/table-filters";
-import {manageAllDownloadedUI} from "../../utils/helper-functions";
+import {manageAllDownloadedUI, handleRefreshApp} from "../../utils/helper-functions";
 import {uiTableDataRefactored} from "../../utils/data-refactor";
 import {checkPort} from "../../utils/cmd-calls";
 import AddUIInterfaceForm from "./AddUIInterfaceForm";
@@ -118,13 +118,14 @@ class HCUiTable extends React.Component {
               const { ui_bundle_id } = row.original;
               this.props.add_ui_interface({id:custom_instance_id,port:parseInt(custom_port_number),bundle:ui_bundle_id,dna_interface:interfaceforInstance}).then((res)=>{
                 console.log("Created");
+                handleRefreshApp();
               })
             }
 
             if(!row.original.ui_instance_exist){
                 return (
                   <div style={{ paddingTop: "2px" }}>
-                    <h3 style={{ color: "#567dbb", textAlign: "center" }}>No Instances Yet Exist</h3>
+                    <h3 style={{ color: "#567dbb", textAlign: "center" }}>Add Interface</h3>
                     <div style={{ justifyItems: "center", display:"inline", margin:"2px" }}>
                       <AddUIInterfaceForm availableAgentList={this.props.containerApiCalls.agent_list} assignInstanceNewInterface={this.props.containerApiCalls.list_of_interfaces}
                       handleAddUIInterface={addInferface} />
@@ -133,22 +134,25 @@ class HCUiTable extends React.Component {
                 )
               }
               else {
-                const dna_instance_data = this.displayInterfaceData(row);
-                console.log("UI INSTANCe: ",dna_instance_data);
+                const ui_interface_data = this.displayInterfaceData(row);
+                console.log("UI INSTANCE DATA: ",ui_interface_data);
                 return (
                   <div style={{ paddingTop: "2px", marginBottom:"8px" }}>
 
                     <ReactTable
-                      data={dna_instance_data}
+                      data={ui_interface_data}
                       columns={ui_interface_table_columns(this.props)}
-                      defaultPageSize={dna_instance_data.length}
+                      defaultPageSize={ui_interface_data.length}
                       showPagination={false}
-                      style = {{ margin: "0 auto", marginBottom: "50px", width:"90%", justifyItems:"center" }}
+                      style = {{ margin: "0 auto", marginBottom: "5px", width:"90%", justifyItems:"center" }}
                     />
+
+                    <h3 style={{ color: "#567dbb", textAlign: "center", marginBottom:'5px' }}>Add Interface</h3>
+
                      <div style={{ justifyItems: "center", display:"inline", margin:"2px" }}>
-                          <AddUIInterfaceForm availableAgentList={this.props.containerApiCalls.agent_list} assignInstanceNewInterface={this.props.containerApiCalls.list_of_interfaces}
-                          handleAddUIInterface={addInferface} />
-                        </div>
+                        <AddUIInterfaceForm availableAgentList={this.props.containerApiCalls.agent_list} assignInstanceNewInterface={this.props.containerApiCalls.list_of_interfaces}
+                        handleAddUIInterface={addInferface} />
+                      </div>
 
                   </div>
                 );

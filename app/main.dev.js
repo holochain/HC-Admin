@@ -18,6 +18,9 @@ import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import MenuBuilder from './menu';
 
+// Imports necessary to support browser target for port opening via ui port link
+import * as electronBrowser from "electron-open-link-in-browser";
+
 // in lieu of hot reloader
 export default class AppUpdater {
   constructor() {
@@ -121,5 +124,13 @@ ipcMain.on("window:close", ( event, quit ) => {
 ipcMain.on("window:refresh", ( event, refresh ) => {
   if(refresh === 'refresh') {
     mainWindow.webContents.reload();
+  }
+});
+
+// handle closing window (as menu will no longer be enabled) :
+ipcMain.on("browswer:open", ( event, link ) => {
+  if(link) {
+    event.preventDefault();
+    shell.openExternal(link);
   }
 });

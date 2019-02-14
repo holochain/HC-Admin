@@ -9,7 +9,7 @@
     "build-e2e": "cross-env E2E_BUILD=true yarn build",
     "build-main": "cross-env NODE_ENV=production webpack --config ./configs/webpack.config.main.prod.babel.js --colors",
     "build-renderer": "cross-env NODE_ENV=production webpack --config ./configs/webpack.config.renderer.prod.babel.js --colors",
-    "dev": "cross-env START_HOT=1 node -r @babel/register ./internals/scripts/CheckPortInUse.js && cross-env START_HOT=1 yarn start-renderer-dev",
+    "dev": "PORT=8080 cross-env START_HOT=1 node -r @babel/register ./internals/scripts/CheckPortInUse.js && cross-env START_HOT=1 yarn start-renderer-dev",
     "flow": "flow",
     "flow-typed": "rimraf flow-typed/npm && flow-typed install --overwrite || true",
     "lint": "cross-env NODE_ENV=development eslint --cache --format=pretty .",
@@ -98,7 +98,8 @@
     "url": "git+https://github.com/Holo-Host/HC-Admin.git"
   },
   "author": {
-    "name": "Holo-Host"
+    "name": "Holo-Host",
+    "email": "app@holo.host"
   },
   "contributors": [
     {
@@ -187,6 +188,7 @@
     "electron": "^3.0.10",
     "electron-builder": "^20.34.0",
     "electron-devtools-installer": "^2.2.4",
+    "electron-open-link-in-browser": "^1.0.2",
     "enzyme": "^3.7.0",
     "enzyme-adapter-react-16": "^1.7.0",
     "enzyme-to-json": "^3.3.4",
@@ -210,6 +212,7 @@
     "flow-typed": "^2.5.1",
     "husky": "^1.1.4",
     "identity-obj-proxy": "^3.0.0",
+    "jdenticon": "^2.1.1",
     "jest": "^23.6.0",
     "lint-staged": "^8.1.0",
     "match-sorter": "^2.3.0",
@@ -258,7 +261,7 @@
     "downshift": "^3.2.2",
     "electron-debug": "^2.0.0",
     "electron-log": "^2.2.17",
-    "electron-updater": "^3.2.3",
+    "electron-updater": "4.0.6",
     "history": "^4.7.2",
     "jdenticon": "^2.1.1",
     "lodash.get": "^4.4.2",

@@ -26,7 +26,7 @@ export const uiTableDataRefactored = (list_of_ui_bundle, list_of_ui_instances,do
   const ui_bundle_uninstalled = uninstalled_apps.map((ui) => {
       return {
         ui_bundle_id:ui.ui_bundle_id,
-        hash:"-",
+        hash:"N/A",
         ui_instance_exist:false,
         status:{value:"Uninstalled",
         ui_id:ui.ui_bundle_id,
@@ -234,8 +234,8 @@ export const refactorDnaInstanceData = (current_dna_instances, list_of_installed
           instanceId: fileInstance.id,
           status,
           running,
-          websocket_interface:checkIfInterfaceExist(fileInstance.id,list_of_interfaces,"websocket interface"),
-          http_interface:checkIfInterfaceExist(fileInstance.id,list_of_interfaces,"http interface")
+          websocket_interface:checkIfInterfaceExist(fileInstance.id,list_of_interfaces,"websocket"),
+          http_interface:checkIfInterfaceExist(fileInstance.id,list_of_interfaces,"http")
         };
 
         return newInstanceObj;
@@ -246,11 +246,10 @@ export const refactorDnaInstanceData = (current_dna_instances, list_of_installed
 const checkIfInterfaceExist = (id,list,type) =>{
   if(list.length>0){
     const found = list.filter((in_type)=>{
-      return in_type.id==type && in_type.instances.find((instance_id)=>{return instance_id.id == id})
+      return in_type.driver.type==type && in_type.instances.find((instance_id)=>{return instance_id.id == id})
     })
     return found.filter((i)=>{
       return {id:i.id,
-        admin:i.admin,
         driver:i.driver
       };
     })
@@ -261,13 +260,13 @@ const checkIfInterfaceExist = (id,list,type) =>{
       /* Data for Instance Table Overview */
 ////////////////////////////////////////////////////////
 export const refactorInstanceData = (list_of_installed_instances, list_of_running_instances, list_of_interfaces) => {
-  const instance_log = list_of_installed_instances.map((dna_instance)=>{
+const instance_log = list_of_installed_instances.map((dna_instance)=>{
     if (dna_instance !== parseInt(dna_instance, 10)){
       let running={};
       let check_running;
-      if(Object.keys(list_of_installed_instances).length===0)
+      if(Object.keys(list_of_installed_instances).length!==0)
       check_running = list_of_running_instances.find((ri)=>{
-        return ri.id ===dna_instance.id
+        return ri.id === dna_instance.id
       })
       if (check_running===undefined){
         running = {
@@ -295,8 +294,8 @@ export const refactorInstanceData = (list_of_installed_instances, list_of_runnin
           status:"installed"
         },
         running,
-        websocket_interface:checkIfInterfaceExist(dna_instance.id,list_of_interfaces,"websocket interface"),
-        http_interface:checkIfInterfaceExist(dna_instance.id,list_of_interfaces,"http interface")
+        websocket_interface:checkIfInterfaceExist(dna_instance.id,list_of_interfaces,"websocket"),
+        http_interface:checkIfInterfaceExist(dna_instance.id,list_of_interfaces,"http")
       };
 
     return newInstanceObj;

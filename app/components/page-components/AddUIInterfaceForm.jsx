@@ -12,6 +12,7 @@ import Fab from '@material-ui/core/Fab';
 import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
 import { withStyles } from '@material-ui/core/styles';
+import AddIcon from '@material-ui/icons/Add';
 import routes from '../../constants/routes';
 import { handleRefreshApp} from "../../utils/helper-functions";
 import { styles } from "../styles/component-styles//DefaultComponentMuiStyles";
@@ -50,9 +51,7 @@ class AddUIInterface extends React.Component<AddUIInterfaceProps, AddUIInterface
   };
 
   sendFormData() {
-    this.props.handleAddUIInterface(this.state.customInstanceId, this.state.portNumber, this.state.newInstanceInterfaceId).then((_)=>{
-      handleRefreshApp();
-    });
+    this.props.handleAddUIInterface(this.state.customInstanceId, this.state.portNumber, this.state.newInstanceInterfaceId)
   }
 
   componentWillUnmount(){};
@@ -62,10 +61,10 @@ class AddUIInterface extends React.Component<AddUIInterfaceProps, AddUIInterface
     const availableAgentListAsArray = Object.values(availableAgentList).map(option => option.id);
   return (
       <Grid item xs={12} elevation={1}>
-        <div className={classes.modal} className={classes.root}  >
-          <Fab variant="extended" aria-label="next" className={classes.nextBtn} onClick={this.handleAddUIInterfaceModalOpen}>
-            Create UI Interface
-          </Fab>
+      <div className={classes.modal} className={classes.root}  >
+        <Fab style={{ marginTop:"-10px", width:"30px", background:"#4e5aa6", border:"#eee", color: "#eee"}} variant="extended" aria-label="next" className={classes.nextBtn} onClick={this.handleAddUIInterfaceModalOpen}>
+          <AddIcon/>
+        </Fab>
          <Dialog
             fullScreen={fullScreen}
             open={this.state.handleAddUIInterfaceModal}
@@ -74,8 +73,8 @@ class AddUIInterface extends React.Component<AddUIInterfaceProps, AddUIInterface
         >
           <DialogTitle id="responsive-dialog-title">{"Create a DNA Instance"}</DialogTitle>
             <DialogContent>
-                <div className={classes.sectionPassphrase}>
-                  <form>
+                <div>
+                  <form className={classes.modalContainer}>
                     <div style={{ marginTop:"5px" }}>
                       <TextField
                          id="custom_interface_id"
