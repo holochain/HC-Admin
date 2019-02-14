@@ -51,9 +51,7 @@ class AddUIInterface extends React.Component<AddUIInterfaceProps, AddUIInterface
   };
 
   sendFormData() {
-    this.props.handleAddUIInterface(this.state.customInstanceId, this.state.portNumber, this.state.newInstanceInterfaceId).then((_)=>{
-      handleRefreshApp();
-    });
+    this.props.handleAddUIInterface(this.state.customInstanceId, this.state.portNumber, this.state.newInstanceInterfaceId)
   }
 
   componentWillUnmount(){};

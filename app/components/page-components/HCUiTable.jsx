@@ -11,7 +11,7 @@ import { advancedExpandTableHOC } from "./SystemTable";
 import "react-table/react-table.css";
 import routes from '../../constants/routes';
 import { filterApps } from "../../utils/table-filters";
-import {manageAllDownloadedUI} from "../../utils/helper-functions";
+import {manageAllDownloadedUI, handleRefreshApp} from "../../utils/helper-functions";
 import {uiTableDataRefactored} from "../../utils/data-refactor";
 import {checkPort} from "../../utils/cmd-calls";
 import AddUIInterfaceForm from "./AddUIInterfaceForm";
@@ -118,6 +118,7 @@ class HCUiTable extends React.Component {
               const { ui_bundle_id } = row.original;
               this.props.add_ui_interface({id:custom_instance_id,port:parseInt(custom_port_number),bundle:ui_bundle_id,dna_interface:interfaceforInstance}).then((res)=>{
                 console.log("Created");
+                handleRefreshApp();
               })
             }
 
