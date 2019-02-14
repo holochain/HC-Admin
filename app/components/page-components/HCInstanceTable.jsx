@@ -188,7 +188,7 @@ class HCInstanceTable extends React.Component {
                   columns={base_dna_columns}
                   defaultPageSize={base_dna_data.length}
                   showPagination={false}
-                  style = {{ margin: "0 auto", marginBottom: "50px", width:"90%", justifyItems:"center" }}
+                  style = {{ margin: "0 auto", marginBottom: "5px", width:"90%", justifyItems:"center" }}
                 />
              </div>
            );

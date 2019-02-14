@@ -56,7 +56,7 @@ class UploadBtn extends React.Component {
   render () {
     return (
       <ListItem style={{ display: 'inline' }} button onClick={() => this.handleClick()}>
-        <input id="linkUpload" type="file" accept=".hcpkg, .json" name="fileInput" onChange={this.handleUpload} ref="fileInput" style={{display:"none"}}/>
+        <input id="linkUpload" type="file" accept={this.props.accept} name="fileInput" onChange={this.handleUpload} ref="fileInput" style={{display:"none"}}/>
 
         <Button disableRipple variant="contained" color="default" style={{ marginRight: "5px", background:"#072dc3de", marginBottom:"3px" }} autoFocus>
           <CloudDownloadIcon style={{ background:"#072dc3de", color:"#95b9ed" }}  />

@@ -5,6 +5,9 @@ import ToggleButton from "./ToggleButton";
 import InstanceToggleButton from "./InstanceToggleButton";
 import matchSorter from 'match-sorter'
 import Jdenticon from "./Jdenticon";
+import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
+import SearchIcon from "@material-ui/icons/Search";
+import CancelIcon from "@material-ui/icons/Cancel";
 
 /* Instance Overview : Main Table Headers */
 const instance_table_columns = (props, state) => {
@@ -13,32 +16,49 @@ const instance_table_columns = (props, state) => {
 
   const table_columns = [{
     Header: '',
-    columns: [{
-        Header: 'Type',
-        accessor: 'type',
-        filterMethod: (filter, rows) =>
-          matchSorter(rows, filter.value, { keys: ["type"] }),
-        filterAll: true,
-        Cell: row => (
-          <div style={{ padding: '5px' }}>
-          { row.value }
-          </div>
-        )
-      }, {
-      Header: 'Instance Name',
-      id: "instanceId",
-      accessor: d => d.instanceId,
-      filterMethod: (filter, rows) =>
-        matchSorter(rows, filter.value, { keys: ["instanceId"] }),
-      filterAll: true,
-      Cell: row => (
-        <div style={{ padding: '5px' }}>
-        { row.value }
+    columns: [
+    {
+      expander: true,
+      Header: () => (<strong>Base Detail</strong>),
+      width: 128,
+      filterMethod: () =>
+      (
+        <div>
+          <Search style={{ color: "#95b9ed"}}/>
         </div>
-      )
-    }, {
-        Header: 'DNA Name',
+      ),
+        filterAll: true,
+      Expander: ({ isExpanded, ...rest }) =>
+        <div>
+          {isExpanded ?
+            <span style={{
+              color: '#95b9ed', // #072dc3de
+              marginTop: '23px !important',
+              fontSize: '20px',
+            }}>&#x2303;</span>
+            :
+            <span style={{
+              color: '#95b9ed', // #072dc3de
+              marginTop: '20px !important',
+              fontSize: '20px',
+            }}>&#x2304;</span>
+          }
+        </div>,
+      style: {
+        cursor: "pointer",
+        fontSize: 25,
+        padding: "0",
+        textAlign: "center",
+        userSelect: "none"
+      },
+    }
+  ]},{
+    Header: '',
+    columns: [
+    {
+        Header: 'Instance',
         id: 'dna_id',
+        width: 157,
         accessor: d => d.dna_id,
         filterMethod: (filter, rows) =>
           matchSorter(rows, filter.value, { keys: ["dna_id"] }),
@@ -50,7 +70,7 @@ const instance_table_columns = (props, state) => {
           </div>
         )
       }, {
-      Header: 'Agent ID',
+      Header: 'Agent',
       id: 'agent_id',
       accessor: d => d.agent_id,
       filterMethod: (filter, rows) =>
@@ -65,7 +85,7 @@ const instance_table_columns = (props, state) => {
   }, {
   Header: '',
   columns: [{
-      Header: 'Status',
+      Header: 'Installed Status',
       id: 'status',
       accessor:"status",
       filterMethod: (filter, rows) =>
@@ -73,15 +93,6 @@ const instance_table_columns = (props, state) => {
         filterAll: true,
       Cell: row => (
         <div>
-          <span style={{
-            color: row.value.status === 'installed' ? '#57d500'
-            : '#ff2e00',
-            transition: 'all .3s ease'
-          }}>
-          &#x25cf;
-          </span>
-        { " " + row.value.status }
-          <br/>
           <InstanceToggleButton
             installed={row.value}
             listInstances={props.list_of_instances}
@@ -91,7 +102,7 @@ const instance_table_columns = (props, state) => {
         </div>
       )
     }, {
-      Header: 'Running',
+      Header: 'Running Status',
       id: 'running',
       accessor:  "running",
       filterMethod: (filter, rows) =>
@@ -99,15 +110,6 @@ const instance_table_columns = (props, state) => {
         filterAll: true,
       Cell: row => (
         <div>
-          <span style={{
-            color: row.value.running ? '#57d500'
-            : '#ff2e00',
-            transition: 'all .3s ease'
-          }}>
-          &#x25cf;
-          </span>
-          { " " + row.value.running }
-          <br/>
           <InstanceToggleButton
             running={row.value}
             listRunningInstances={props.list_of_running_instances}
@@ -119,40 +121,38 @@ const instance_table_columns = (props, state) => {
         </div>
       )
     },   // TODO : Provide popup to show Details
-      { Header: 'Web-Socket',
+      { Header: 'On WebSocket',
         accessor: 'websocket_interface',
         Cell: row => (
-        <span>
-          <span style={{
-            color: row.value.length > 0 ? '#57d500'
-              : row.value.length === 0 ? '#ff2e00'
-              : '#ffbf00',
-            transition: 'all .3s ease'
-          }}>
-            &#x25cf;
-          </span> {
-            row.value.driver
+          <div style={{ padding: '5px' }}>
+          {row.value.length > 0 ?
+          <div>
+            <CheckCircleOutlineIcon style={{ color: "#05a2b2"}}/>
+          </div>
+          :
+          <div>
+            <CancelIcon style={{ color: "#8b3e96"}}/>
+          </div>
           }
-        </span>
-      )
+          </div>
+        )
        },
        // TODO : Provide popup to show Details
-      { Header: 'http',
+      { Header: 'On HTTP',
          accessor: 'http_interface',
          Cell: row => (
-         <span>
-           <span style={{
-             color: row.value.length > 0? '#57d500'
-               : row.value.length === 0 ? '#ff2e00'
-               : '#ffbf00',
-             transition: 'all .3s ease'
-           }}>
-             &#x25cf;
-           </span> {
-             row.value.admin
+           <div style={{ padding: '5px' }}>
+           {row.value.length > 0 ?
+           <div>
+             <CheckCircleOutlineIcon style={{ color: "#05a2b2"}}/>
+           </div>
+           :
+           <div>
+             <CancelIcon style={{ color: "#8b3e96"}}/>
+           </div>
            }
-         </span>
-       )
+           </div>
+         )
         }]
     }]
   return table_columns;
@@ -162,18 +162,11 @@ export default instance_table_columns;
 
 export const instance_base_dna_table_columns = (props, state) => {
   const table_columns = [{
-    Header: 'Instance Base DNA',
-    columns: [{
+    Header: '',
+    columns: [
+    {
       Header: 'DNA Name',
       accessor: 'dna_id',
-      Cell: row => (
-        <div style={{ padding: '5px' }}>
-        { row.value }
-        </div>
-      )
-    }, {
-      Header: 'Type',
-      accessor: 'type',
       Cell: row => (
         <div style={{ padding: '5px' }}>
         { row.value }
@@ -183,7 +176,7 @@ export const instance_base_dna_table_columns = (props, state) => {
       Header: 'DNA Hash',
       accessor: 'hash',
       Cell: row => (
-        <div style={{ padding: '5px' }}>
+        <div style={{ padding: '5px', marginLeft:"22px" }}>
         {row.value !== "N/A" ?
           <Jdenticon hash={row.value} />
         :
@@ -196,15 +189,6 @@ export const instance_base_dna_table_columns = (props, state) => {
       accessor: 'status',
       Cell: row => (
         <div>
-          <span style={{
-            color: row.value.status === 'installed' ? '#57d500'
-            : '#ff2e00',
-            transition: 'all .3s ease'
-          }}>
-          &#x25cf;
-          </span>
-        { " " + row.value.status }
-          <br/>
           <InstanceToggleButton
             installed={row.value}
             addInterface={props.add_instance_to_interface}

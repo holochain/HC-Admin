@@ -3,17 +3,17 @@ const styles = theme => ({
   colorBar: {},
   colorChecked: {},
   toggleBtnSwitchBase: {
-    color: '#567dbb',
+    color: '#8b3e96',
     '&$colorChecked': {
-      color: '#567dbb',
       '& + $colorBar': {
         backgroundColor:"#567dbb",
       },
     },
     '&$installedTrue': {
-      color: theme.palette.common.white,
+      // color: theme.palette.common.white,
+      color: '#05edff', //alt color:  #567dbb, #17e4e1de ,#016b72 , #8b3e96
       '& + $toggleBtnBar': {
-        backgroundColor: '#00838c',
+        backgroundColor: '#05a2b2',
       },
     },
     transition: theme.transitions.create('transform', {
@@ -25,7 +25,7 @@ const styles = theme => ({
     transform: 'translateX(40px)',
     '& + $toggleBtnBar': {
       opacity: 1,
-      border: 'none',
+      borderColor: '#152739',
     },
   },
   toggleBtnBar: {
@@ -35,8 +35,8 @@ const styles = theme => ({
     marginBottom: 3,
     marginLeft: -15,
     border: 'solid 1px',
-    borderColor: theme.palette.grey[400],
-    backgroundColor: theme.palette.grey[50],
+    borderColor: '#1a0b27',
+    backgroundColor: '#4c1568',
     opacity: 1,
     transition: theme.transitions.create(['background-color', 'border']),
   },

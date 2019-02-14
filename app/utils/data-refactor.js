@@ -26,7 +26,7 @@ export const uiTableDataRefactored = (list_of_ui_bundle, list_of_ui_instances,do
   const ui_bundle_uninstalled = uninstalled_apps.map((ui) => {
       return {
         ui_bundle_id:ui.ui_bundle_id,
-        hash:"-",
+        hash:"N/A",
         ui_instance_exist:false,
         status:{value:"Uninstalled",
         ui_id:ui.ui_bundle_id,
