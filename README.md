@@ -5,7 +5,7 @@ The refactored implementation of HC-Admin, which now connects with the command l
 **Status:** Closed-Alpha. Early development and testing.
 
 ## Purpose:
-This is an desktop application to to manage your Holochain application on your local machine. This is also the app that would track stats of each app that is running locally.
+This is an desktop application to to manage your Holochain application on your local machine. Eventually,this application will also track stats of each app that is running locally and its network interaction.
 
 ## Preview:
 ![HCAdmin-DNA-Instance-Table](/resources/DNA_Instance_Table.png)
@@ -36,8 +36,8 @@ Read More :
 ---
 ## How to run?
 #### Set up the Conductor
-* In order to successfully deploy HC-Admin, you will first need to setup your HC-Rust Conductor.
-* To setup, manage, and start your container, please reference the [Holochain Rust Conductor repository](https://github.com/holochain/holochain-rust/tree/develop/conductor).
+* In order to successfully deploy HC-Admin, you will first need to setup your holochain-rust conductor.
+* To setup, manage, and start your container, please reference the [holochain-rust conductor repository](https://github.com/holochain/holochain-rust/tree/develop/conductor).
 
 #### Run HC-Admin (locally)
 `npm install`
