@@ -99,7 +99,7 @@
   },
   "author": {
     "name": "Holo-Host",
-    "email":"app@holo.host"
+    "email": "app@holo.host"
   },
   "contributors": [
     {
@@ -211,6 +211,7 @@
     "flow-typed": "^2.5.1",
     "husky": "^1.1.4",
     "identity-obj-proxy": "^3.0.0",
+    "jdenticon": "^2.1.1",
     "jest": "^23.6.0",
     "lint-staged": "^8.1.0",
     "match-sorter": "^2.3.0",

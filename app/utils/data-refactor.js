@@ -234,8 +234,8 @@ export const refactorDnaInstanceData = (current_dna_instances, list_of_installed
           instanceId: fileInstance.id,
           status,
           running,
-          websocket_interface:checkIfInterfaceExist(fileInstance.id,list_of_interfaces,"websocket interface"),
-          http_interface:checkIfInterfaceExist(fileInstance.id,list_of_interfaces,"http interface")
+          websocket_interface:checkIfInterfaceExist(fileInstance.id,list_of_interfaces,"websocket"),
+          http_interface:checkIfInterfaceExist(fileInstance.id,list_of_interfaces,"http")
         };
 
         return newInstanceObj;
@@ -246,11 +246,10 @@ export const refactorDnaInstanceData = (current_dna_instances, list_of_installed
 const checkIfInterfaceExist = (id,list,type) =>{
   if(list.length>0){
     const found = list.filter((in_type)=>{
-      return in_type.id==type && in_type.instances.find((instance_id)=>{return instance_id.id == id})
+      return in_type.driver.type==type && in_type.instances.find((instance_id)=>{return instance_id.id == id})
     })
     return found.filter((i)=>{
       return {id:i.id,
-        admin:i.admin,
         driver:i.driver
       };
     })
@@ -295,8 +294,8 @@ export const refactorInstanceData = (list_of_installed_instances, list_of_runnin
           status:"installed"
         },
         running,
-        websocket_interface:checkIfInterfaceExist(dna_instance.id,list_of_interfaces,"websocket interface"),
-        http_interface:checkIfInterfaceExist(dna_instance.id,list_of_interfaces,"http interface")
+        websocket_interface:checkIfInterfaceExist(dna_instance.id,list_of_interfaces,"websocket"),
+        http_interface:checkIfInterfaceExist(dna_instance.id,list_of_interfaces,"http")
       };
 
     return newInstanceObj;
