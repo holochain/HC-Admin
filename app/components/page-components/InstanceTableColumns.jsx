@@ -119,7 +119,7 @@ const instance_table_columns = (props, state) => {
         </div>
       )
     },   // TODO : Provide popup to show Details
-      { Header: 'Web-Socket',
+      { Header: 'WebSocket',
         accessor: 'websocket_interface',
         Cell: row => (
         <span>
@@ -137,7 +137,7 @@ const instance_table_columns = (props, state) => {
       )
        },
        // TODO : Provide popup to show Details
-      { Header: 'http',
+      { Header: 'HTTP',
          accessor: 'http_interface',
          Cell: row => (
          <span>

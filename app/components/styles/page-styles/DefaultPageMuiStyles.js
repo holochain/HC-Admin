@@ -8,7 +8,7 @@ const styles: StyleRulesCallback  = (theme: Theme) => ({
       background: "linear-gradient(45deg, #341d40b3 10%, #6e6e96b)"  // #00017fb3
     },
     appBarSpacer:{
-      minHeight: 95
+      minHeight: 150
     },
     title: {
       textTransform: "uppercase",
