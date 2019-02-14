@@ -35,16 +35,35 @@ class UploadBtn extends React.Component {
      this.setState({file_path:filePath});
      const uploadFile = confirm(`Would you like to upload this file?\n File Name: ${ fileName }\n File Path: ${filePath} ?`);
      if (uploadFile === true) {
-       const dna_file = {
-          id: fileName,
-          path: filePath
-        };
 
+        if(this.props.text === "DNA"){
+          const dna_file = {
+             id: fileName,
+             path: filePath
+           };
         this.props.install_dna_from_file(dna_file).then(res => {
-          this.setState({message: "Your app was successfully installed.." })
-          console.log("YOUR APP SHOULD BE INSTALLED..");
-          handleRefreshApp(); // this should send an IPC call to electron and request a Reload of the MainWindow (...and thus the entire app).
-        });
+            this.setState({message: "Your app was successfully installed.." })
+            console.log("YOUR APP SHOULD BE INSTALLED..");
+            handleRefreshApp(); // this should send an IPC call to electron and request a Reload of the MainWindow (...and thus the entire app).
+          });
+        }
+        else if(this.props.text === "UI") {
+
+          const folderPath = filePath.split("/")
+          const folderPathMerged = folderPath.slice(0, folderPath.length-1)
+          const folderName = folderPathMerged[folderPathMerged.length-1]
+          const folderPathString = folderPathMerged.join("/");
+
+          const ui_bundle= {
+            id: folderName,
+            root_dir: folderPathString
+          }
+          this.props.install_ui(ui_bundle).then(res => {
+            this.setState({message: "Your app was successfully installed.." })
+            console.log("YOUR APP SHOULD BE INSTALLED..");
+            handleRefreshApp(); // this should send an IPC call to electron and request a Reload of the MainWindow (...and thus the entire app).
+          });
+        }
      }
      else {
        //dismiss the dialog box... ?? and give an confimation message of dismissal ??
