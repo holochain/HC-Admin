@@ -22,8 +22,6 @@ class MainListItems extends React.Component {
     super(props);
     this.state = {
       currentLink:"",
-      uiUploaded: "",
-      dnaUploaded: ""
     };
   }
 
@@ -65,15 +63,6 @@ class MainListItems extends React.Component {
             </Typography>
           </ListItem>
         </Link>
-
-        { location === routes.UI ?
-            <UploadBtn text="UI" accept=".html" install_ui={this.props.install_ui} fileUploaded={(file) => this.setState({uiUploaded: file})} />
-        :
-          location === routes.DNA ?
-            <UploadBtn text="DNA" accept=".hcpkg, .json" install_dna_from_file={this.props.install_dna_from_file} fileUploaded={(file) => this.setState({dnaUploaded: file})} />
-        :
-          <div />
-        }
 {/* // TODO: Reenable once the Help page is complete :
         // <Link to={routes.HELP}>
         //   <ListItem style={{display: 'inline'}} button className={classnames(location === routes.HELP ? classes.highlight : classes.reset)}>
@@ -92,5 +81,3 @@ class MainListItems extends React.Component {
 }
 
 export default withStyles(styles)(MainListItems);
-
-<UploadBtn fileUploaded={(file) => this.setState({uiUploaded: file})} />

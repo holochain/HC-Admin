@@ -7,6 +7,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 // local imports
 import * as ContainerApiActions from '../../actions/containerApi';
+import UploadBtn from '../page-components/UploadBtn';
 import Dashboard from '../page-components/Dashboard';
 import HCDnaTable from '../page-components/HCDnaTable';
 import HCInstanceTable from '../page-components/HCInstanceTable';
@@ -20,7 +21,9 @@ class HCMonitorTablePage extends React.Component<Props> {
   constructor(props:Props){
     super(props);
     this.state = {
-      tableData: []
+      tableData: [],
+      uiUploaded: "",
+      dnaUploaded: ""
     }
   };
 
@@ -50,11 +53,17 @@ class HCMonitorTablePage extends React.Component<Props> {
           :
             location.pathname === "/ui" ?
             // this should route to the ui table
+            <div>
+              <UploadBtn text="UI" install_ui={this.props.install_ui} fileUploaded={(file) => this.setState({uiUploaded: file})} />
               <HCUiTable className={classes.appTable} {...this.props} setSearchData={this.setTableData} />
+            </div>
           :
             location.pathname === "/dna" ?
             // this should route to the dna table
-              <HCDnaTable className={classes.appTable} {...this.props} setSearchData={this.setTableData} />
+              <div>
+                <UploadBtn text="DNA" accept=".hcpkg, .json" install_dna_from_file={this.props.install_dna_from_file} fileUploaded={(file) => this.setState({dnaUploaded: file})} />
+                <HCDnaTable className={classes.appTable} {...this.props} setSearchData={this.setTableData} />
+              </div>
           :
             location.pathname === "/instance" ?
             // this should route to the instance table

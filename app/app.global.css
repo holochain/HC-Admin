@@ -161,7 +161,6 @@ h1, h2, h3, h4, h5, h6 {
 /*************************** ReactTable Custom  Styles ***************************************/
 .ReactTable {
   background: transparent;
-  margin-top: 50px;
   box-shadow:-2px 3px 11px 2px #111a58eb, 2px -2px 9px 5px #111a58eb,-1px -5px 27px 2px #111a58eb;
 }
 
