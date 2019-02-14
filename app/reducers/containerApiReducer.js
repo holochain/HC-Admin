@@ -7,14 +7,16 @@ const INITIAL_STATE : State = {
  list_of_interfaces : [],
  agent_list:[],
  list_of_ui_bundle:[],
- list_of_ui_instances:[]
+ list_of_ui_instances:[],
+ state_checked: 0
 }
 
 export default function(state = INITIAL_STATE, action: Action) : State {
   const { type, payload } = action
   switch (type) {
     case FETCH_STATE: {
-      return { ...state };
+      const stateViewNum = state.state_checked++;
+      return { ...state, state_checked: stateViewNum };
     }
 
 ////////////////////////////////////////////////////////

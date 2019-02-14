@@ -43,6 +43,7 @@ type HCDnaTableProps = {
       type: String // currently N/A
     }
   }],
+  state_checked: number,
   fetch_state: () => void,
   get_info_instances: () => Promise,
   install_dna_from_file: ()=> Promise
@@ -66,6 +67,7 @@ class HCDnaTable extends React.Component {
       downloaded_apps: {},
       row: "",
       filter: null,
+      refresh: false
     };
   }
 
@@ -84,10 +86,14 @@ class HCDnaTable extends React.Component {
 
   componentDidMount = () => {
     this.beginAppMontoring();
+    // this.setState({ refresh:false });
   }
 
-  callFetchState = () => {
-    this.props.fetch_state();
+  handleRefreshTable = () => {
+    console.log("resetting refresh w&& refreshing dna tables");
+    console.log("->",this.state);
+    this.setState({ refresh: !this.state.refresh });    console.log("->",this.state);
+    // this.props.fetch_state();
   }
 
   beginAppMontoring = () => {
@@ -150,6 +156,13 @@ class HCDnaTable extends React.Component {
     }
   }
 
+  handleRefreshDNA = () => {
+    console.log("resetting refresh w&& refreshing dna tables");
+    console.log("->",this.state);
+    this.setState({ refresh: !this.state.refresh });
+    console.log("->",this.state);
+    // this.props.fetch_state();
+  }
 
  render() {
   // console.log("Rending DNA TABLE : ", this.props);
@@ -158,13 +171,13 @@ class HCDnaTable extends React.Component {
   }
 
   const table_data = this.displayData();
-  const columns = dna_list_table_columns(this.props, this.state);
+  const columns = dna_list_table_columns(this.props, this.state, this.handleRefreshDNA);
   // console.log("table_columns: ", table_data);
 
   return (
     <div className={classnames("App")}>
       <AdvancedExpandReactTable
-        data={table_data ? table_data : []}
+        data={table_data || []}
         columns={columns}
         className="-striped -highlight"
         defaultPageSize={5}

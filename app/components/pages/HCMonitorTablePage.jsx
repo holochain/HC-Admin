@@ -20,9 +20,29 @@ class HCMonitorTablePage extends React.Component<Props> {
   constructor(props:Props){
     super(props);
     this.state = {
-      tableData: []
+      tableData: [],
+      refresh:false
     }
   };
+
+  // shouldComponentUpdate(newProps, newState){
+  //   const { list_of_dna, list_of_instances, list_of_running_instances, list_of_instance_info } = this.props.containerApiCalls;
+  //
+  //   console.log("this.props", this.props);
+  //   return nextProps.list_of_dna != this.props.list_of_dna;
+  // }
+
+  // componentDidMount = () => {
+  //   this.setState({ refresh:false });
+  // }
+  //
+  // handleRefreshApp = () => {
+  //   console.log("resetting refresh w&& refreshing dna tables");
+  //   console.log("->",this.state);
+  //   this.setState({ refresh: !this.state.refresh });
+  //   console.log("->",this.state);
+  //   // this.props.fetch_state();
+  // }
 
   render() {
     const { classes, ...newProps } = this.props;
@@ -54,7 +74,7 @@ class HCMonitorTablePage extends React.Component<Props> {
           :
             location.pathname === "/dna" ?
             // this should route to the dna table
-              <HCDnaTable className={classes.appTable} {...this.props} setSearchData={this.setTableData} />
+              <HCDnaTable className={classes.appTable} {...this.props} handleRefreshApp={this.handleRefreshApp} setSearchData={this.setTableData} />
           :
             location.pathname === "/instance" ?
             // this should route to the instance table

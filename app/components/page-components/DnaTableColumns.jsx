@@ -9,7 +9,7 @@ import SearchIcon from "@material-ui/icons/Search";
 import CancelIcon from "@material-ui/icons/Cancel";
 
 /* Table Headers */
-const dna_list_table_columns = (props, state) => {
+const dna_list_table_columns = (props, state, cb) => {
   console.log("Table Columns Props", props);
   console.log("Table Columns State", state);
 
@@ -110,6 +110,7 @@ const dna_list_table_columns = (props, state) => {
             dnaList={props.list_of_dna}
             uninstallDna={props.uninstall_dna_by_id}
             installDna={props.install_dna_from_file}
+            handleRefreshTable={props.handleRefreshDNA}
           />
         </div>
       )
@@ -180,6 +181,7 @@ export const dna_instance_list_table_columns = (props, state) => {
             listInstances={props.list_of_instances}
             removeInstance={props.remove_agent_dna_instance}
             addInstance={props.add_agent_dna_instance}
+            handleRefreshTable={props.handleRefreshDNA}
           />
         </div>
       )
@@ -198,6 +200,7 @@ export const dna_instance_list_table_columns = (props, state) => {
             getInstances={props.get_info_instances}
             stopInstance={props.stop_agent_dna_instance}
             startInstance={props.start_agent_dna_instance}
+            handleRefreshTable={props.handleRefreshDNA}
           />
         </div>
       )

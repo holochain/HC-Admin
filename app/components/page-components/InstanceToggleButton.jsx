@@ -23,12 +23,14 @@ class InstanceToggleButton extends React.Component {
 
       if (this.props.installed.status === 'installed'){
         this.props.removeInstance({ id : instance}).then(res=>{
-          handleRefreshApp();
+          // handleRefreshApp();
+          this.props.handleRefreshTable();
         });
       }
       else {
           this.props.addInstance({ id : instance , dna_id: dna.dna_id, agent_id}).then(res => {
-            handleRefreshApp();
+            // handleRefreshApp();
+            this.props.handleRefreshTable();
           })
 
       }

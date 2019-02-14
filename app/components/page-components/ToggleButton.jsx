@@ -16,17 +16,20 @@ class ToggleButton extends React.Component {
     }
   };
 
+
   handleChange = name => event => {
     const dna_id = this.props.installed.col_dna_id
     const home = getHomePath();
     if (this.props.installed.status === 'installed'){
       this.props.uninstallDna({ id : dna_id}).then(res=>{
-        handleRefreshApp();
+        // handleRefreshApp();
+        this.props.handleRefreshTable;
       });
     }
     else {
       this.props.installDna({ id : dna_id , path: home+"/.hcadmin/holochain-download/"+dna_id}).then(res => {
-        handleRefreshApp();
+        // handleRefreshApp();
+        this.props.handleRefreshTable;
       });
     }
   };
