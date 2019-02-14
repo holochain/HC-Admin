@@ -260,13 +260,13 @@ const checkIfInterfaceExist = (id,list,type) =>{
       /* Data for Instance Table Overview */
 ////////////////////////////////////////////////////////
 export const refactorInstanceData = (list_of_installed_instances, list_of_running_instances, list_of_interfaces) => {
-  const instance_log = list_of_installed_instances.map((dna_instance)=>{
+const instance_log = list_of_installed_instances.map((dna_instance)=>{
     if (dna_instance !== parseInt(dna_instance, 10)){
       let running={};
       let check_running;
-      if(Object.keys(list_of_installed_instances).length===0)
+      if(Object.keys(list_of_installed_instances).length!==0)
       check_running = list_of_running_instances.find((ri)=>{
-        return ri.id ===dna_instance.id
+        return ri.id === dna_instance.id
       })
       if (check_running===undefined){
         running = {
