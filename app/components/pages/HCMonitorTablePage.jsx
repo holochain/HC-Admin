@@ -54,7 +54,7 @@ class HCMonitorTablePage extends React.Component<Props> {
             location.pathname === "/ui" ?
             // this should route to the ui table
             <div>
-              <UploadBtn text="UI" install_ui={this.props.install_ui} fileUploaded={(file) => this.setState({uiUploaded: file})} />
+              <UploadBtn text="UI" directory="true" install_ui={this.props.install_ui} fileUploaded={(file) => this.setState({uiUploaded: file})} />
               <HCUiTable className={classes.appTable} {...this.props} setSearchData={this.setTableData} />
             </div>
           :

@@ -27,7 +27,7 @@ const styles = (theme: Theme) =>
     title: {
       color: "white", // 29a19e 9c27b0
       textShadow: "1.5px 1.5px #111113",
-    },
+    }
   });
 
 const Loader = (props) => (

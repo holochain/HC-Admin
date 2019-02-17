@@ -175,6 +175,10 @@ const styles: StyleRulesCallback  = (theme: Theme) => ({
       background: 'transparent',
       border: 'none',
       color: '#95b9ed'
+    },
+    uploadBtnIdInput: {
+      color: "rgb(149, 185, 237)",
+      borderColor: "rgb(149, 185, 237) !important"
     }
   });
 

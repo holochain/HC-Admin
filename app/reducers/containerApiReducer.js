@@ -60,6 +60,16 @@ export default function(state = INITIAL_STATE, action: Action) : State {
       /* Updating Container DNAs/DNA-instances */
 ////////////////////////////////////////////////////////
 // INSTALL_DNA_BY_ID_SUCCESS
+    // optimistically add it, because we have the metadata
+    case 'INSTALL_DNA_FROM_FILE': {
+      let newDnaArray = state.list_of_dna.slice();
+      newDnaArray.push(payload);
+      return {
+        ...state,
+        list_of_dna: newDnaArray
+      };
+    }
+
     case 'INSTALL_DNA_FROM_FILE_SUCCESS': {
       console.log("INSTALL_DNA_FROM_FILE_SUCCESS payload", payload);
       return { ...state };
@@ -202,8 +212,19 @@ export default function(state = INITIAL_STATE, action: Action) : State {
       return { ...state };
     }
     // INSTALL_UI
+
+    // optimistically add it, because we have the metadata
+    case 'INSTALL_UI': {
+      let newUiArray = state.list_of_ui_bundle.slice();
+      newUiArray.push(payload);
+      return {
+        ...state,
+        list_of_ui_bundle: newUiArray
+      };
+    }
+
     case 'INSTALL_UI_SUCCESS': {
-      // console.log("INSTALL_UI_SUCCESS", payload);
+      console.log("INSTALL_UI_SUCCESS", payload);
       return { ...state };
     }
 
